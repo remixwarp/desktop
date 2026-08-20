@@ -67,6 +67,34 @@ const getRecentReleases = async (owner, repo) => {
  * @param {string} owner
  * @param {string} repo
  * @param {string} tagName
+ * @returns {Promise<object>} Newly created release
+ */
+const createRelease = async (owner, repo, tagName) => {
+    console.log(`Release not found for tag ${tagName}. Creating it...`);
+    const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/releases`, {
+        method: 'POST',
+        headers: {
+            ...githubHeaders,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            tag_name: tagName,
+            name: tagName,
+            draft: false,
+            prerelease: false
+        })
+    });
+
+    if (!res.ok) {
+        throw new Error(`HTTP ${res.status} creating release for tag ${tagName}`);
+    }
+    return res.json();
+};
+
+/**
+ * @param {string} owner
+ * @param {string} repo
+ * @param {string} tagName
  * @returns {Promise<string>} GitHub release ID
  */
 const getReleaseForTag = async (owner, repo, tagName) => {
@@ -79,8 +107,10 @@ const getReleaseForTag = async (owner, repo, tagName) => {
             }
         }
 
-        console.log(`No release found for tag ${tagName}. Checking again in a minute...`);
-        await sleep(1000 * 60);
+        // The release does not exist yet. Create it so assets can be uploaded
+        // to it instead of failing after a long polling timeout.
+        const release = await createRelease(owner, repo, tagName);
+        return release.id;
     }
 
     throw new Error('Could not find release');
