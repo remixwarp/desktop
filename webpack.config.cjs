@@ -6,6 +6,12 @@ const base = {
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
     devtool: process.env.NODE_ENV === 'production' ? false : 'cheap-source-map',
     target: 'web',
+    // The renderer runs inside Electron where `require('electron')` is available
+    // at runtime. Do NOT bundle the `electron` npm package (it depends on Node
+    // core modules like `fs` that webpack's `target: 'web'` cannot resolve).
+    externals: {
+        electron: 'commonjs electron'
+    },
     resolve: {
         // GUI-pinned lucide (webpack 4 cannot parse lucide 1.x ESM) + CJS rotur-sdk
         alias: {
@@ -141,11 +147,11 @@ module.exports = [
             new CopyWebpackPlugin({
                 patterns: [
                     {
-                        from: 'node_modules/scratch-blocks/media',
+                        from: 'node_modules/@remixwarp/scratch-blocks/media',
                         to: 'static/blocks-media/default'
                     },
                     {
-                        from: 'node_modules/scratch-blocks/media',
+                        from: 'node_modules/@remixwarp/scratch-blocks/media',
                         to: 'static/blocks-media/high-contrast'
                     },
                     {
