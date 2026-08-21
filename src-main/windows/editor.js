@@ -533,6 +533,10 @@ class EditorWindow extends ProjectRunningWindow {
 
     this.window.webContents.on('will-frame-navigate', (event) => {
       if (!event.isMainFrame && /^https?:/.test(event.url)) {
+        // 放行扩展实验广场 iframe，让它留在应用内渲染而不是跳到系统浏览器
+        if (event.url.startsWith('https://rw-c.pages.dev/experiment-plaza/')) {
+          return;
+        }
         event.preventDefault();
         require('../open-external')(event.url);
       }
