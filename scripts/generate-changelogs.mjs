@@ -121,7 +121,7 @@ const generateMetainfo = (releases) => {
     xml += '    </release>\n';
   }
 
-  const path = pathUtil.join(import.meta.dirname, '../linux-files/org.bilup.Bilup.metainfo.xml');
+  const path = pathUtil.join(import.meta.dirname, '../linux-files/org.remixwarp.RemixWarp.metainfo.xml');
   let source = fs.readFileSync(path, 'utf-8');
   source = source.replace(
     /<releases>[\s\S]*<\/releases>/m,

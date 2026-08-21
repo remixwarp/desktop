@@ -109,7 +109,7 @@
     ],
     "win": {
       "artifactName": "${productName} Portable ${version} ${arch}.${ext}",
-      "icon": "build/icon.ico",
+      "icon": "build/icon.png",
       "target": [
         {
           "target": "nsis",
