@@ -4,7 +4,7 @@
 
 const {app, dialog} = require('electron');
 
-const APP_NAME = 'Bilup Desktop';
+const APP_NAME = 'RemixWarp Desktop';
 const stringifyError = (error) => (error && error.stack) ? error.stack : error;
 
 try {

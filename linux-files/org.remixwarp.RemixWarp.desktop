@@ -1,12 +1,12 @@
 [Desktop Entry]
-Name=Bilup
+Name=RemixWarp
 # Change the path to match where you install the app.
-Exec=/opt/Bilup/bilup-desktop %U
+Exec=/opt/RemixWarp/remixwarp-desktop %U
 Terminal=false
 Type=Application
-Icon=org.bilup.Bilup
-StartupWMClass=bilup-desktop
-Comment=Bilup is a TurboWarp mod with total Chinese translations and live collaboration.
+Icon=org.remixwarp.RemixWarp
+StartupWMClass=remixwarp-desktop
+Comment=RemixWarp is a TurboWarp mod with total Chinese translations and live collaboration.
 MimeType=application/x.scratch.sb3;application/x.scratch.sb2;application/x.scratch.sb;
 Categories=Development;
 Keywords=scratch;

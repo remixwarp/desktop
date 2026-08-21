@@ -1,1485 +1,280 @@
 <!DOCTYPE html>
-<html lang="en">
-<!--
-    Some icons are from Font Awesome https://fontawesome.com/
-    For license information, visit https://creativecommons.org/licenses/by/4.0/
-    They have been minified by hand.
-  -->
+<html lang="zh-CN">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bilup Desktop - Refactor freedom offline</title>
-  <link rel="canonical" href="https://desktop.bilup.org/" />
+  <title>RemixWarp Desktop - 重新构建自由，离线可用</title>
+  <link rel="icon" href="../logo.png">
   <meta name="description"
-    content="Bilup Desktop is a mod of TurboWarp (MistWarp) with live collaboration, total Chinese translations, and more.">
+    content="RemixWarp Desktop 是基于 TurboWarp 的中文增强版，支持实时协作、完整中文本地化与更多功能。">
   <meta name="theme-color" content="#75C1C4">
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Bilup Desktop - Refactor freedom offline" />
+  <meta property="og:title" content="RemixWarp Desktop - 重新构建自由，离线可用" />
   <meta property="og:description"
-    content="Bilup Desktop is a mod of TurboWarp (MistWarp) with live collaboration, total Chinese translations, and more.">
-  <meta property="og:url" content="https://desktop.bilup.org/" />
-  <!-- <meta property="og:image" content="https://desktop.bilup.org/screenshots/windows/light.png" /> -->
-  <meta property="og:image:width" content="1280" />
-  <meta property="og:image:height" content="800" />
-  <meta name="twitter:card" content="summary_large_image" />
+    content="RemixWarp Desktop 是基于 TurboWarp 的中文增强版，支持实时协作、完整中文本地化与更多功能。" />
+  <meta property="og:image" content="../logo.png" />
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     :root {
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-size: 16px;
-      background-color: white;
-      color: black;
-    }
-
-    body {
-      margin: 0;
-      padding: 8px;
-    }
-
-    a {
-      color: #25d;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    a:active {
-      color: red;
-    }
-
-    img,
-    picture {
-      display: block;
-    }
-
-    :focus-visible {
-      outline: 2px solid black;
+      --bg: #ffffff;
+      --fg: #1a1a1a;
+      --muted: #555;
+      --accent: #5da8cc;
+      --accent-2: #75c1c4;
+      --border: #ddd;
+      --card: #f7f9fa;
     }
 
     @media (prefers-color-scheme: dark) {
       :root {
-        background: #171717;
-        color: #eee;
-        color-scheme: dark;
-      }
-
-      a {
-        color: #4af;
-      }
-
-      :focus-visible {
-        outline: 2px solid white;
+        --bg: #15171c;
+        --fg: #f0f0f0;
+        --muted: #aaa;
+        --border: #333;
+        --card: #1e2128;
       }
     }
 
-    h2 {
-      font-size: 2em;
-      margin: 16px 0;
+    * {
+      box-sizing: border-box;
     }
 
-    h3 {
-      font-size: 1.3em;
-      margin: 16px 0;
-    }
-
-    .section {
-      max-width: 700px;
-      margin: 32px auto;
-    }
-
-    .language-selector {
-      display: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      padding: 8px;
-      align-items: center;
-    }
-
-    [has-js] .language-selector {
-      display: flex;
-    }
-
-    .language-icon {
-      width: 24px;
-      height: 24px;
-    }
-
-    .language-caret {
-      margin-left: 8px;
-      width: 8px;
-      height: 5px;
-    }
-
-    .language-selector:hover,
-    .language-selector:focus-within {
-      background: rgba(0, 0, 0, 0.2);
-    }
-
-    @media (prefers-color-scheme: dark) {
-
-      .language-selector:hover,
-      .language-selector:focus-within {
-        background: rgba(255, 255, 255, 0.2);
-      }
-    }
-
-    .language-selector-input {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      cursor: pointer;
-    }
-
-    .language-text {
-      margin-left: 8px;
-    }
-
-    .header {
-      margin: 40px 0 32px 0;
-      font-size: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: normal;
-      text-align: center;
-    }
-
-    .header svg {
-      margin: 0 20px 0 0;
-      filter: drop-shadow(0 1px 8px rgba(0, 0, 0, 0.25));
-      width: 80px;
-      height: 80px;
-    }
-
-    @media (max-width: 580px) {
-      .header {
-        flex-direction: column;
-        margin-top: 0;
-      }
-
-      .header svg {
-        margin: 40px 0 20px 0;
-      }
-    }
-
-    .subheader {
-      margin: 32px auto;
-      max-width: 700px;
-      text-align: center;
-      font-size: 24px;
-    }
-
-    .changelog {
-      display: none;
-    }
-
-    .changelog [data-version] h3 {
-      margin: 1rem 0 12px 0;
-      font-size: 1.2em;
-      color: #3C7699;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .changelog [data-version] h3 {
-        color: #75C1C4;
-      }
-    }
-
-    .changelog [data-version] h3::before {
-      content: '';
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      background: #5da8cc;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    .changelog [data-version] ul {
+    body {
       margin: 0;
-      padding-left: 24px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Microsoft YaHei", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.6;
     }
 
-    .changelog [data-version] li {
-      margin: 8px 0;
-      line-height: 1.5;
-    }
-
-    .changelog [data-version] li::marker {
-      color: #5da8cc;
-    }
-
-    .changelog-subheader {
-      display: none;
-      margin: 32px auto;
-      max-width: 700px;
+    header {
       text-align: center;
-      font-size: 24px;
+      padding: 48px 16px 24px;
+      background: linear-gradient(160deg, var(--accent-2), var(--accent));
+      color: #fff;
     }
 
-    [is-changelog] .subheader,
-    [is-changelog] .alternative-download-links,
-    [is-changelog] .above-fold-download .store-badge,
-    [is-changelog] .above-fold-download .download-separator,
-    [is-changelog] .picture,
-    [is-changelog] .features,
-    [is-changelog] .links {
-      display: none;
+    header img {
+      width: 96px;
+      height: 96px;
+      border-radius: 20px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
     }
 
-    [is-changelog] .changelog,
-    [is-changelog] .changelog-subheader {
-      display: block;
+    header h1 {
+      margin: 16px 0 4px;
+      font-size: 2rem;
     }
 
-    .above-fold-download {
-      margin: 32px auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      flex-direction: column;
+    header p {
+      margin: 0;
+      font-size: 1.1rem;
+      opacity: 0.95;
     }
 
-    .above-fold-download p {
-      margin: 8px 0;
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 24px 16px 64px;
     }
 
-    .above-fold-download p:last-child {
-      margin-bottom: 0;
+    .version-badge {
+      display: inline-block;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 4px 14px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin: 0 auto 24px;
+    }
+
+    section {
+      margin: 32px 0;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 22px;
+      background: var(--card);
+    }
+
+    section h2 {
+      margin-top: 0;
+      font-size: 1.3rem;
     }
 
     .download-list {
-      display: flex;
-      flex-wrap: wrap;
-      margin: 0;
+      list-style: none;
       padding: 0;
-      gap: 16px;
-    }
-
-    .download-list li {
-      display: block;
-      padding: 0;
-      margin: 0;
-    }
-
-    .store-badge {
-      display: inline-flex;
-      align-items: center;
-      padding: 8px;
-      background-color: black;
-      border-radius: 8px;
-      color: white !important;
-      text-decoration: none !important;
-      border: 1px solid black;
-      transition: all 0.25s ease;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .store-badge:hover {
-      cursor: pointer;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-    }
-
-    .store-badge:active {
-      transform: translateY(0);
-      box-shadow: 0 0 8px rgba(255, 255, 255, 0.6) inset;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .store-badge {
-        border: 1px solid #aaa;
-      }
-    }
-
-    .store-icon {
-      background-size: 100%;
-      background-repeat: no-repeat;
-      width: 32px;
-      height: 32px;
-      margin-right: 8px;
-    }
-
-    .microsoft-icon {
-      background-image: url(microsoft.svg);
-    }
-
-    .apple-icon {
-      background-image: url(apple.svg);
-    }
-
-    .github-icon {
-      background-image: url(github.svg);
-    }
-
-    .r2-icon {
-      background-image: url(r2.svg);
-    }
-
-    .store-badge>div> :first-child {
-      text-align: left;
-      font-size: 0.9em;
-    }
-
-    .store-badge>div> :last-child {
-      text-align: left;
-      font-weight: bold;
-      font-size: 1.4em;
-    }
-
-    .store-badge-text {
-      display: flex;
-      flex-direction: column;
-    }
-
-    [lang="ja"] .store-badge-text {
-      flex-direction: column-reverse;
+      margin: 12px 0 0;
+      display: grid;
+      gap: 10px;
     }
 
     .download-button {
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      background-color: #5da8cc;
-      color: black !important;
-      text-decoration: none !important;
-      margin: 0;
-      padding: 12px;
-      font-weight: bold;
-      border-radius: 8px;
-      transition: all 0.25s ease;
-      box-shadow: 0 2px 8px rgba(93, 168, 204, 0.3);
-      cursor: pointer;
+      justify-content: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 12px 16px;
+      border-radius: 10px;
+      transition: filter 0.15s ease, transform 0.05s ease;
     }
 
     .download-button:hover {
-      background-color: #75C1C4;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(93, 168, 204, 0.4);
+      filter: brightness(1.06);
     }
 
     .download-button:active {
-      transform: translateY(0);
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.6) inset;
-      background-color: #75C1C4;
+      transform: translateY(1px);
     }
 
-    .download-button::before {
-      content: '';
-      /* Icon from https://fontawesome.com/v5.15/icons/download?style=solid */
-      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="black" d="M216 0h80c13.3 0 24 10.7 24 24v168h87.7c17.8 0 26.7 21.5 14.1 34.1L269.7 378.3c-7.5 7.5-19.8 7.5-27.3 0L90.1 226.1c-12.6-12.6-3.7-34.1 14.1-34.1H192V24c0-13.3 10.7-24 24-24zm296 376v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h146.7l49 49c20.1 20.1 52.5 20.1 72.6 0l49-49H488c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"></path></svg>');
-      background-repeat: no-repeat;
-      margin-right: 8px;
-      width: 1em;
-      height: 1em;
-      min-width: 1em;
-      min-height: 1em;
-    }
-
-    .alternative-download-links {
-      margin: 32px auto;
-      text-align: center;
-    }
-
-    .alternative-download-links>div {
-      margin: 8px 0;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      gap: 4px 8px;
-    }
-
-    .alternative-download-links ul {
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .alternative-download-links li {
-      display: block;
-      padding: 0;
-      margin: 0;
-    }
-
-    .beta-badge,
-    .security-badge {
-      border-radius: 4px;
-      padding: 2px 5px;
-      border-bottom-width: 2px;
-      border-bottom-style: solid;
-    }
-
-    .beta-badge {
-      color: white;
-      background-color: #b117f8;
-      border-color: #6f0073;
-    }
-
-    .security-badge {
-      color: black;
-      background-color: #fffb00;
-      border-color: rgb(205, 205, 0);
-    }
-
-    .picture {
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .picture picture,
-    .picture img {
-      width: 100%;
-      height: 100%;
-    }
-
-    .picture img {
-      filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
-      border-radius: 8px;
-      background-color: #F9F9F9;
-    }
-
-    .picture-caption {
-      margin-top: 16px;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .picture img {
-        background-color: #333;
-      }
-    }
-
-    .picture-editor picture,
-    .picture-editor img {
-      max-width: 1280px;
-    }
-
-    .features h2 {
-      text-align: center;
-    }
-
-    .feature-list {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    @media (max-width: 550px) {
-      .feature-list {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .feature-list p,
-    .feature-list h3 {
-      margin: 0;
-    }
-
-    .more-features {
-      text-align: center;
-      font-weight: bold;
-      margin-top: 16px;
+    .download-button.secondary {
+      background: transparent;
+      color: var(--fg);
+      border: 1px solid var(--border);
     }
 
     .links {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .links svg {
-      background-color: #75C1C4;
-      color: black;
-      width: 32px;
-      height: 32px;
-      padding: 4px;
-      margin: 0 12px;
-      border-radius: 100%;
       display: flex;
-      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
       justify-content: center;
-      border-radius: 8px;
     }
 
-    @media (max-width: 550px) {
-      .links {
-        grid-template-columns: 1fr;
-      }
+    .links a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
     }
 
-    .link {
-      color: inherit;
-      display: flex;
-      align-items: center;
-      padding: 12px 0;
-      transition: all 0.25s ease;
-      border-radius: 8px;
+    .links a:hover {
+      text-decoration: underline;
     }
 
-    .link:hover {
-      background-color: rgba(0, 0, 0, 0.2);
+    .note {
+      color: var(--muted);
+      font-size: 0.95rem;
     }
 
-    @media (prefers-color-scheme: dark) {
-      .link:hover {
-        background-color: rgba(255, 255, 255, 0.2);
-      }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      padding: 24px 16px 40px;
     }
 
     code {
-      padding: 1px 2px;
-      border-radius: 8px;
-      font-family: monospace;
-      background-color: #eee;
-      border: 1px solid #ddd;
-    }
-
-    .terminal {
-      padding: 8px;
-      display: block;
-    }
-
-    .command::before {
-      content: '$ ';
-      color: #e36000;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      code {
-        background-color: #222;
-        border-color: #505050;
-      }
-
-      .command::before {
-        color: #ffa500;
-      }
-    }
-
-    hr {
-      max-width: 700px;
-      margin: auto;
-      border: 0;
-      border-top: 1px solid currentColor;
-    }
-
-    .warning {
-      border-radius: 8px;
-      padding: 8px;
-      background-color: rgba(255, 166, 0, 0.37);
-      border: 1px solid rgba(255, 166, 0, 1);
-    }
-
-    .warning p {
-      margin: 0;
-    }
-
-    .warning ul {
-      margin: 8px 0;
-    }
-
-    [data-if-os] {
-      display: none;
-    }
-
-    [data-os="windows-modern"] [data-if-os="windows-modern"] {
-      display: initial;
-    }
-
-    [data-os="windows-legacy"] [data-if-os="windows-legacy"] {
-      display: initial;
-    }
-
-    [data-os="windows-modern"] [data-if-os="windows-any"],
-    [data-os="windows-legacy"] [data-if-os="windows-any"] {
-      display: initial;
-    }
-
-    [data-os="mac"] [data-if-os="mac"] {
-      display: initial;
-    }
-
-    [data-os="linux"] [data-if-os="linux"] {
-      display: initial;
-    }
-
-    [data-os="unsupported"] [data-if-os="unsupported"] {
-      display: initial;
-    }
-
-    [hidden] {
-      display: none !important;
-    }
-
-    .download-modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(0, 0, 0, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-
-    .download-modal {
-      background: white;
-      border-radius: 12px;
-      padding: 24px;
-      max-width: 400px;
-      width: 90%;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .download-modal h3 {
-      margin-top: 0;
-      margin-bottom: 16px;
-      text-align: center;
-    }
-
-    .download-modal-buttons {
-      display: flex;
-      flex-direction: row;
-      gap: 12px;
-      justify-content: center;
-      margin-top: 20px;
-    }
-
-    .download-modal-cancel {
-      margin-top: 12px;
-      text-align: center;
-    }
-
-    .download-modal-hint {
-      text-align: center;
-      font-size: 0.85em;
-      color: #666;
-      margin: 12px 0 0 0;
-    }
-
-    .download-modal-cancel button {
-      background: none;
-      border: none;
-      color: #666;
-      cursor: pointer;
-    }
-
-    .download-modal-cancel button:hover {
-      color: #333;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .download-modal {
-        background: #1e1e1e;
-        color: #eee;
-      }
-
-      .download-modal-cancel button {
-        color: #aaa;
-      }
-
-      .download-modal-cancel button:hover {
-        color: #ddd;
-      }
-
-      .download-modal-hint {
-        color: #aaa;
-      }
+      background: rgba(127, 127, 127, 0.15);
+      padding: 1px 6px;
+      border-radius: 5px;
     }
   </style>
 </head>
 
 <body>
-  <script>
-    document.body.setAttribute('has-js', 'true');
-    // fallback for ancient browsers that understand old JS but not modern JS
-    document.body.setAttribute('data-os', 'unsupported');
-  </script>
+  <header>
+    <img src="../logo.png" alt="RemixWarp logo">
+    <h1>RemixWarp Desktop</h1>
+    <p>重新构建自由，离线可用 · 基于 TurboWarp 的中文增强版</p>
+  </header>
 
-  <label class="language-selector" aria-label="Language Selector">
-    <select class="language-selector-input"></select>
-    <svg viewBox="0 0 20 20" class="language-icon">
-      <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-        stroke-width="1.25">
-        <path
-          d="M17.635 10.113a7.523 7.523 0 0 1-7.523 7.523 7.523 7.523 0 1 1 0-15.047 7.524 7.524 0 0 1 7.523 7.524Z" />
-        <path
-          d="M13.98 10.117c0 1.633-.265 3.143-.726 4.375-.698 1.901-1.846 3.143-3.143 3.143-1.297 0-2.442-1.242-3.144-3.143-.456-1.232-.723-2.742-.723-4.375 0-1.634.267-3.144.723-4.376.702-1.911 1.847-3.153 3.144-3.153 1.297 0 2.445 1.242 3.143 3.153.461 1.232.727 2.742.727 4.376ZM2.955 12.281h14.313M2.955 7.947h14.313M10.112 2.59v15.048" />
-      </g>
-    </svg>
-    <div class="language-text"></div>
-    <svg class="language-caret">
-      <path fill="currentColor" fill-rule="evenodd"
-        d="M4 5c-.275 0-.548-.103-.759-.31L.315 1.807a1.047 1.047 0 0 1 0-1.497c.418-.413 6.952-.413 7.37 0 .42.413.42 1.083 0 1.497L4.76 4.69C4.55 4.897 4.276 5 4 5" />
-    </svg>
-  </label>
-
-  <h1 class="header">
-    <svg xmlns="http://www.w3.org/2000/svg" width="1024px" height="1024px" viewBox="-2.5 -2.5 15 15">
-      <rect x="-2.5" y="-2.5" width="15" height="15" rx="3" fill="#ffffff" />
-      <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stop-color="#75C1C4" />
-        <stop offset="25%" stop-color="#5da8cc" />
-        <stop offset="100%" stop-color="#3C7699" />
-      </linearGradient>
-      <path
-        d="M 2.5 0 L 6 0 L 5 1 L 3 1 L 1 3 L 1 7 L 0 6 L 0 2.5 L 2.5 0 M 0 7 L 0 10 L 1 10 L 1 8 L 0 7 M 7 0 L 10 0 L 7 3 L 4 3 L 3 4 L 3 8 L 2 9 L 2 3.5 L 3.5 2 L 6.5 2 L 7.5 1 L 6 1 L 7 0 M 2 10 L 3 9 L 7.5 9 L 9 7.5 L 9 6 L 7 6 L 8 5 L 10 5 L 10 8 L 8 10 L 2 10 M 10 1 L 10 2 L 6 6 L 5 6 L 10 1 Z"
-        fill="url(#gradient)" />
-    </svg>
-    <div><b>Bilup Desktop</b></div>
-  </h1>
-
-  <!-- These elements are generated by scripts. -->
-  <!-- L10N_START -->
-  <script type="generated-translations"
-    data-locale="zh-cn">{"arch":"对于 Arch Linux 系统，我们建议使用官方的 AUR 软件包：","beta":"测试版可用：","bugg":"在 GitHub 报告错误","bugq":"在 QQ 报告错误","changelog":"更新日志","code":"源代码","dark":"深色模式","deb":"使用以下命令来通过apt安装我们的软件库并接收更新：","deb2":"或者手动安装 .deb（不会添加apt软件库）:","deb2-without-or":"手动安装 .deb（不会添加apt软件库）:","downlin":"阅读 Linux 系统安装指引","downloadon":"从此处获取","downun":"未知的操作系统","flatpak":"我们在 Flathub 上维护一个官方的 Flatpak 版本：","flatpak-gamepad":"默认情况下，手柄在 Flatpak 版本中无法使用。要解决此问题，请运行以下命令：","getit":"从此处获取","lin":"安装到 Linux","lin2":"尝试在发行版提供的软件管理器中搜索“Bilup”，然后选择出现的第一个选项。如果没有出现，或者您是高级用户，请选择以下方式下载：","mac":"安装到 macOS 12 及以上","mac-legacy-body":"这些版本的应用程序具有相同的功能，但速度较慢且安全性较低。未来的某个未知时间将停止支持。打开 .DMG 文件，然后将 Bilup 拖入“应用程序”。如果它告诉你 Bilup 已经存在，请选择“替换”。","mac-legacy-header":"安装到 macOS 10.13 - 11","mac-legacy-link":"查看下方适用于 macOS 10.13 - 11 的安装程序","mac-modern-download":"下载适用于 macOS 12 及以上的安装程序","macmanual":"或者手动下载。打开 .DMG 文件，然后将 Bilup 拖入“应用程序”。如果它告诉你 Bilup 已经存在，请选择“替换”。","macmanual-without-or":"手动下载。打开 .DMG 文件，然后将 Bilup 拖入“应用程序”。如果它告诉你 Bilup 已经存在，请选择“替换”。","macupd":"从 Mac 应用市场下载以确保自动更新。","ms":"从 Microsoft Store 上下载以启用自动更新。","old":"可在 GitHub 上查看更早的版本说明。","or":"或者","otheros":"其它操作系统的安装指引：","packager":"打包器","packager2":"内置的打包器可将作品转换为 HTML 文件或适用于 Windows、macOS、Linux 的应用程序。","privacy":"隐私政策","smartscreen":"如果出现 Windows SmartScreen 警告，请点击 \"更多信息\" ，然后选择 \"仍然运行\"。","snap":"我们维护一个官方的 snap 包管理器版本：","snap2":"默认情况下，snap 版本无法访问您的相机、麦克风、游戏手柄或可移动驱动器。要解决此问题，请运行以下命令：","snap3":"默认情况下，snap 版本不能设置为 sb3、sb2 或 sb 文件的文件启动项，而不影响其他文件类型。要解决此问题，请运行以下命令：","updatelin":"如果您从 App Store 或包管理器下载了 Bilup 桌面版，请在那里安装更新。否则，请手动以您安装 Bilup 桌面版的方式重新安装应用程序。","updatemac":"要更新，请下载新的应用程序并替换旧的版本。","updateun":"要更新，请按照您原来的安装的方式重新安装应用程序。","updatewin":"要更新，请下载并运行新的安装程序。","w323":"32位","w642":"下载安装程序 (64位，推荐)","webapp":"或者在任意浏览器中使用我们的 Web 应用程序：","win-legacy":"安装到 Windows 7、8、8.1","win-legacy-64":"下载旧版安装程序 (64位，推荐)","win-legacy-download":"下载适用于 Windows 7，8，8.1 (64 位) 的安装程序","win-legacy2":"这些版本的应用程序具有相同的功能，但速度更慢且安全性较低。未来的某个未知时间将停止支持。如果出现 Windows SmartScreen 提示，请点击“更多信息”，然后选择“仍然运行”。","win-modern":"安装到 Windows 10 及以上","win-modern-download":"下载适用于 Windows 10 (64 位) 及更新操作系统的安装程序","win-modern2":"或者下载安装程序"}</script>
-  <!-- L10N_END -->
-  <script type="generated-locale-names">{"en":"English","zh-cn":"简体中文"}</script>
-
-  <script>
-    const VERSION = '2.0.2';
-
-    // OS-specific styles
-    const getOS = () => {
-      if (/android/i.test(navigator.userAgent)) return 'unsupported';
-      if (/iphone|ipad|ipod/i.test(navigator.userAgent)) return 'unsupported';
-      // Chromium on Raspberry Pi OS reports CrOS in User-Agent but Linux in navigator.platform
-      if (navigator.platform.includes('Linux') || /linux/i.test(navigator.userAgent)) return 'linux';
-      if (navigator.userAgent.includes('CrOS')) return 'unsupported';
-      if (/mac/i.test(navigator.userAgent)) return 'mac';
-      if (/windows nt 6/i.test(navigator.userAgent)) return 'windows-legacy';
-      if (/windows/i.test(navigator.userAgent)) return 'windows-modern';
-      return 'unsupported';
-    };
-    document.body.setAttribute('data-os', getOS());
-
-    // Changelog page
-    const VERSIONS_ARE_EQUAL = 0;
-    const A_IS_NEWER = 1;
-    const B_IS_NEWER = 2;
-    const compareVersions = (a, b) => {
-      const partsA = a.split('-')[0].split('.');
-      const partsB = b.split('-')[0].split('.');
-      const expectedLength = 3;
-      for (var i = 0; i < expectedLength; i++) {
-        const itemA = +partsA[i];
-        const itemB = +partsB[i];
-        if (itemA > itemB) {
-          return A_IS_NEWER;
-        } else if (itemA < itemB) {
-          return B_IS_NEWER;
-        }
-      }
-
-      const prereleaseA = a.split('-')[1];
-      const prereleaseB = b.split('-')[1];
-      if (prereleaseA === prereleaseB) {
-        return VERSIONS_ARE_EQUAL;
-      } else if (prereleaseA && !prereleaseB) {
-        return B_IS_NEWER;
-      } else if (prereleaseB && !prereleaseA) {
-        return A_IS_NEWER;
-      } else if (prereleaseA > prereleaseB) {
-        return A_IS_NEWER;
-      } else {
-        return B_IS_NEWER;
-      }
-    };
-
-    const searchParams = new URLSearchParams(location.search);
-    const isChangelogPage = searchParams.has('changelog') || searchParams.has('from') || searchParams.has('to');
-    const comingFromVersion = searchParams.get('from') || '0.0.0';
-    if (isChangelogPage) {
-      document.body.setAttribute('is-changelog', '');
-    }
-
-    // L10N preparations
-    const localeNames = JSON.parse(document.querySelector('script[type="generated-locale-names"]').textContent);
-    const LANGUAGE_KEY = 'twd:language';
-    const languageSelector = document.querySelector('.language-selector-input');
-    const languageText = document.querySelector('.language-text');
-    for (const languageCode of Object.keys(localeNames)) {
-      const option = document.createElement('option');
-      option.textContent = localeNames[languageCode] || languageCode;
-      option.value = languageCode;
-      option.lang = languageCode;
-      languageSelector.append(option);
-    }
-    languageSelector.addEventListener('change', (e) => {
-      localStorage.setItem(LANGUAGE_KEY, e.target.value);
-      location.reload();
-    });
-    const normalizeLanguage = (language) => {
-      language = language.toLowerCase();
-      if (!localeNames[language]) {
-        language = language.split('-')[0];
-      }
-      if (localeNames[language]) {
-        return language;
-      }
-      return null;
-    };
-    const getLanguage = () => {
-      const params = new URLSearchParams(location.search);
-      if (params.has('lang')) {
-        const paramLanguage = normalizeLanguage(params.get('lang'));
-        if (paramLanguage) {
-          return paramLanguage;
-        }
-      }
-      try {
-        const local = localStorage.getItem(LANGUAGE_KEY);
-        if (local) {
-          const normalized = normalizeLanguage(local);
-          if (normalized) {
-            return normalized;
-          }
-        }
-      } catch (e) {
-        // ignore
-      }
-      return normalizeLanguage(navigator.language) || 'en';
-    };
-    const parseTranslations = (language) => {
-      const element = document.querySelector(`script[type="generated-translations"][data-locale="${language}"]`);
-      if (!element) {
-        return {};
-      }
-      return JSON.parse(element.textContent);
-    };
-    const language = getLanguage();
-    const messages = parseTranslations(language);
-    if (language === 'zh-cn') {
-      messages['select-download-source'] = '选择下载源';
-      messages['cancel'] = '取消';
-      messages['download-hint'] = '建议中国大陆用户使用 R2 下载';
-    }
-    document.documentElement.lang = language;
-    languageSelector.value = language;
-    languageText.textContent = localeNames[language] || language;
-
-    let currentDownloadUrl = null;
-    let currentR2Url = null;
-
-    const showDownloadModal = (githubUrl, r2Url) => {
-      currentDownloadUrl = githubUrl;
-      currentR2Url = r2Url;
-      const modal = document.getElementById('download-modal');
-      modal.removeAttribute('hidden');
-    };
-
-    const hideDownloadModal = () => {
-      const modal = document.getElementById('download-modal');
-      modal.setAttribute('hidden', '');
-    };
-
-    const handleElementWasCompleted = (element) => {
-      // Can't translate an element until its children finish, otherwise what we put can be overwritten or appended to
-      const l10n = element.getAttribute('l10n');
-      if (l10n) {
-        const message = messages[l10n];
-        if (message) {
-          element.textContent = message;
-        }
-      }
-    };
-    const stack = [document.body];
-    const handleElementWasAdded = (element) => {
-      if (element.nodeType !== 1) return;
-      while (!stack[stack.length - 1].contains(element)) {
-        handleElementWasCompleted(stack.pop());
-      }
-      stack.push(element);
-
-      const asset = element.getAttribute('data-asset');
-      if (asset) {
-        const githubUrl = `${element.href}/download/v${VERSION}/${asset.replace(/{version}/g, VERSION)}`;
-        element.href = 'javascript:void(0)';
-        element.style.cursor = 'pointer';
-
-        const r2Asset = element.getAttribute('data-r2');
-        if (r2Asset !== null) {
-          const r2Url = `https://desktop.r2.bilup.org/${asset.replace(/{version}/g, VERSION)}`;
-          element.addEventListener('click', (e) => {
-            e.preventDefault();
-            showDownloadModal(githubUrl, r2Url);
-          });
-        } else {
-          element.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.location.href = githubUrl;
-          });
-        }
-      }
-
-      const version = element.getAttribute('data-version');
-      if (version) {
-        const result = compareVersions(comingFromVersion, version);
-        if (result === A_IS_NEWER || result === VERSIONS_ARE_EQUAL) {
-          element.style.display = 'none';
-        }
-      }
-    };
-    const mutationObserver = new MutationObserver(function (mutationList) {
-      for (const mutation of mutationList) {
-        for (const node of mutation.addedNodes) {
-          handleElementWasAdded(node);
-        }
-      }
-    });
-    mutationObserver.observe(document.body, {
-      childList: true,
-      subtree: true
-    });
-    document.addEventListener('DOMContentLoaded', () => {
-      mutationObserver.disconnect();
-      stack.forEach(handleElementWasCompleted);
-      stack.length = 0;
-
-      if (!isChangelogPage) {
-        const changelogElement = document.getElementById('changelog');
-        document.body.appendChild(changelogElement);
-        changelogElement.style.display = 'block';
-      }
-
-      const githubBtn = document.getElementById('download-github');
-      const r2Btn = document.getElementById('download-r2');
-      const cancelBtn = document.getElementById('download-cancel');
-      const modalOverlay = document.getElementById('download-modal');
-
-      for (const element of modalOverlay.querySelectorAll('[l10n]')) {
-        const l10n = element.getAttribute('l10n');
-        const message = messages[l10n];
-        if (message) {
-          element.textContent = message;
-        }
-      }
-
-      githubBtn.addEventListener('click', () => {
-        if (currentDownloadUrl) {
-          window.location.href = currentDownloadUrl;
-          hideDownloadModal();
-        }
-      });
-
-      r2Btn.addEventListener('click', () => {
-        if (currentR2Url) {
-          window.location.href = currentR2Url;
-          hideDownloadModal();
-        }
-      });
-
-      cancelBtn.addEventListener('click', hideDownloadModal);
-      modalOverlay.addEventListener('click', (e) => {
-        if (e.target === modalOverlay) {
-          hideDownloadModal();
-        }
-      });
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          hideDownloadModal();
-        }
-      });
-    });
-
-    document.addEventListener('click', (e) => {
-      const id = e.target.hash && e.target.hash.substring(1);
-      if (id) {
-        const element = document.getElementById(id);
-        if (element) {
-          e.preventDefault();
-          element.scrollIntoView({
-            behavior: 'smooth'
-          });
-        }
-      }
-    });
-  </script>
-
-  <div class="changelog-subheader">
-    <p data-if-os="windows-any" l10n="updatewin">To update, download and run the new installer.</p>
-    <p data-if-os="mac-any" l10n="updatemac">To update, download the new app and replace the old one.</p>
-    <p data-if-os="linux" l10n="updatelin">If you installed Bilup Desktop from an app store or package manager,
-      download the update from there. Otherwise, manually reinstall the app the same way you installed it.</p>
-    <p data-if-os="unsupported" l10n="updateun">To update, reinstall the app the same way you installed it.</p>
-  </div>
-
-  <div class="above-fold-download">
-    <noscript>
-      <div>
-        <a class="download-button" href="#windows">Read installation instructions</a>
-        <p>Download buttons will go to GitHub instead of direct downloads because JavaScript is disabled.</p>
-      </div>
-    </noscript>
-
-    <div data-if-os="windows-modern">
-      <a class="store-badge microsoft-store" href="https://apps.microsoft.com/detail/9pbcgh64l0v5">
-        <div class="store-icon microsoft-icon"></div>
-        <div class="store-badge-text">
-          <div l10n="getit" l10n-description="Used in the context 'Get it from Microsoft'. Microsoft is on a separate line (above in Japanese, below in others)">Get it from</div>
-          <div>Microsoft</div>
-        </div>
-      </a>
-      <p class="download-separator" l10n="or" l10n-description="Appears between two different download buttons">or</p>
-      <a class="download-button" href="https://github.com/Bilup/desktop/releases"
-        data-asset="Bilup-Setup-{version}-x64.exe" data-r2="" l10n="win-modern-download">Download installer for Windows 10+
-        (64-bit)</a>
-      <!-- <p lang="en">Free code signing provided by <a href="https://about.signpath.io/">SignPath.io</a>, certificate by <a href="https://signpath.org/">SignPath Foundation</a>.</p> -->
+  <main>
+    <div style="text-align:center">
+      <span class="version-badge">当前版本：v1.0.0</span>
     </div>
 
-    <div data-if-os="windows-legacy">
-      <a class="download-button" href="https://github.com/Bilup/desktop/releases"
-        data-asset="Bilup-Legacy-Setup-{version}-x64.exe" data-r2="" l10n="win-legacy-download">Download installer for Windows
-        7, 8, 8.1 (64-bit)</a>
-      <p l10n="smartscreen">If a Windows SmartScreen alert appears, click "More info" then "Run anyways".</p>
-    </div>
-
-    <div data-if-os="mac">
-      <!-- <a class="store-badge mac-app-store" href="https://apps.apple.com/us/app/turbowarp/id6444661463">
-        <div class="store-icon apple-icon"></div>
-        <div class="store-badge-text">
-          <div l10n="downloadon"
-            l10n-description="Used in the context 'Download on the Mac App Store'. Mac App Store is on a separate line (above in Japanese, below in others)">
-            Download on the</div>
-          <div>Mac App Store</div>
-        </div>
-      </a> -->
-      <!-- <p class="download-separator" l10n="or" l10n-description="Appears between two different download buttons">or</p> -->
-      <a class="download-button" href="https://github.com/Bilup/desktop/releases"
-        data-asset="Bilup-Setup-modern-v{version}.dmg" data-r2="" l10n="mac-modern-download">Download for macOS 12 and later</a>
-      <p class="download-separator" l10n="or" l10n-description="Appears between two different download buttons">or</p>
-      <p>
-        <a l10n="mac-legacy-link" href="#mac-legacy">
-          See downloads for macOS 10.13 - 11 below
-        </a>
-      </p>
-    </div>
-
-    <div data-if-os="linux">
-      <a class="download-button" href="#linux" l10n="downlin">Read Linux installation instructions</a>
-    </div>
-
-    <div data-if-os="unsupported">
-      <a class="download-button" href="#windows" l10n="downun">Unknown operating system</a>
-    </div>
-  </div>
-
-  <div class="alternative-download-links">
-    <div>
-      <b l10n="otheros" l10n-description="Followed by a list of links to instructions for other systems">Instructions
-        for other operating systems:</b>
-      <ul>
-        <li><a href="#windows">Windows</a></li>
-        <li><a href="#mac">macOS</a></li>
-        <li><a href="#linux">Linux</a></li>
+    <section id="windows">
+      <h2>Windows 10 及更高版本</h2>
+      <p class="note">下载安装程序，运行后按提示安装即可。</p>
+      <ul class="download-list">
+        <li>
+          <a class="download-button"
+            href="https://github.com/remixwarp/desktop/releases/download/v1.0.0/RemixWarp-Setup-1.0.0-x64.exe">
+            下载安装程序（64 位，推荐）
+          </a>
+        </li>
       </ul>
-    </div>
+      <p class="note">如果出现 Windows SmartScreen 提示，请点击“更多信息”后选择“仍要运行”。</p>
+    </section>
 
-    <div><b l10n="webapp" l10n-description="Followed by link to com.bilup.org/editor">Or use our web app in any
-        browser:</b> <a href="https://com.bilup.org/editor">com.bilup.org/editor</a></div>
-
-    <!-- when there is no beta update, leave this hidden instead of removing so we don't lose the l10n string -->
-    <div hidden>
-      <b class="beta-badge" l10n="beta"
-        l10n-description="Followed by a version number eg. v1.7.2-beta.1 that is a link to learn more about the current beta release.">Beta
-        version available:</b>
-      <a href="https://github.com/Bilup/desktop/releases/tag/v1.14.0">v1.14.0</a>
-    </div>
-  </div>
-
-  <div class="links section">
-    <a class="link" href="https://github.com/Bilup/desktop/">
-      <!-- Icon from https://fontawesome.com/v5.15/icons/code?style=solid -->
-      <svg viewBox="0 0 640 512">
-        <path fill="currentColor"
-          d="M278.9 511.5l-61-17.7c-6.4-1.8-10-8.5-8.2-14.9L346.2 8.7c1.8-6.4 8.5-10 14.9-8.2l61 17.7c6.4 1.8 10 8.5 8.2 14.9L293.8 503.3c-1.9 6.4-8.5 10.1-14.9 8.2zm-114-112.2l43.5-46.4c4.6-4.9 4.3-12.7-.8-17.2L117 256l90.6-79.7c5.1-4.5 5.5-12.3.8-17.2l-43.5-46.4c-4.5-4.8-12.1-5.1-17-.5L3.8 247.2c-5.1 4.7-5.1 12.8 0 17.5l144.1 135.1c4.9 4.6 12.5 4.4 17-.5zm327.2.6l144.1-135.1c5.1-4.7 5.1-12.8 0-17.5L492.1 112.1c-4.8-4.5-12.4-4.3-17 .5L431.6 159c-4.6 4.9-4.3 12.7.8 17.2L523 256l-90.6 79.7c-5.1 4.5-5.5 12.3-.8 17.2l43.5 46.4c4.5 4.9 12.1 5.1 17 .6z">
-        </path>
-      </svg>
-      <div l10n="code">Source code</div>
-    </a>
-    <a class="link" href="privacy.html">
-      <!-- Icon from https://fontawesome.com/v5.15/icons/file?style=solid -->
-      <svg viewBox="0 0 384 512">
-        <path fill="currentColor"
-          d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm160-14.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z">
-        </path>
-      </svg>
-      <div l10n="privacy">Privacy</div>
-    </a>
-    <a class="link" href="https://qm.qq.com/q/HGvdC8WfGC">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M530.1 484.4C518.6 485.8 485.2 431.7 485.2 431.7C485.2 463 469.1 503.9 434.2 533.5C451 538.7 489 552.7 480 567.9C472.7 580.2 354.5 575.8 320.4 571.9C286.3 575.7 168.1 580.2 160.8 567.9C151.8 552.7 189.7 538.7 206.6 533.5C171.7 504 155.5 463.1 155.5 431.7C155.5 431.7 122.2 485.8 110.6 484.4C105.2 483.8 98.2 454.8 119.9 384.7C130.2 351.7 141.9 324.2 160 278.9C156.9 162 205.2 63.9 320.3 63.9C434 63.9 483.5 160 480.6 278.9C498.7 324.1 510.5 351.8 520.7 384.7C542.5 454.8 535.4 483.8 530 484.4z"/></svg>
-      <div l10n="bugq">Report bugs on QQ</div>
-    </a>
-    <a class="link" href="https://github.com/Bilup/desktop/issues">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM252.8 8c-138.7 0-244.8 105.3-244.8 244 0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1 100-33.2 167.8-128.1 167.8-239 0-138.7-112.5-244-251.2-244zM105.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
-      <div l10n="bugg">Report bugs on GitHub</div>
-    </a>
-  </div>
-
-  <div class="changelog section" id="changelog">
-    <!-- Do not directly edit the changelog here! This section is generated by scripts/generate-changelogs.js -->
-    <h2 l10n="changelog">Changelog</h2>
-    <div lang="en">
-      <!-- CHANGELOG_START -->
-        <div data-version="2.0.2">
-          <h3>v2.0.2 (August 15 2026)</h3>
-          <ul>
-            <li>Update "Custom Extensions Library"</li>
-            <li>Fix some known issues</li>
-            <li>Emergency fix some issues: unable to use custom fonts; unable to close settings about "Windows Animations"</li>
-          </ul>
-        </div>
-        <div data-version="2.0.1">
-          <h3>v2.0.1 (August 12 2026)</h3>
-          <ul>
-            <li>Fix extension libraries(Sharkpool) not working in local.</li>
-            <li>Fix some translation issues.</li>
-            <li>Update extensions-manager</li>
-          </ul>
-        </div>
-        <div data-version="2.0.0">
-          <h3>v2.0.0 (August 9 2026)</h3>
-          <ul>
-            <li>Big update is available! Now use the newest Bilup to create projects!</li>
-            <li>Fix some known issues</li>
-            <li>Improve the performance</li>
-          </ul>
-        </div>
-        <div data-version="1.6.1">
-          <h3>v1.6.1 (July 11 2026)</h3>
-          <ul>
-            <li>Emergency fix for a critical issue: unable to use collaboration feature (from v1.6.0)</li>
-            <li>Fix some translation issues</li>
-            <li>Fix some known issues</li>
-          </ul>
-        </div>
-        <div data-version="1.6.0">
-          <h3>v1.6.0 (July 10 2026)</h3>
-          <ul>
-            <li>Big update (from MistWarp)</li>
-          </ul>
-        </div>
-        <div data-version="1.5.4">
-          <h3>v1.5.4 (July 5 2026)</h3>
-          <ul>
-            <li>Fix for a critical issue: unable to load assets and extensions in desktop (from v1.5.2)</li>
-            <li>Fix some issues with live collaboration</li>
-            <li>Update window animations</li>
-            <li>Add 'Custom Extensions Library'</li>
-          </ul>
-        </div>
-        <div data-version="1.5.3">
-          <h3>v1.5.3 (June 24 2026)</h3>
-          <ul>
-            <li>Fix some known issues</li>
-            <li>Update markdown</li>
-            <li>Update shortcuts manager</li>
-          </ul>
-        </div>
-        <div data-version="1.5.2">
-          <h3>v1.5.2 (June 9 2026)</h3>
-          <ul>
-            <li>Desktop: Fix extension libraries not working in local</li>
-          </ul>
-        </div>
-        <div data-version="1.5.1">
-          <h3>v1.5.1 (June 5 2026)</h3>
-          <ul>
-            <li>Emergency fix for a critical issue: unable to load assets and extensions in desktop (from v1.5.0)</li>
-          </ul>
-        </div>
-        <div data-version="1.5.0">
-          <h3>v1.5.0 (May 23 2026)</h3>
-          <ul>
-            <li>Fix some known issues</li>
-            <li>Bilup Nova is now available! Now use AI Agents to help you create projects!</li>
-            <li>Add support for `api.yearnstudio.cn`</li>
-          </ul>
-        </div>
-        <div data-version="1.4.0">
-          <h3>v1.4.0 (April 26 2026)</h3>
-          <ul>
-            <li>Bilup extensions now available in local (No need Internet)</li>
-            <li>Add warning to uncompatible-for-turbowarp blocks</li>
-            <li>Fix some known issue (Including Git, Shortcuts Manager, and more!)</li>
-            <li>Able to save your project when editor crashed</li>
-          </ul>
-        </div>
-        <div data-version="1.3.0">
-          <h3>v1.3.0 (April 13 2026)</h3>
-          <ul>
-            <li>Fix some known issues</li>
-          </ul>
-        </div>
-        <div data-version="1.2.0">
-          <h3>v1.2.0 (April 3 2026)</h3>
-          <ul>
-            <li>New initial verison after cleaning desktop repo</li>
-          </ul>
-        </div>
-        <!-- CHANGELOG_END -->
-    </div>
-    <p><a href="https://github.com/Bilup/desktop/releases" l10n="old">Older release notes are available on
-        GitHub.</a></p>
-  </div>
-
-  <div class="manual-installation section" id="windows">
-    <h2 l10n="win-modern">Install on Windows 10 and later</h2>
-    <p l10n="ms">Get it from the Microsoft Store to enable automatic updates.</p>
-      <a class="store-badge microsoft-store" href="https://apps.microsoft.com/detail/9pbcgh64l0v5">
-        <div class="store-icon microsoft-icon"></div>
-        <div class="store-badge-text">
-          <div l10n="getit" l10n-description="Used in the context 'Get it from Microsoft'. Microsoft is on a separate line (above in Japanese, below in others)">Get it from</div>
-          <div>Microsoft</div>
-        </div>
-      </a>
-
-    <p l10n="win-modern2">Or download an installer.</p>
-    <ul class="download-list">
-      <li><a class="download-button" href="https://github.com/Bilup/desktop/releases"
-          data-asset="Bilup-Setup-{version}-x64.exe" data-r2="" l10n="w642">Download installer (64-bit, recommended)</a></li>
-      <li><a class="download-button" href="https://github.com/Bilup/desktop/releases"
-          data-asset="Bilup-Setup-{version}-ia32.exe" data-r2="" l10n="w323"
-          l10n-description="Alternative download button">32-bit</a></li>
-      <li><a class="download-button" href="https://github.com/Bilup/desktop/releases"
-          data-asset="Bilup-Setup-{version}-arm64.exe" data-r2="">ARM</a></li>
-    </ul>
-
-    <!-- <p lang="en">Bilup Desktop uses a free code signing provided by <a href="https://about.signpath.io/">SignPath.io</a>, certificate by <a href="https://signpath.org/">SignPath Foundation</a>.</p> -->
-  </div>
-
-  <div class="manual-installation section" id="windows-legacy">
-    <h2 l10n="win-legacy">Install on Windows 7, 8, and 8.1</h2>
-    <p l10n="win-legacy2">These versions of the app have the same features but are slower and less secure. Support will
-      be removed at an unknown time in the future. If a Windows SmartScreen alert appears, click "More info" then "Run
-      anyways".</p>
-    <ul class="download-list">
-      <li><a class="download-button" href="https://github.com/Bilup/desktop/releases"
-          data-asset="Bilup-Legacy-Setup-{version}-x64.exe" data-r2="" l10n="win-legacy-64">Download legacy installer (64-bit,
-          recommended)</a></li>
-      <li><a class="download-button" href="https://github.com/Bilup/desktop/releases"
-          data-asset="Bilup-Legacy-Setup-{version}-ia32.exe" data-r2="" l10n="w323"
-          l10n-description="Alternative download button">32-bit</a></li>
-    </ul>
-  </div>
-
-  <div class="manual-installation section" id="mac">
-    <h2 l10n="mac">Install on macOS 12 and later</h2>
-    <!-- <p l10n="macupd">Install from the Mac App Store for automatic updates.</p>
-    <a class="store-badge mac-app-store" href="https://apps.apple.com/us/app/turbowarp/id6444661463">
-      <div class="store-icon apple-icon"></div>
-      <div class="store-badge-text">
-        <div l10n="downloadon"
-          l10n-description="Used in the context 'Download on the Mac App Store'. Mac App Store is on a separate line (above in Japanese, below in others)">
-          Download on the</div>
-        <div>Mac App Store</div>
-      </div>
-    </a> -->
-    <p l10n="macmanual-without-or">Download the app manually. Open the .DMG, then drag Bilup into Applications. If it tells
-      you that Bilup already exists, choose "Replace".</p>
-    <a class="download-button" href="https://github.com/Bilup/desktop/releases"
-      data-asset="Bilup-Setup-modern-v{version}.dmg" data-r2="" l10n="mac-modern-download">Download for macOS 12 and later</a>
-  </div>
-
-  <div class="manual-installation section" id="mac-legacy">
-    <h2 l10n="mac-legacy-header">Install on macOS 10.13 - 11</h2>
-    <p l10n="mac-legacy-body">These versions of the app have the same features but are slower and less secure. Support
-      will be removed at an unknown time in the future. Open the .DMG, then drag Bilup into Applications. If it
-      tells you that Bilup already exists, choose "Replace".</p>
-
-    <ul class="download-list">
-      <li><a class="download-button" href="https://github.com/Bilup/desktop/releases"
-          data-asset="Bilup-Setup-legacy-11-v{version}.dmg" data-r2="">macOS 11</a></li>
-      <li><a class="download-button" href="https://github.com/Bilup/desktop/releases"
-          data-asset="Bilup-Setup-legacy-10.15-v{version}.dmg" data-r2="">macOS 10.15</a></li>
-      <li><a class="download-button" href="https://github.com/Bilup/desktop/releases"
-          data-asset="Bilup-Setup-legacy-10.13-10.14-v{version}.dmg" data-r2="">macOS 10.14</a></li>
-      <li><a class="download-button" href="https://github.com/Bilup/desktop/releases"
-          data-asset="Bilup-Setup-legacy-10.13-10.14-v{version}.dmg" data-r2="">macOS 10.13</a></li>
-    </ul>
-  </div>
-
-  <div class="manual-installation section" id="linux">
-    <h2 l10n="lin">Install on Linux</h2>
-    <!-- <p l10n="lin2">Try searching for "Bilup" in your distribution's software manager and choose the first option
-      that appears. If it doesn't appear or if you're an advanced user, choose one of these installation methods:</p>
-
-    <div class="warning">
-      <p>Bilup Desktop now uses native Wayland if available. For most people, there will be no noticeable change,
-        but there are some known issues and limitations:</p>
-      <ul>
-        <li>On Ubuntu, title bar icons display on the wrong side. This will be fixed in the next update.</li>
-        <li>Some graphics cards experience GPU process crashes. We are looking into it.</li>
+    <section id="mac">
+      <h2>macOS 12 及更高版本</h2>
+      <p class="note">下载 .dmg 文件，打开后将 RemixWarp 拖入“应用程序”文件夹。如果提示已存在，请选择“替换”。</p>
+      <ul class="download-list">
+        <li>
+          <a class="download-button"
+            href="https://github.com/remixwarp/desktop/releases/download/v1.0.0/RemixWarp-Setup-1.0.0.dmg">
+            下载适用于 macOS 12 及更高版本
+          </a>
+        </li>
       </ul>
-      <p>You can work around these by starting the app with the <code>XDG_SESSION_TYPE</code> environment variable set
-        to <code>x11</code> to force using Xwayland as before.</p>
-    </div> -->
+    </section>
 
-    <h3>Debian, Ubuntu, Raspberry Pi OS, Linux Mint</h3>
-    <!-- <p l10n="deb" l10n-description="apt refers to a Linux command line tool">Install our repository to receive updates
-      through apt by running these commands:</p>
-    <code class="terminal">
-        <div class="command">wget https://desktop.turbowarp.org/release-signing-key.gpg -qO- | gpg --dearmor | sudo tee /usr/share/keyrings/turbowarp.gpg > /dev/null</div>
-        <div class="command">echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/turbowarp.gpg] https://releases.turbowarp.org/deb stable main" | sudo tee /etc/apt/sources.list.d/turbowarp.list</div>
-        <div class="command">sudo apt update</div>
-        <div class="command">sudo apt install turbowarp-desktop</div>
-      </code> -->
-    <p l10n="deb2-without-or" l10n-description="apt refers to a Linux command line tool">Manually install the .deb (won't add
-      apt repository):</p>
-    <ul class="download-list">
-      <li><a class="download-button" href="https://github.com/Bilup/desktop/releases"
-          data-asset="Bilup-linux-amd64-{version}.deb" data-r2="">x86 64-bit</a></li>
-      <li><a class="download-button" href="https://github.com/Bilup/desktop/releases"
-          data-asset="Bilup-linux-arm64-{version}.deb" data-r2="">ARM 64-bit</a></li>
-      <li><a class="download-button" href="https://github.com/Bilup/desktop/releases"
-          data-asset="Bilup-linux-armv7l-{version}.deb" data-r2="">ARMv7l</a></li>
-    </ul>
+    <section id="linux">
+      <h2>Linux</h2>
+      <p class="note">根据你的发行版选择对应的安装包。推荐使用 .deb 或 AppImage。</p>
 
-    <!-- <h3>Arch User Repository</h3>
-    <p><span l10n="arch" l10n-description="AUR refers to the Arch User Repository">For Arch Linux systems, we recommend
-        the official AUR package:</span> <a
-        href="https://aur.archlinux.org/packages/turbowarp-desktop-bin/">turbowarp-desktop-bin</a></p>
+      <h3>Debian / Ubuntu / Linux Mint（64 位）</h3>
+      <ul class="download-list">
+        <li>
+          <a class="download-button"
+            href="https://github.com/remixwarp/desktop/releases/download/v1.0.0/RemixWarp-linux-x64-1.0.0.deb">
+            下载 .deb（x86 64 位）
+          </a>
+        </li>
+      </ul>
 
-    <h3>Flatpak</h3>
-    <p><span l10n="flatpak" l10n-description="Flatpak refers to flatpak.org and Flathub refers to flathub.org">We
-        maintain an official Flatpak version on Flathub:</span> <a
-        href="https://flathub.org/apps/details/org.turbowarp.TurboWarp">org.turbowarp.TurboWarp</a></p>
-    <p l10n="flatpak-gamepad" l10n-description="Flatpak refers to flatpak.org">By default, gamepads will not work in the
-      Flatpak version. To fix this, run this command:</p>
-    <code class="terminal">
-        <div class="command">flatpak override org.turbowarp.TurboWarp --user --filesystem=/run/udev:ro</div>
-      </code>
+      <h3>AppImage（x86 64 位）</h3>
+      <ul class="download-list">
+        <li>
+          <a class="download-button"
+            href="https://github.com/remixwarp/desktop/releases/download/v1.0.0/RemixWarp-linux-x64-1.0.0.AppImage">
+            下载 .AppImage（x86 64 位）
+          </a>
+        </li>
+      </ul>
 
-    <h3>Snap Store</h3>
-    <p><span l10n="snap" l10n-description="snap refers to snapcraft.io">We maintain an official snap version:</span> <a
-        href="https://snapcraft.io/turbowarp-desktop">turbowarp-desktop</a></p>
-    <p l10n="snap2" l10n-description="snap refers to snapcraft.io">By default, the snap version can't access your
-      camera, microphone, gamepads, or removable drives. To fix this, run these commands:</p>
-    <code class="terminal">
-        <div class="command">snap connect turbowarp-desktop:camera</div>
-        <div class="command">snap connect turbowarp-desktop:audio-record</div>
-        <div class="command">snap connect turbowarp-desktop:joystick</div>
-        <div class="command">snap connect turbowarp-desktop:removable-media</div>
-      </code>
-    <p l10n="snap3" l10n-description="snap refers to snapcraft.io">By default, the snap version can't be set as the file
-      opener for sb3, sb2, or sb files without interfering with other file types. To fix this, run these commands:</p>
-    <code class="terminal">
-        <div class="command">wget https://desktop.turbowarp.org/snap-mime.xml -qO- | sudo tee /usr/share/mime/packages/turbowarp-desktop-snap.xml > /dev/null</div>
-        <div class="command">sudo update-mime-database /usr/share/mime</div>
-      </code> -->
+      <h3>tar.gz（x86 64 位）</h3>
+      <ul class="download-list">
+        <li>
+          <a class="download-button"
+            href="https://github.com/remixwarp/desktop/releases/download/v1.0.0/RemixWarp-linux-x64-1.0.0.tar.gz">
+            下载 .tar.gz（x86 64 位）
+          </a>
+        </li>
+      </ul>
+    </section>
 
-    <h3>AppImage</h3>
-    <ul class="download-list">
-      <li><a class="download-button" href="https://github.com/Bilup/desktop/releases"
-          data-asset="Bilup-linux-x86_64-{version}.AppImage" data-r2="">x86 64-bit</a></li>
-      <li><a class="download-button" href="https://github.com/Bilup/desktop/releases"
-          data-asset="Bilup-linux-arm64-{version}.AppImage" data-r2="">ARM 64-bit</a></li>
-      <li><a class="download-button" href="https://github.com/Bilup/desktop/releases"
-          data-asset="Bilup-linux-armv7l-{version}.AppImage" data-r2="">ARMv7l</a></li>
-    </ul>
-
-    <h3>tar.gz</h3>
-    <ul class="download-list">
-      <li><a class="download-button" href="https://github.com/Bilup/desktop/releases"
-          data-asset="Bilup-linux-x64-{version}.tar.gz" data-r2="">x86 64-bit</a></li>
-      <li><a class="download-button" href="https://github.com/Bilup/desktop/releases"
-          data-asset="Bilup-linux-arm64-{version}.tar.gz" data-r2="">ARM 64-bit</a></li>
-      <li><a class="download-button" href="https://github.com/Bilup/desktop/releases"
-          data-asset="Bilup-linux-armv7l-{version}.tar.gz" data-r2="">ARMv7l</a></li>
-    </ul>
-
-    <h3>RPM (Fedora, RHEL, CentOS, openSUSE)</h3>
-    <ul class="download-list">
-      <li><a class="download-button" href="https://github.com/Bilup/desktop/releases"
-          data-asset="Bilup-linux-x86_64-{version}.rpm" data-r2="">x86 64-bit</a></li>
-      <li><a class="download-button" href="https://github.com/Bilup/desktop/releases"
-          data-asset="Bilup-linux-aarch64-{version}.rpm" data-r2="">AArch 64-bit</a></li>
-      <li><a class="download-button" href="https://github.com/Bilup/desktop/releases"
-          data-asset="Bilup-linux-armv7l-{version}.rpm" data-r2="">ARMv7l</a></li>
-    </ul>
-
-    <h3>Pacman (Arch Linux)</h3>
-    <ul class="download-list">
-      <li><a class="download-button" href="https://github.com/Bilup/desktop/releases"
-          data-asset="Bilup-linux-x64-{version}.pkg.tar.zst" data-r2="">x86 64-bit</a></li>
-      <li><a class="download-button" href="https://github.com/Bilup/desktop/releases"
-          data-asset="Bilup-linux-aarch64-{version}.pkg.tar.zst" data-r2="">AArch 64-bit</a></li>
-      <li><a class="download-button" href="https://github.com/Bilup/desktop/releases"
-          data-asset="Bilup-linux-armv7l-{version}.pkg.tar.zst" data-r2="">ARMv7l</a></li>
-    </ul>
-  </div>
-
-  <script>
-    const generateTranslations = () => {
-      const result = {};
-      for (const element of document.querySelectorAll('[l10n]')) {
-        const id = element.getAttribute('l10n');
-        const string = element.textContent.trim();
-        const description = element.getAttribute('l10n-description');
-        const existing = result[id];
-        if (existing && (existing.string !== string || existing.developer_comment !== description)) {
-          throw new Error(`${id} has a conflict`);
-        }
-        result[id] = {
-          string,
-          developer_comment: description
-        };
-      }
-      return result;
-    };
-
-    const downloadGeneratedTranslations = () => {
-      const result = generateTranslations();
-      Object.assign(document.createElement('a'), {
-        href: URL.createObjectURL(new Blob([JSON.stringify(result, null, 4)])),
-        download: 'desktop-web-new.json'
-      }).click();
-    };
-  </script>
-  <div id="download-modal" class="download-modal-overlay" hidden>
-    <div class="download-modal">
-      <h3 l10n="select-download-source">Select download source</h3>
-      <div class="download-modal-buttons">
-        <button class="store-badge" id="download-github">
-          <div class="store-icon github-icon"></div>
-          <div class="store-badge-text">
-            <div l10n="getit" l10n-description="Used in the context 'Get it from Microsoft'. Microsoft is on a separate line (above in Japanese, below in others)">Get it from</div>
-            <div>GitHub</div>
-          </div>
-        </button>
-        <button class="store-badge" id="download-r2">
-          <div class="store-icon r2-icon"></div>
-          <div class="store-badge-text">
-            <div l10n="getit" l10n-description="Used in the context 'Get it from Microsoft'. Microsoft is on a separate line (above in Japanese, below in others)">Get it from</div>
-            <div>R2</div>
-          </div>
-        </button>
+    <section id="changelog">
+      <h2>更新日志</h2>
+      <div lang="zh-CN">
+        <h3>v1.0.0（2026 年 8 月 21 日）</h3>
+        <ul>
+          <li>首个 RemixWarp Desktop 正式版本。</li>
+          <li>基于 TurboWarp 的完整中文本地化与实时协作支持。</li>
+        </ul>
       </div>
-      <p class="download-modal-hint" l10n="download-hint">Chinese mainland users recommended to use R2</p>
-      <div class="download-modal-cancel">
-        <button id="download-cancel" l10n="cancel">Cancel</button>
+    </section>
+
+    <section style="text-align:center">
+      <h2>更多信息</h2>
+      <div class="links">
+        <a href="https://github.com/remixwarp/desktop/releases/tag/v1.0.0">GitHub 发布页</a>
+        <a href="https://github.com/remixwarp/desktop">源代码</a>
+        <a href="https://github.com/remixwarp/desktop/issues">报告问题</a>
+        <a href="https://www.remixwarp.org/">在线编辑器</a>
       </div>
-    </div>
-  </div>
+    </section>
+  </main>
+
+  <footer>
+    RemixWarp Desktop · 基于 TurboWarp 构建 · GPL-3.0 许可证
+  </footer>
 </body>
 
 </html>

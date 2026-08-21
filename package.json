@@ -1,11 +1,11 @@
 {
-  "name": "bilup-desktop",
+  "name": "remixwarp-desktop",
   "description": "TurboWarp mod with Chinese translations and live collaboration.",
   "version": "1.0.0",
   "license": "GPL-3.0",
   "author": {
-    "email": "support@bilup.org",
-    "name": "Bilup"
+    "email": "support@remixwarp.org",
+    "name": "RemixWarp"
   },
   "type": "commonjs",
   "scripts": {
@@ -71,19 +71,19 @@
       "terser-webpack-plugin": "^4.2.3"
     }
   },
-  "homepage": "https://desktop.bilup.org/",
+  "homepage": "https://desktop.remixwarp.org/",
   "repository": {
     "type": "git",
     "url": "https://github.com/remixwarp/desktop.git"
   },
   "bugs": {
     "url": "https://github.com/remixwarp/desktop/issues",
-    "email": "support@bilup.org"
+    "email": "support@remixwarp.org"
   },
   "main": "./src-main/entrypoint.js",
   "build": {
-    "appId": "org.bilup.desktop",
-    "productName": "Bilup",
+    "appId": "org.remixwarp.desktop",
+    "productName": "RemixWarp",
     "files": [
       "node_modules/**/*",
       "src-main/**/*",
@@ -123,9 +123,9 @@
     },
     "appx": {
       "artifactName": "${productName}-MS-Store-${version}-${arch}.${ext}",
-      "applicationId": "Bilup",
-      "displayName": "Bilup",
-      "identityName": "RyaninCn11.Bilup",
+      "applicationId": "RemixWarp",
+      "displayName": "RemixWarp",
+      "identityName": "RyaninCn11.RemixWarp",
       "publisher": "CN=68DB998A-9108-48E9-BAD6-416DA5DB2F35",
       "publisherDisplayName": "RyaninCn11",
       "backgroundColor": "#75c1c4",
@@ -174,15 +174,15 @@
       "provisioningProfile": "build/development.provisionprofile"
     },
     "linux": {
-      "executableName": "Bilup-desktop",
+      "executableName": "RemixWarp-desktop",
       "artifactName": "${productName}-${os}-${arch}-${version}.${ext}",
       "icon": "./build/",
       "synopsis": "Mod of TurboWarp with total Chinese translations and live collaboration.",
-      "description": "Bilup is a TurboWarp mod with total Chinese translations and live collaboration.",
+      "description": "RemixWarp is a TurboWarp mod with total Chinese translations and live collaboration.",
       "category": "Development",
       "desktop": {
         "entry": {
-          "StartupWMClass": "Bilup-desktop",
+          "StartupWMClass": "RemixWarp-desktop",
           "Keywords": "scratch;"
         }
       },

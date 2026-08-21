@@ -1,6 +1,6 @@
-const PLATFORM_NAME = 'Bilup';
-const APP_NAME = 'Bilup Desktop';
-const PACKAGER_NAME = 'Bilup Packager';
+const PLATFORM_NAME = 'RemixWarp';
+const APP_NAME = 'RemixWarp Desktop';
+const PACKAGER_NAME = 'RemixWarp Packager';
 
 module.exports = {
   PLATFORM_NAME,
