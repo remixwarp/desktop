@@ -405,15 +405,15 @@
           </button>
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
-              data-mode="v4" data-asset="RemixWarp-Setup-{V}-x64.exe" href="#">
+              data-mode="v4" data-file="win" href="#">
               更快的加速连接<small>（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
-              data-mode="gh" data-asset="RemixWarp-Setup-{V}-x64.exe" href="#">
+              data-mode="gh" data-file="win" href="#">
               加速连接
             </a>
             <a class="dl-opt github dl-link"
-              data-mode="github" data-asset="RemixWarp-Setup-{V}-x64.exe" href="#">
+              data-mode="github" data-file="win" href="#">
               GitHub 连接
             </a>
           </div>
@@ -432,15 +432,15 @@
           </button>
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
-              data-mode="v4" data-asset="RemixWarp-Setup-{V}.dmg" href="#">
+              data-mode="v4" data-file="mac" href="#">
               更快的加速连接<small>（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
-              data-mode="gh" data-asset="RemixWarp-Setup-{V}.dmg" href="#">
+              data-mode="gh" data-file="mac" href="#">
               加速连接
             </a>
             <a class="dl-opt github dl-link"
-              data-mode="github" data-asset="RemixWarp-Setup-{V}.dmg" href="#">
+              data-mode="github" data-file="mac" href="#">
               GitHub 连接
             </a>
           </div>
@@ -460,15 +460,15 @@
           </button>
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
-              data-mode="v4" data-asset="RemixWarp-linux-x64-{V}.deb" href="#">
+              data-mode="v4" data-file="deb" href="#">
               更快的加速连接<small>（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
-              data-mode="gh" data-asset="RemixWarp-linux-x64-{V}.deb" href="#">
+              data-mode="gh" data-file="deb" href="#">
               加速连接
             </a>
             <a class="dl-opt github dl-link"
-              data-mode="github" data-asset="RemixWarp-linux-x64-{V}.deb" href="#">
+              data-mode="github" data-file="deb" href="#">
               GitHub 连接
             </a>
           </div>
@@ -483,15 +483,15 @@
           </button>
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
-              data-mode="v4" data-asset="RemixWarp-linux-x64-{V}.AppImage" href="#">
+              data-mode="v4" data-file="appimage" href="#">
               更快的加速连接<small>（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
-              data-mode="gh" data-asset="RemixWarp-linux-x64-{V}.AppImage" href="#">
+              data-mode="gh" data-file="appimage" href="#">
               加速连接
             </a>
             <a class="dl-opt github dl-link"
-              data-mode="github" data-asset="RemixWarp-linux-x64-{V}.AppImage" href="#">
+              data-mode="github" data-file="appimage" href="#">
               GitHub 连接
             </a>
           </div>
@@ -506,15 +506,15 @@
           </button>
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
-              data-mode="v4" data-asset="RemixWarp-linux-x64-{V}.tar.gz" href="#">
+              data-mode="v4" data-file="targz" href="#">
               更快的加速连接<small>（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
-              data-mode="gh" data-asset="RemixWarp-linux-x64-{V}.tar.gz" href="#">
+              data-mode="gh" data-file="targz" href="#">
               加速连接
             </a>
             <a class="dl-opt github dl-link"
-              data-mode="github" data-asset="RemixWarp-linux-x64-{V}.tar.gz" href="#">
+              data-mode="github" data-file="targz" href="#">
               GitHub 连接
             </a>
           </div>
@@ -560,6 +560,26 @@
   </footer>
 
   <script>
+    // 各版本的精确产物文件名（来自 GitHub Releases 实际生成的 assets）
+    // 注意：electron-builder 会把版本号规范化为 1.0.1（Win/Linux），
+    // 而 mac 的 dmg 由工作流用 tag 名 v1.0.01 重命名。
+    var RELEASES = {
+      '1.0.01': {
+        win: 'RemixWarp-Setup-1.0.1-x64.exe',
+        mac: 'RemixWarp-Setup-modern-v1.0.01.dmg',
+        deb: 'RemixWarp-linux-amd64-1.0.1.deb',
+        appimage: 'RemixWarp-linux-x86_64-1.0.1.AppImage',
+        targz: 'RemixWarp-linux-x64-1.0.1.tar.gz'
+      },
+      '1.0.0': {
+        win: 'RemixWarp-Setup-1.0.0-x64.exe',
+        mac: 'RemixWarp-Setup-modern-v1.0.0.dmg',
+        deb: 'RemixWarp-linux-amd64-1.0.0.deb',
+        appimage: 'RemixWarp-linux-x86_64-1.0.0.AppImage',
+        targz: 'RemixWarp-linux-x64-1.0.0.tar.gz'
+      }
+    };
+
     // 可选下载版本。数组第一项为最新版，其余为旧版。
     var VERSIONS = [
       { version: '1.0.01', label: '最新版 v1.0.01' },
@@ -586,9 +606,9 @@
     var os = getOS();
     document.body.setAttribute('data-os', os);
 
-    // 根据 data-asset / data-mode 构建单个下载链接 URL
-    var buildDownloadUrl = function (mode, asset) {
-      var full = GITHUB_BASE + activeVersion + '/' + asset;
+    // 根据 data-file / data-mode 构建单个下载链接 URL
+    var buildDownloadUrl = function (mode, file) {
+      var full = GITHUB_BASE + activeVersion + '/' + file;
       if (mode === 'v4') return V4_PROXY + full;
       if (mode === 'gh') return GH_PROXY + full;
       return full;
@@ -596,30 +616,33 @@
 
     // 重写所有下载链接为目标版本
     var renderLinks = function () {
+      var files = RELEASES[activeVersion] || RELEASES[VERSIONS[0].version];
       var links = document.querySelectorAll('.dl-link');
       links.forEach(function (a) {
-        var asset = (a.getAttribute('data-asset') || '').replace(/\{V\}/g, activeVersion);
-        a.href = buildDownloadUrl(a.getAttribute('data-mode'), asset);
+        var key = a.getAttribute('data-file');
+        var file = files[key] || '';
+        a.href = file ? buildDownloadUrl(a.getAttribute('data-mode'), file) : '#';
       });
     };
 
     // 推荐下载：直接指向对应安装包的加速连接
     var recBtn = document.getElementById('recommend-button');
     var renderRecommend = function () {
-      var asset = null;
+      var files = RELEASES[activeVersion] || RELEASES[VERSIONS[0].version];
+      var file = null;
       var label = '未知的操作系统？点击查看全部';
       if (os === 'windows') {
-        asset = 'RemixWarp-Setup-' + activeVersion + '-x64.exe';
+        file = files.win;
         label = '下载安装程序（64 位，推荐）';
       } else if (os === 'mac') {
-        asset = 'RemixWarp-Setup-' + activeVersion + '.dmg';
+        file = files.mac;
         label = '下载适用于 macOS 12 及更高版本';
       } else if (os === 'linux') {
-        asset = 'RemixWarp-linux-x64-' + activeVersion + '.deb';
+        file = files.deb;
         label = '下载 .deb（x86 64 位，推荐）';
       }
       recBtn.textContent = label;
-      recBtn.href = asset ? V4_PROXY + GITHUB_BASE + activeVersion + '/' + asset : '#windows';
+      recBtn.href = file ? V4_PROXY + GITHUB_BASE + activeVersion + '/' + file : '#windows';
     };
 
     // 版本徽章 + 旧版警告
