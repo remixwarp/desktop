@@ -212,6 +212,96 @@
       font-size: 0.95rem;
     }
 
+    .old-warning {
+      display: none;
+      background: #fff3cd;
+      color: #7a5b00;
+      border: 1px solid #f0d98a;
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin: 0 auto 16px;
+      max-width: 860px;
+    }
+
+    .old-warning.show {
+      display: block;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .old-warning {
+        background: #4a3b14;
+        color: #ffd76a;
+        border-color: #6b5518;
+      }
+    }
+
+    .old-warning h3 {
+      margin: 0 0 6px;
+      font-size: 1.05rem;
+    }
+
+    .old-warning p {
+      margin: 0;
+      font-size: 0.92rem;
+    }
+
+    .old-warning .old-version-tag {
+      display: inline-block;
+      background: #7a5b00;
+      color: #fff;
+      border-radius: 6px;
+      padding: 1px 8px;
+      font-size: 0.82rem;
+      margin-left: 4px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .old-warning .old-version-tag {
+        background: #ffd76a;
+        color: #4a3b14;
+      }
+    }
+
+    .changelog-version {
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--fg);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 1.1rem;
+      margin: 8px 0;
+      transition: filter 0.15s ease, transform 0.05s ease;
+      user-select: none;
+    }
+
+    .changelog-version:hover {
+      filter: brightness(1.05);
+    }
+
+    .changelog-version:active {
+      transform: translateY(1px);
+    }
+
+    .changelog-version.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .changelog-badge {
+      display: inline-block;
+      background: var(--accent-2);
+      color: #fff;
+      border-radius: 999px;
+      padding: 1px 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
     .recommend-card {
       text-align: center;
       background: linear-gradient(160deg, var(--accent-2), var(--accent));
@@ -287,6 +377,11 @@
       <span class="version-badge">当前版本：v1.0.01</span>
     </div>
 
+    <div class="old-warning" id="old-warning">
+      <h3>⚠️ 你正在查看旧版本 <span class="old-version-tag" id="old-warning-version">v1.0.0</span></h3>
+      <p>旧版本可能包含尚未修复的 Bug、安全问题或缺少新功能，稳定性与安全性无法保证，仅建议在特殊情况下使用。</p>
+    </div>
+
     <div class="recommend-card">
       <p class="rec-label">已根据你的设备推荐下载</p>
       <a class="rec-button" id="recommend-button" href="#windows">
@@ -309,16 +404,16 @@
             下载安装程序（64 位，推荐）<span class="dl-caret">▾</span>
           </button>
           <div class="dl-options">
-            <a class="dl-opt fast"
-              href="https://v4.gh-proxy.org/https://github.com/remixwarp/desktop/releases/download/v1.0.01/RemixWarp-Setup-1.0.01-x64.exe">
+            <a class="dl-opt fast dl-link"
+              data-mode="v4" data-asset="RemixWarp-Setup-{V}-x64.exe" href="#">
               更快的加速连接<small>（推荐）</small>
             </a>
-            <a class="dl-opt fast"
-              href="https://gh-proxy.org/https://github.com/remixwarp/desktop/releases/download/v1.0.01/RemixWarp-Setup-1.0.01-x64.exe">
+            <a class="dl-opt fast dl-link"
+              data-mode="gh" data-asset="RemixWarp-Setup-{V}-x64.exe" href="#">
               加速连接
             </a>
-            <a class="dl-opt github"
-              href="https://github.com/remixwarp/desktop/releases/download/v1.0.01/RemixWarp-Setup-1.0.01-x64.exe">
+            <a class="dl-opt github dl-link"
+              data-mode="github" data-asset="RemixWarp-Setup-{V}-x64.exe" href="#">
               GitHub 连接
             </a>
           </div>
@@ -336,16 +431,16 @@
             下载适用于 macOS 12 及更高版本<span class="dl-caret">▾</span>
           </button>
           <div class="dl-options">
-            <a class="dl-opt fast"
-              href="https://v4.gh-proxy.org/https://github.com/remixwarp/desktop/releases/download/v1.0.01/RemixWarp-Setup-1.0.01.dmg">
+            <a class="dl-opt fast dl-link"
+              data-mode="v4" data-asset="RemixWarp-Setup-{V}.dmg" href="#">
               更快的加速连接<small>（推荐）</small>
             </a>
-            <a class="dl-opt fast"
-              href="https://gh-proxy.org/https://github.com/remixwarp/desktop/releases/download/v1.0.01/RemixWarp-Setup-1.0.01.dmg">
+            <a class="dl-opt fast dl-link"
+              data-mode="gh" data-asset="RemixWarp-Setup-{V}.dmg" href="#">
               加速连接
             </a>
-            <a class="dl-opt github"
-              href="https://github.com/remixwarp/desktop/releases/download/v1.0.01/RemixWarp-Setup-1.0.01.dmg">
+            <a class="dl-opt github dl-link"
+              data-mode="github" data-asset="RemixWarp-Setup-{V}.dmg" href="#">
               GitHub 连接
             </a>
           </div>
@@ -364,16 +459,16 @@
             下载 .deb（x86 64 位）<span class="dl-caret">▾</span>
           </button>
           <div class="dl-options">
-            <a class="dl-opt fast"
-              href="https://v4.gh-proxy.org/https://github.com/remixwarp/desktop/releases/download/v1.0.01/RemixWarp-linux-x64-1.0.01.deb">
+            <a class="dl-opt fast dl-link"
+              data-mode="v4" data-asset="RemixWarp-linux-x64-{V}.deb" href="#">
               更快的加速连接<small>（推荐）</small>
             </a>
-            <a class="dl-opt fast"
-              href="https://gh-proxy.org/https://github.com/remixwarp/desktop/releases/download/v1.0.01/RemixWarp-linux-x64-1.0.01.deb">
+            <a class="dl-opt fast dl-link"
+              data-mode="gh" data-asset="RemixWarp-linux-x64-{V}.deb" href="#">
               加速连接
             </a>
-            <a class="dl-opt github"
-              href="https://github.com/remixwarp/desktop/releases/download/v1.0.01/RemixWarp-linux-x64-1.0.01.deb">
+            <a class="dl-opt github dl-link"
+              data-mode="github" data-asset="RemixWarp-linux-x64-{V}.deb" href="#">
               GitHub 连接
             </a>
           </div>
@@ -387,16 +482,16 @@
             下载 .AppImage（x86 64 位）<span class="dl-caret">▾</span>
           </button>
           <div class="dl-options">
-            <a class="dl-opt fast"
-              href="https://v4.gh-proxy.org/https://github.com/remixwarp/desktop/releases/download/v1.0.01/RemixWarp-linux-x64-1.0.01.AppImage">
+            <a class="dl-opt fast dl-link"
+              data-mode="v4" data-asset="RemixWarp-linux-x64-{V}.AppImage" href="#">
               更快的加速连接<small>（推荐）</small>
             </a>
-            <a class="dl-opt fast"
-              href="https://gh-proxy.org/https://github.com/remixwarp/desktop/releases/download/v1.0.01/RemixWarp-linux-x64-1.0.01.AppImage">
+            <a class="dl-opt fast dl-link"
+              data-mode="gh" data-asset="RemixWarp-linux-x64-{V}.AppImage" href="#">
               加速连接
             </a>
-            <a class="dl-opt github"
-              href="https://github.com/remixwarp/desktop/releases/download/v1.0.01/RemixWarp-linux-x64-1.0.01.AppImage">
+            <a class="dl-opt github dl-link"
+              data-mode="github" data-asset="RemixWarp-linux-x64-{V}.AppImage" href="#">
               GitHub 连接
             </a>
           </div>
@@ -410,16 +505,16 @@
             下载 .tar.gz（x86 64 位）<span class="dl-caret">▾</span>
           </button>
           <div class="dl-options">
-            <a class="dl-opt fast"
-              href="https://v4.gh-proxy.org/https://github.com/remixwarp/desktop/releases/download/v1.0.01/RemixWarp-linux-x64-1.0.01.tar.gz">
+            <a class="dl-opt fast dl-link"
+              data-mode="v4" data-asset="RemixWarp-linux-x64-{V}.tar.gz" href="#">
               更快的加速连接<small>（推荐）</small>
             </a>
-            <a class="dl-opt fast"
-              href="https://gh-proxy.org/https://github.com/remixwarp/desktop/releases/download/v1.0.01/RemixWarp-linux-x64-1.0.01.tar.gz">
+            <a class="dl-opt fast dl-link"
+              data-mode="gh" data-asset="RemixWarp-linux-x64-{V}.tar.gz" href="#">
               加速连接
             </a>
-            <a class="dl-opt github"
-              href="https://github.com/remixwarp/desktop/releases/download/v1.0.01/RemixWarp-linux-x64-1.0.01.tar.gz">
+            <a class="dl-opt github dl-link"
+              data-mode="github" data-asset="RemixWarp-linux-x64-{V}.tar.gz" href="#">
               GitHub 连接
             </a>
           </div>
@@ -429,14 +524,19 @@
 
     <section id="changelog">
       <h2>更新日志</h2>
+      <p class="note" style="margin:0 0 12px">点击版本可切换下方所有下载链接到对应版本。</p>
       <div lang="zh-CN">
-        <h3>v1.0.01（2026 年 8 月 21 日）</h3>
+        <h3 class="changelog-version" data-version="1.0.01" role="button" tabindex="0">
+          v1.0.01（2026 年 8 月 21 日）<span class="changelog-badge">当前版本</span>
+        </h3>
         <ul>
           <li>修复：扩展实验广场改为应用内打开，不再跳转到浏览器。</li>
           <li>更新安装界面图片。</li>
           <li>下载页新增更快的加速连接（v4.gh-proxy.org）。</li>
         </ul>
-        <h3>v1.0.0（2026 年 8 月 21 日）</h3>
+        <h3 class="changelog-version" data-version="1.0.0" role="button" tabindex="0">
+          v1.0.0（2026 年 8 月 21 日）
+        </h3>
         <ul>
           <li>首个 RemixWarp Desktop 正式版本。</li>
           <li>基于 TurboWarp 的完整中文本地化与实时协作支持。</li>
@@ -460,10 +560,16 @@
   </footer>
 
   <script>
-    // 检测访客操作系统，用于推荐下载
-    var VERSION = '1.0.01';
-    var GITHUB_BASE = 'https://github.com/remixwarp/desktop/releases/download/v' + VERSION + '/';
-    var PROXY = 'https://v4.gh-proxy.org/';
+    // 可选下载版本。数组第一项为最新版，其余为旧版。
+    var VERSIONS = [
+      { version: '1.0.01', label: '最新版 v1.0.01' },
+      { version: '1.0.0', label: '旧版 v1.0.0' }
+    ];
+    var activeVersion = '1.0.01';
+
+    var GITHUB_BASE = 'https://github.com/remixwarp/desktop/releases/download/v';
+    var GH_PROXY = 'https://gh-proxy.org/';
+    var V4_PROXY = 'https://v4.gh-proxy.org/';
 
     var getOS = function () {
       var ua = navigator.userAgent;
@@ -480,35 +586,84 @@
     var os = getOS();
     document.body.setAttribute('data-os', os);
 
+    // 根据 data-asset / data-mode 构建单个下载链接 URL
+    var buildDownloadUrl = function (mode, asset) {
+      var full = GITHUB_BASE + activeVersion + '/' + asset;
+      if (mode === 'v4') return V4_PROXY + full;
+      if (mode === 'gh') return GH_PROXY + full;
+      return full;
+    };
+
+    // 重写所有下载链接为目标版本
+    var renderLinks = function () {
+      var links = document.querySelectorAll('.dl-link');
+      links.forEach(function (a) {
+        var asset = (a.getAttribute('data-asset') || '').replace(/\{V\}/g, activeVersion);
+        a.href = buildDownloadUrl(a.getAttribute('data-mode'), asset);
+      });
+    };
+
     // 推荐下载：直接指向对应安装包的加速连接
-    var RECOMMEND = {
-      windows: {
-        label: '下载安装程序（64 位，推荐）',
-        asset: 'RemixWarp-Setup-' + VERSION + '-x64.exe'
-      },
-      mac: {
-        label: '下载适用于 macOS 12 及更高版本',
-        asset: 'RemixWarp-Setup-' + VERSION + '.dmg'
-      },
-      linux: {
-        label: '下载 .deb（x86 64 位，推荐）',
-        asset: 'RemixWarp-linux-x64-' + VERSION + '.deb'
-      },
-      unsupported: {
-        label: '未知的操作系统？点击查看全部',
-        asset: null
+    var recBtn = document.getElementById('recommend-button');
+    var renderRecommend = function () {
+      var asset = null;
+      var label = '未知的操作系统？点击查看全部';
+      if (os === 'windows') {
+        asset = 'RemixWarp-Setup-' + activeVersion + '-x64.exe';
+        label = '下载安装程序（64 位，推荐）';
+      } else if (os === 'mac') {
+        asset = 'RemixWarp-Setup-' + activeVersion + '.dmg';
+        label = '下载适用于 macOS 12 及更高版本';
+      } else if (os === 'linux') {
+        asset = 'RemixWarp-linux-x64-' + activeVersion + '.deb';
+        label = '下载 .deb（x86 64 位，推荐）';
+      }
+      recBtn.textContent = label;
+      recBtn.href = asset ? V4_PROXY + GITHUB_BASE + activeVersion + '/' + asset : '#windows';
+    };
+
+    // 版本徽章 + 旧版警告
+    var badge = document.querySelector('.version-badge');
+    var warning = document.getElementById('old-warning');
+    var warningVersion = document.getElementById('old-warning-version');
+    var renderVersionUI = function () {
+      badge.textContent = '当前版本：v' + activeVersion;
+      if (activeVersion !== VERSIONS[0].version) {
+        warningVersion.textContent = 'v' + activeVersion;
+        warning.classList.add('show');
+      } else {
+        warning.classList.remove('show');
       }
     };
 
-    var recBtn = document.getElementById('recommend-button');
-    var info = RECOMMEND[os] || RECOMMEND.unsupported;
-    if (info.asset) {
-      recBtn.textContent = info.label;
-      recBtn.href = PROXY + GITHUB_BASE + info.asset;
-    } else {
-      recBtn.textContent = info.label;
-      recBtn.href = '#windows';
-    }
+    // 绑定更新日志里的版本标题作为版本切换按钮
+    var changelogVersions = document.querySelectorAll('.changelog-version');
+    changelogVersions.forEach(function (el) {
+      el.addEventListener('click', function () {
+        activeVersion = el.getAttribute('data-version');
+        renderAll();
+        // 切换版本后关闭已展开的下载选项
+        document.querySelectorAll('.dl-item.open').forEach(function (item) {
+          item.classList.remove('open');
+        });
+      });
+      el.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          el.click();
+        }
+      });
+    });
+
+    var renderAll = function () {
+      renderLinks();
+      renderRecommend();
+      renderVersionUI();
+      changelogVersions.forEach(function (el) {
+        el.classList.toggle('active', el.getAttribute('data-version') === activeVersion);
+      });
+    };
+    renderAll();
 
     // 下载选项展开/收起
     function toggleDl(btn) {
