@@ -702,7 +702,7 @@ class EditorWindow extends ProjectRunningWindow {
       });
     }
 
-    if (parsed.origin === 'https://extensions.bilup.org') {
+    if (parsed.origin === 'https://rw-c.pages.dev/experiment-plaza') {
       return callback({
         redirectURL: `bl-extensions://.${parsed.pathname}`
       });

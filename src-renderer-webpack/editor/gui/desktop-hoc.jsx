@@ -88,7 +88,7 @@ const handleClickAbout = (title) => {
 };
 
 const handleClickSourceCode = () => {
-  window.open('https://github.com/Bilup');
+  window.open('https://github.com/remixwarp');
 };
 
 const securityManager = {

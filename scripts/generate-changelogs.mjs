@@ -105,7 +105,7 @@ const generateMetainfo = (releases) => {
   let xml = '';
   for (const {version, date, notes} of releases) {
     xml += `    <release version="${version}" date="${formatIsoDate(date)}">\n`;
-    xml += `      <url type="details">https://github.com/Bilup/desktop/releases/tag/v${version}</url>\n`;
+    xml += `      <url type="details">https://github.com/remixwarp/desktop/releases/tag/v${version}</url>\n`;
     xml += '      <description>\n';
     xml += '        <ul>\n';
     for (let note of notes) {

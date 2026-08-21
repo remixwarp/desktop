@@ -28,7 +28,7 @@ const writeCurrentVersion = async () => {
 };
 
 const openUpdatePage = () => {
-  openExternal('https://desktop.bilup.org/');
+  openExternal('https://rw-desktop.pages.dev/docs/');
 };
 
 /**
@@ -143,7 +143,7 @@ const migrate = async () => {
       message: translate('downgrade-warning.title'),
       detail: translate('downgrade-warning.message')
         .replace('{APP_NAME}', APP_NAME)
-        .replace('{website}', 'desktop.bilup.org')
+        .replace('{website}', 'rw-desktop.pages.dev/docs')
         .replace('{debugInfo}', changes.join(', ')),
       buttons: [
         translate('downgrade-warning.exit'),

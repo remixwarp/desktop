@@ -5,7 +5,7 @@ const {translate, getStrings, getLocale} = require('../l10n');
 const settings = require('../settings');
 const {APP_NAME} = require('../brand');
 
-const EMAIL = 'support@bilup.org';
+const EMAIL = 'support@remixwarp.org';
 
 class MigrateWindow extends AbstractWindow {
   static LATEST_VERSION = 3;

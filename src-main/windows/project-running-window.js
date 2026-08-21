@@ -67,7 +67,7 @@ class ProjectRunningWindow extends AbtractWindow {
 
     const parsed = new URL(details.url);
 
-    if (parsed.origin === 'https://cdn.assets.scratch.mit.edu' || parsed.origin === 'https://assets.scratch.mit.edu' || parsed.origin === 'https://assets.r2.bilup.org') {
+    if (parsed.origin === 'https://cdn.assets.scratch.mit.edu' || parsed.origin === 'https://assets.scratch.mit.edu') {
       const match = parsed.href.match(/[0-9a-f]{32}\.\w{3}/i);
       if (match) {
         const md5ext = match[0];
@@ -90,7 +90,7 @@ class ProjectRunningWindow extends AbtractWindow {
       });
     }
 
-    if (parsed.origin === 'https://extensions.bilup.org') {
+    if (parsed.origin === 'https://rw-c.pages.dev/experiment-plaza') {
       return callback({
         redirectURL: `bl-extensions://.${parsed.pathname}`
       });
@@ -130,7 +130,7 @@ class ProjectRunningWindow extends AbtractWindow {
       // revealing any metadata that they couldn't already have access to.
       return callback({
         requestHeaders: {
-          referer: 'https://desktop.bilup.org/referer.html'
+          referer: 'https://rw-desktop.pages.dev/docs/referer.html'
         }
       });
     }

@@ -349,7 +349,7 @@
         };
 
         const changelog = document.querySelector('.update-log');
-        fetch(`https://desktop.bilup.org/changelog.json?version=${info.latestVersion}`)
+        fetch(`https://rw-desktop.pages.dev/docs/changelog.json?version=${info.latestVersion}`)
           .then((res) => {
             if (!res.ok) {
               throw new Error(`HTTP error ${res.status}`);

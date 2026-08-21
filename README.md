@@ -1,15 +1,15 @@
-# Bilup Desktop
+# RemixWarp Desktop
 
-Bilup Desktop is a free, open source desktop application for creating Scratch 3 projects. It is a mod of [TurboWarp](https://turbowarp.org/) (a faster, addon-packed Scratch mod built from the [MistWarp](https://warp.mistium.com/) project), with **total Chinese translations**, **live collaboration**, and more.
+RemixWarp Desktop is a free, open source desktop application for creating Scratch 3 projects. It is a mod of [TurboWarp](https://turbowarp.org/) (a faster, addon-packed Scratch mod built from the [MistWarp](https://warp.mistium.com/) project), with **total Chinese translations**, **live collaboration**, and more.
 
 | | |
 | --- | --- |
-| Official website | <https://desktop.bilup.org/> |
-| Repository | <https://github.com/Bilup/desktop> |
-| Issues | <https://github.com/Bilup/desktop/issues> |
+| Official website | <https://rwee.pages.dev/rw.html> |
+| Repository | <https://github.com/remixwarp/desktop> |
+| Issues | <https://github.com/remixwarp/desktop/issues> |
 | License | [GPL-3.0](LICENSE) |
 
-Bilup Desktop is a community-developed project and has **no affiliation with the Scratch Team or MIT**.
+RemixWarp Desktop is a community-developed project and has **no affiliation with the Scratch Team or MIT**.
 
 ---
 
@@ -17,9 +17,9 @@ Bilup Desktop is a community-developed project and has **no affiliation with the
 
 - **Live collaboration** — Work on the same project together in real time.
 - **Total Chinese translations** — The entire editor is fully translated into Chinese (and more languages).
-- **Bilup Nova** — Use AI agents to help you create projects.
+- **RemixWarp Nova** — Use AI agents to help you create projects.
 - **Custom extensions library** — Browse and manage custom extensions inside the app.
-- **Works offline** — Bilup extensions and library assets are bundled locally, no internet required.
+- **Works offline** — RemixWarp extensions and library assets are bundled locally, no internet required.
 - **Built-in packager** — Convert projects to HTML files or standalone applications for Windows, macOS, or Linux.
 - **Hundreds of addons** — The full TurboWarp addon suite to customize and enhance your experience.
 - **Native file support** — Open and save `.sb3`, `.sb2`, and `.sb` files directly from your file manager.
@@ -28,9 +28,9 @@ Bilup Desktop is a community-developed project and has **no affiliation with the
 
 ## Download
 
-The latest official releases can be downloaded from the [official website](https://desktop.bilup.org/).
+The latest official releases can be downloaded from the [official website](https://rwee.pages.dev/rw.html).
 
-Bilup Desktop is available for:
+RemixWarp Desktop is available for:
 
 - **Windows 10 and later** — NSIS installer, portable executable, and Microsoft Store (AppX)
 - **macOS** — Universal DMG (Apple Silicon + Intel), and Mac App Store
@@ -50,8 +50,8 @@ Bilup Desktop is available for:
 
 ```bash
 # Clone the repository (including submodules)
-git clone --recursive https://github.com/Bilup/desktop bilup-desktop
-cd bilup-desktop
+git clone --recursive https://github.com/remixwarp/desktop remixwarp-desktop
+cd remixwarp-desktop
 
 # Install dependencies
 npm i
@@ -118,7 +118,7 @@ See [changelog.md](changelog.md).
 
 ## Contributing
 
-Contributions are welcome. If you find a bug or have a feature request, please open an issue at <https://github.com/Bilup/desktop/issues>. For security-related concerns, contact <support@bilup.org>.
+Contributions are welcome. If you find a bug or have a feature request, please open an issue at <https://github.com/remixwarp/desktop/issues>. For security-related concerns, contact <support@remixwarp.org>.
 
 ## License
 

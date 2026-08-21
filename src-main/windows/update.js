@@ -31,7 +31,7 @@ class UpdateWindow extends AbstractWindow {
       const params = new URLSearchParams();
       params.set('from', currentVersion);
       params.set('to', latestVersion);
-      openExternal(`https://desktop.bilup.org/update_available?${params}`);
+      openExternal(`https://rw-desktop.pages.dev/docs/update_available?${params}`);
     });
 
     const ignore = (permanently) => {

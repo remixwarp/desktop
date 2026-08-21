@@ -72,7 +72,7 @@ const FILE_SCHEMES = {
     directoryIndex: 'index.html',
     defaultExtension: '.html',
     csp: "default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; script-src 'self' 'unsafe-inline'",
-    remoteFallback: 'https://extensions.bilup.org'
+    remoteFallback: 'https://rw-c.pages.dev/experiment-plaza'
   },
   'ae-extensions': {
     root: path.resolve(__dirname, '../dist-astra-extensions'),
@@ -113,7 +113,7 @@ const FILE_SCHEMES = {
   },
   'tw-update': {
     root: path.resolve(__dirname, '../src-renderer/update'),
-    csp: "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src https://desktop.bilup.org"
+    csp: "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src https://rw-desktop.pages.dev"
   },
   'tw-security-prompt': {
     root: path.resolve(__dirname, '../src-renderer/security-prompt'),
@@ -435,7 +435,7 @@ const createErrorPageHTML = (request, errorMessage) => `<!DOCTYPE html>
   </head>
   <body bgcolor="white" text="black">
     <h1>Protocol handler error</h1>
-    <p>If you can see this page, <a href="https://github.com/Bilup/desktop/issues" target="_blank" rel="noreferrer">please open a GitHub issue</a> or <a href="mailto:contact@bilup.org" target="_blank" rel="noreferrer">email us</a> with all the information below.</p>
+    <p>If you can see this page, <a href="https://github.com/remixwarp/desktop/issues" target="_blank" rel="noreferrer">please open a GitHub issue</a> or <a href="https://pd.qq.com/s/6em7c4w9l" target="_blank" rel="noreferrer">加入腾讯频道【RemixWarp重构跃迁】</a> with all the information below.</p>
     <pre>${escapeXML(errorMessage)}</pre>
     <pre>URL: ${escapeXML(request.url)}</pre>
     <pre>Version ${escapeXML(packageJSON.version)}, Electron ${escapeXML(process.versions.electron)}, Platform ${escapeXML(getPlatform())} ${escapeXML(process.arch)}, Distribution ${escapeXML(getDist())}</pre>

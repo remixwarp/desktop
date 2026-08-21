@@ -149,7 +149,7 @@ const rebuildMenuBar = () => {
           {
             label: translate('menu.learn-more'),
             click: () => {
-              openExternal('https://desktop.bilup.org/')
+              openExternal('https://rw-desktop.pages.dev/docs/')
             }
           }
         ]

@@ -4,7 +4,7 @@ const packageJSON = require('../package.json');
 const privilegedFetch = require('./fetch');
 
 const currentVersion = packageJSON.version;
-const URL = 'https://desktop.bilup.org/version.json';
+const URL = 'https://rw-desktop.pages.dev/docs/version.json';
 
 /**
  * Determines whether the update checker is even allowed to be enabled
