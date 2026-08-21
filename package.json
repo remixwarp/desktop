@@ -1,7 +1,7 @@
 {
   "name": "remixwarp-desktop",
   "description": "TurboWarp mod with Chinese translations and live collaboration.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "license": "GPL-3.0",
   "author": {
     "email": "support@remixwarp.org",
@@ -127,7 +127,7 @@
       "displayName": "RemixWarp",
       "identityName": "RyaninCn11.RemixWarp",
       "publisher": "CN=68DB998A-9108-48E9-BAD6-416DA5DB2F35",
-      "publisherDisplayName": "RyaninCn11",
+      "publisherDisplayName": "笑小朗",
       "backgroundColor": "#75c1c4",
       "showNameOnTiles": true,
       "languages": [

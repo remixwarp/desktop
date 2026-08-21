@@ -2,6 +2,10 @@ This document is the authoritative source for TurboWarp's changelogs. Everything
 
 Prefix notes with "Windows:", "macOS:", or "Linux:" as needed. Do not use **formatting** or [links](https://rw-desktop.pages.dev/docs/).
 
+# 1.0.3 (2026-08-21)
+- Fix: Microsoft Store packaging rejected because publisher display name did not match. Now uses 笑小朗.
+- Fix: remove Bilup Git entry from the version control window.
+
 # 1.0.2 (2026-08-21)
 - Fix: open extension experiment-plaza in-app instead of jumping to the browser
 - Fix: crash during startup migration check caused by invalid version format
