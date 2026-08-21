@@ -374,7 +374,7 @@
 
   <main>
     <div style="text-align:center">
-      <span class="version-badge">当前版本：v1.0.01</span>
+      <span class="version-badge">当前版本：v1.0.2</span>
     </div>
 
     <div class="old-warning" id="old-warning">
@@ -526,12 +526,12 @@
       <h2>更新日志</h2>
       <p class="note" style="margin:0 0 12px">点击版本可切换下方所有下载链接到对应版本。</p>
       <div lang="zh-CN">
-        <h3 class="changelog-version" data-version="1.0.01" role="button" tabindex="0">
-          v1.0.01（2026 年 8 月 21 日）<span class="changelog-badge">当前版本</span>
+        <h3 class="changelog-version" data-version="1.0.2" role="button" tabindex="0">
+          v1.0.2（2026 年 8 月 21 日）<span class="changelog-badge">当前版本</span>
         </h3>
         <ul>
           <li>修复：扩展实验广场改为应用内打开，不再跳转到浏览器。</li>
-          <li>更新安装界面图片。</li>
+          <li>修复：启动迁移检查因版本号格式导致的崩溃。</li>
           <li>下载页新增更快的加速连接（v4.gh-proxy.org）。</li>
         </ul>
         <h3 class="changelog-version" data-version="1.0.0" role="button" tabindex="0">
@@ -547,7 +547,7 @@
     <section style="text-align:center">
       <h2>更多信息</h2>
       <div class="links">
-        <a href="https://github.com/remixwarp/desktop/releases/tag/v1.0.01">GitHub 发布页</a>
+        <a href="https://github.com/remixwarp/desktop/releases/tag/v1.0.2">GitHub 发布页</a>
         <a href="https://github.com/remixwarp/desktop">源代码</a>
         <a href="https://github.com/remixwarp/desktop/issues">报告问题</a>
         <a href="https://remixwarp.pages.dev/">在线编辑器</a>
@@ -562,14 +562,14 @@
   <script>
     // 各版本的精确产物文件名（来自 GitHub Releases 实际生成的 assets）
     // 注意：electron-builder 会把版本号规范化为 1.0.1（Win/Linux），
-    // 而 mac 的 dmg 由工作流用 tag 名 v1.0.01 重命名。
+    // 而 mac 的 dmg 由工作流用 tag 名（如 v1.0.2）重命名。
     var RELEASES = {
-      '1.0.01': {
-        win: 'RemixWarp-Setup-1.0.1-x64.exe',
-        mac: 'RemixWarp-Setup-modern-v1.0.01.dmg',
-        deb: 'RemixWarp-linux-amd64-1.0.1.deb',
-        appimage: 'RemixWarp-linux-x86_64-1.0.1.AppImage',
-        targz: 'RemixWarp-linux-x64-1.0.1.tar.gz'
+      '1.0.2': {
+        win: 'RemixWarp-Setup-1.0.2-x64.exe',
+        mac: 'RemixWarp-Setup-modern-v1.0.2.dmg',
+        deb: 'RemixWarp-linux-amd64-1.0.2.deb',
+        appimage: 'RemixWarp-linux-x86_64-1.0.2.AppImage',
+        targz: 'RemixWarp-linux-x64-1.0.2.tar.gz'
       },
       '1.0.0': {
         win: 'RemixWarp-Setup-1.0.0-x64.exe',
@@ -582,10 +582,10 @@
 
     // 可选下载版本。数组第一项为最新版，其余为旧版。
     var VERSIONS = [
-      { version: '1.0.01', label: '最新版 v1.0.01' },
+      { version: '1.0.2', label: '最新版 v1.0.2' },
       { version: '1.0.0', label: '旧版 v1.0.0' }
     ];
-    var activeVersion = '1.0.01';
+    var activeVersion = '1.0.2';
 
     var GITHUB_BASE = 'https://github.com/remixwarp/desktop/releases/download/v';
     var GH_PROXY = 'https://gh-proxy.org/';
