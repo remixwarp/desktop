@@ -127,6 +127,7 @@ const getContentType = (file) => {
     if (file.endsWith('.deb')) return 'application/vnd.debian.binary-package';
     if (file.endsWith('.appimage')) return 'application/vnd.appimage';
     if (file.endsWith('.tar.gz')) return 'application/gzip';
+    if (file.endsWith('.appx')) return 'application/appx';
     return 'application/octet-stream';
 };
 

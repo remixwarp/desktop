@@ -8,6 +8,75 @@
   min-height: 640px;
 }
 
+.app-with-dev-bar {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.app-with-dev-bar #app {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.appx-dev-bar {
+  position: absolute;
+  right: 12px;
+  bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  opacity: 0.55;
+  transition: opacity 0.15s ease;
+  z-index: 2147483000; /* sit on top of scratch-gui UI */
+  pointer-events: auto;
+}
+
+.appx-dev-bar:hover {
+  opacity: 1;
+}
+
+.appx-dev-label {
+  color: currentColor;
+  opacity: 0.85;
+  margin-right: 2px;
+  user-select: none;
+}
+
+.appx-dev-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 1px 5px;
+  font-size: 10px;
+  line-height: 14px;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  background: transparent;
+  color: currentColor;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.appx-dev-btn:hover {
+  background: currentColor;
+  color: var(--ui-white, #fff);
+}
+
+.appx-dev-btn:active {
+  opacity: 0.7;
+}
+
+/* Dark theme override for clarity if scratch-gui exposes it */
+[theme="dark"] .appx-dev-bar {
+  opacity: 0.55;
+}
+
 a {
   color: #25d;
   text-decoration: underline;
