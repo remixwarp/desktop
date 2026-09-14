@@ -212,6 +212,40 @@
       font-size: 0.95rem;
     }
 
+    .dev-dl-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .dev-dl-btn {
+      display: inline-block;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-decoration: none;
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: filter 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      cursor: pointer;
+    }
+
+    .dev-dl-btn:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      filter: none;
+    }
+
+    .dev-dl-hint {
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-top: 10px;
+      margin-bottom: 2px;
+    }
+
     .old-warning {
       display: none;
       background: #fff3cd;
@@ -420,6 +454,21 @@
         </li>
       </ul>
       <p class="note">如果出现 Windows SmartScreen 提示，请点击“更多信息”后选择“仍要运行”。</p>
+      <p class="dev-dl-hint">开发人员下载（MSIX/Appx 包，使用加速连接，需开发者证书安装）：</p>
+      <div class="dev-dl-row">
+        <a class="dev-dl-btn dl-link"
+          data-mode="v4" data-file="appx64" href="#">
+          .appx x64
+        </a>
+        <a class="dev-dl-btn dl-link"
+          data-mode="v4" data-file="appxia32" href="#">
+          .appx ia32
+        </a>
+        <a class="dev-dl-btn dl-link"
+          data-mode="v4" data-file="appxarm64" href="#">
+          .appx arm64
+        </a>
+      </div>
     </section>
 
     <section id="mac">
@@ -594,42 +643,60 @@
         mac: 'RemixWarp-Setup-modern-v1.0.6.dmg',
         deb: 'RemixWarp-linux-amd64-1.0.6.deb',
         appimage: 'RemixWarp-linux-x86_64-1.0.6.AppImage',
-        targz: 'RemixWarp-linux-x64-1.0.6.tar.gz'
+        targz: 'RemixWarp-linux-x64-1.0.6.tar.gz',
+        appx64: 'RemixWarp-MS-Store-1.0.6-x64.appx',
+        appxia32: 'RemixWarp-MS-Store-1.0.6-ia32.appx',
+        appxarm64: 'RemixWarp-MS-Store-1.0.6-arm64.appx'
       },
       '1.0.5': {
         win: 'RemixWarp-Setup-1.0.5-x64.exe',
         mac: 'RemixWarp-Setup-modern-v1.0.5.dmg',
         deb: 'RemixWarp-linux-amd64-1.0.5.deb',
         appimage: 'RemixWarp-linux-x86_64-1.0.5.AppImage',
-        targz: 'RemixWarp-linux-x64-1.0.5.tar.gz'
+        targz: 'RemixWarp-linux-x64-1.0.5.tar.gz',
+        appx64: 'RemixWarp-MS-Store-1.0.5-x64.appx',
+        appxia32: 'RemixWarp-MS-Store-1.0.5-ia32.appx',
+        appxarm64: 'RemixWarp-MS-Store-1.0.5-arm64.appx'
       },
       '1.0.4': {
         win: 'RemixWarp-Setup-1.0.4-x64.exe',
         mac: 'RemixWarp-Setup-modern-v1.0.4.dmg',
         deb: 'RemixWarp-linux-amd64-1.0.4.deb',
         appimage: 'RemixWarp-linux-x86_64-1.0.4.AppImage',
-        targz: 'RemixWarp-linux-x64-1.0.4.tar.gz'
+        targz: 'RemixWarp-linux-x64-1.0.4.tar.gz',
+        appx64: 'RemixWarp-MS-Store-1.0.4-x64.appx',
+        appxia32: 'RemixWarp-MS-Store-1.0.4-ia32.appx',
+        appxarm64: 'RemixWarp-MS-Store-1.0.4-arm64.appx'
       },
       '1.0.3': {
         win: 'RemixWarp-Setup-1.0.3-x64.exe',
         mac: 'RemixWarp-Setup-modern-v1.0.3.dmg',
         deb: 'RemixWarp-linux-amd64-1.0.3.deb',
         appimage: 'RemixWarp-linux-x86_64-1.0.3.AppImage',
-        targz: 'RemixWarp-linux-x64-1.0.3.tar.gz'
+        targz: 'RemixWarp-linux-x64-1.0.3.tar.gz',
+        appx64: 'RemixWarp-MS-Store-1.0.3-x64.appx',
+        appxia32: 'RemixWarp-MS-Store-1.0.3-ia32.appx',
+        appxarm64: 'RemixWarp-MS-Store-1.0.3-arm64.appx'
       },
       '1.0.2': {
         win: 'RemixWarp-Setup-1.0.2-x64.exe',
         mac: 'RemixWarp-Setup-modern-v1.0.2.dmg',
         deb: 'RemixWarp-linux-amd64-1.0.2.deb',
         appimage: 'RemixWarp-linux-x86_64-1.0.2.AppImage',
-        targz: 'RemixWarp-linux-x64-1.0.2.tar.gz'
+        targz: 'RemixWarp-linux-x64-1.0.2.tar.gz',
+        appx64: 'RemixWarp-MS-Store-1.0.2-x64.appx',
+        appxia32: 'RemixWarp-MS-Store-1.0.2-ia32.appx',
+        appxarm64: 'RemixWarp-MS-Store-1.0.2-arm64.appx'
       },
       '1.0.0': {
         win: 'RemixWarp-Setup-1.0.0-x64.exe',
         mac: 'RemixWarp-Setup-modern-v1.0.0.dmg',
         deb: 'RemixWarp-linux-amd64-1.0.0.deb',
         appimage: 'RemixWarp-linux-x86_64-1.0.0.AppImage',
-        targz: 'RemixWarp-linux-x64-1.0.0.tar.gz'
+        targz: 'RemixWarp-linux-x64-1.0.0.tar.gz',
+        appx64: 'RemixWarp-MS-Store-1.0.0-x64.appx',
+        appxia32: 'RemixWarp-MS-Store-1.0.0-ia32.appx',
+        appxarm64: 'RemixWarp-MS-Store-1.0.0-arm64.appx'
       }
     };
 
