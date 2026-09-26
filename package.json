@@ -1,7 +1,7 @@
 {
   "name": "remixwarp-desktop",
   "description": "TurboWarp mod with Chinese translations and live collaboration.",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "license": "GPL-3.0",
   "author": {
     "email": "support@remixwarp.org",
@@ -20,7 +20,8 @@
   },
   "dependencies": {
     "semver": "^7.7.3",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "rotur-sdk": "^2.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.28.4",

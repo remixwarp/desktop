@@ -212,6 +212,40 @@
       font-size: 0.95rem;
     }
 
+    .dev-dl-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .dev-dl-btn {
+      display: inline-block;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-decoration: none;
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: filter 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      cursor: pointer;
+    }
+
+    .dev-dl-btn:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      filter: none;
+    }
+
+    .dev-dl-hint {
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-top: 10px;
+      margin-bottom: 2px;
+    }
+
     .old-warning {
       display: none;
       background: #fff3cd;
@@ -350,6 +384,35 @@
       text-decoration: underline;
     }
 
+    .ms-store-section {
+      text-align: center;
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px dashed var(--border);
+    }
+
+    .ms-store-label {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin: 0 0 10px;
+    }
+
+    .ms-store-badge {
+      display: inline-block;
+      height: 48px;
+      width: auto;
+      max-width: 100%;
+      transition: filter 0.15s ease, transform 0.05s ease;
+    }
+
+    .ms-store-badge:hover {
+      filter: brightness(1.06);
+    }
+
+    .ms-store-badge:active {
+      transform: translateY(1px);
+    }
+
     footer {
       text-align: center;
       color: var(--muted);
@@ -374,7 +437,7 @@
 
   <main>
     <div style="text-align:center">
-      <span class="version-badge">当前版本：v1.0.4</span>
+      <span class="version-badge">当前版本：v1.1.0</span>
     </div>
 
     <div class="old-warning" id="old-warning">
@@ -420,6 +483,27 @@
         </li>
       </ul>
       <p class="note">如果出现 Windows SmartScreen 提示，请点击“更多信息”后选择“仍要运行”。</p>
+      <p class="dev-dl-hint">开发人员下载（MSIX/Appx 包，使用加速连接，需开发者证书安装）：</p>
+      <div class="dev-dl-row">
+        <a class="dev-dl-btn dl-link"
+          data-mode="v4" data-file="appx64" href="#">
+          .appx x64
+        </a>
+        <a class="dev-dl-btn dl-link"
+          data-mode="v4" data-file="appxia32" href="#">
+          .appx ia32
+        </a>
+        <a class="dev-dl-btn dl-link"
+          data-mode="v4" data-file="appxarm64" href="#">
+          .appx arm64
+        </a>
+      </div>
+      <div class="ms-store-section">
+        <p class="ms-store-label">也可以直接从 Microsoft Store 安装（推荐）：</p>
+        <a href="https://apps.microsoft.com/detail/9NKQJR845M6J" target="_blank" rel="noopener" aria-label="Get RemixWarp Desktop from Microsoft Store">
+          <img class="ms-store-badge" src="./ms-store-badge.svg" alt="Get it from Microsoft Store">
+        </a>
+      </div>
     </section>
 
     <section id="mac">
@@ -526,8 +610,45 @@
       <h2>更新日志</h2>
       <p class="note" style="margin:0 0 12px">点击版本可切换下方所有下载链接到对应版本。</p>
       <div lang="zh-CN">
+        <h3 class="changelog-version" data-version="1.1.0" role="button" tabindex="0">
+          v1.1.0（2026 年 9 月 23 日）<span class="changelog-badge">当前版本</span>
+        </h3>
+        <ul>
+          <li>修复了一部分已知 bug。</li>
+        </ul>
+        <h3 class="changelog-version" data-version="1.0.9" role="button" tabindex="0">
+          v1.0.9（2026 年 9 月 20 日）<span class="changelog-badge">当前版本</span>
+        </h3>
+        <ul>
+          <li>修复了一部分已知 bug。</li>
+        </ul>
+        <h3 class="changelog-version" data-version="1.0.8" role="button" tabindex="0">
+          v1.0.8（2026 年 9 月 19 日）
+        </h3>
+        <ul>
+          <li>修复了一部分已知 bug。</li>
+        </ul>
+        <h3 class="changelog-version" data-version="1.0.7" role="button" tabindex="0">
+          v1.0.7（2026 年 9 月 16 日）
+        </h3>
+        <ul>
+          <li>修复了一部分已知 bug。</li>
+          <li>Windows 安装区新增 Microsoft Store 官方徽章，可一键跳转安装。</li>
+        </ul>
+        <h3 class="changelog-version" data-version="1.0.6" role="button" tabindex="0">
+          v1.0.6（2026 年 9 月 14 日）
+        </h3>
+        <ul>
+          <li>修复了一部分已知 bug。</li>
+        </ul>
+        <h3 class="changelog-version" data-version="1.0.5" role="button" tabindex="0">
+          v1.0.5（2026 年 8 月 26 日）
+        </h3>
+        <ul>
+          <li>更新下载站展示最新版本 v1.0.5 及其下载链接。</li>
+        </ul>
         <h3 class="changelog-version" data-version="1.0.4" role="button" tabindex="0">
-          v1.0.4（2026 年 8 月 23 日）<span class="changelog-badge">当前版本</span>
+          v1.0.4（2026 年 8 月 23 日）
         </h3>
         <ul>
           <li>更新下载站展示最新版本 v1.0.4 及其下载链接。</li>
@@ -560,7 +681,7 @@
     <section style="text-align:center">
       <h2>更多信息</h2>
       <div class="links">
-        <a href="https://github.com/remixwarp/desktop/releases/tag/v1.0.4">GitHub 发布页</a>
+        <a href="https://github.com/remixwarp/desktop/releases/tag/v1.1.0">GitHub 发布页</a>
         <a href="https://github.com/remixwarp/desktop">源代码</a>
         <a href="https://github.com/remixwarp/desktop/issues">报告问题</a>
         <a href="https://remixwarp.pages.dev/">在线编辑器</a>
@@ -577,44 +698,122 @@
     // 注意：electron-builder 会把版本号规范化为 1.0.1（Win/Linux），
     // 而 mac 的 dmg 由工作流用 tag 名（如 v1.0.2）重命名。
     var RELEASES = {
+      '1.1.0': {
+        win: 'RemixWarp-Setup-1.1.0-x64.exe',
+        mac: 'RemixWarp-Setup-modern-v1.1.0.dmg',
+        deb: 'RemixWarp-linux-amd64-1.1.0.deb',
+        appimage: 'RemixWarp-linux-x86_64-1.1.0.AppImage',
+        targz: 'RemixWarp-linux-x64-1.1.0.tar.gz',
+        appx64: 'RemixWarp-MS-Store-1.1.0-x64.appx',
+        appxia32: 'RemixWarp-MS-Store-1.1.0-ia32.appx',
+        appxarm64: 'RemixWarp-MS-Store-1.1.0-arm64.appx'
+      },
+      '1.0.9': {
+        win: 'RemixWarp-Setup-1.0.9-x64.exe',
+        mac: 'RemixWarp-Setup-modern-v1.0.9.dmg',
+        deb: 'RemixWarp-linux-amd64-1.0.9.deb',
+        appimage: 'RemixWarp-linux-x86_64-1.0.9.AppImage',
+        targz: 'RemixWarp-linux-x64-1.0.9.tar.gz',
+        appx64: 'RemixWarp-MS-Store-1.0.9-x64.appx',
+        appxia32: 'RemixWarp-MS-Store-1.0.9-ia32.appx',
+        appxarm64: 'RemixWarp-MS-Store-1.0.9-arm64.appx'
+      },
+      '1.0.8': {
+        win: 'RemixWarp-Setup-1.0.8-x64.exe',
+        mac: 'RemixWarp-Setup-modern-v1.0.8.dmg',
+        deb: 'RemixWarp-linux-amd64-1.0.8.deb',
+        appimage: 'RemixWarp-linux-x86_64-1.0.8.AppImage',
+        targz: 'RemixWarp-linux-x64-1.0.8.tar.gz',
+        appx64: 'RemixWarp-MS-Store-1.0.8-x64.appx',
+        appxia32: 'RemixWarp-MS-Store-1.0.8-ia32.appx',
+        appxarm64: 'RemixWarp-MS-Store-1.0.8-arm64.appx'
+      },
+      '1.0.7': {
+        win: 'RemixWarp-Setup-1.0.7-x64.exe',
+        mac: 'RemixWarp-Setup-modern-v1.0.7.dmg',
+        deb: 'RemixWarp-linux-amd64-1.0.7.deb',
+        appimage: 'RemixWarp-linux-x86_64-1.0.7.AppImage',
+        targz: 'RemixWarp-linux-x64-1.0.7.tar.gz',
+        appx64: 'RemixWarp-MS-Store-1.0.7-x64.appx',
+        appxia32: 'RemixWarp-MS-Store-1.0.7-ia32.appx',
+        appxarm64: 'RemixWarp-MS-Store-1.0.7-arm64.appx'
+      },
+      '1.0.6': {
+        win: 'RemixWarp-Setup-1.0.6-x64.exe',
+        mac: 'RemixWarp-Setup-modern-v1.0.6.dmg',
+        deb: 'RemixWarp-linux-amd64-1.0.6.deb',
+        appimage: 'RemixWarp-linux-x86_64-1.0.6.AppImage',
+        targz: 'RemixWarp-linux-x64-1.0.6.tar.gz',
+        appx64: 'RemixWarp-MS-Store-1.0.6-x64.appx',
+        appxia32: 'RemixWarp-MS-Store-1.0.6-ia32.appx',
+        appxarm64: 'RemixWarp-MS-Store-1.0.6-arm64.appx'
+      },
+      '1.0.5': {
+        win: 'RemixWarp-Setup-1.0.5-x64.exe',
+        mac: 'RemixWarp-Setup-modern-v1.0.5.dmg',
+        deb: 'RemixWarp-linux-amd64-1.0.5.deb',
+        appimage: 'RemixWarp-linux-x86_64-1.0.5.AppImage',
+        targz: 'RemixWarp-linux-x64-1.0.5.tar.gz',
+        appx64: 'RemixWarp-MS-Store-1.0.5-x64.appx',
+        appxia32: 'RemixWarp-MS-Store-1.0.5-ia32.appx',
+        appxarm64: 'RemixWarp-MS-Store-1.0.5-arm64.appx'
+      },
       '1.0.4': {
         win: 'RemixWarp-Setup-1.0.4-x64.exe',
         mac: 'RemixWarp-Setup-modern-v1.0.4.dmg',
         deb: 'RemixWarp-linux-amd64-1.0.4.deb',
         appimage: 'RemixWarp-linux-x86_64-1.0.4.AppImage',
-        targz: 'RemixWarp-linux-x64-1.0.4.tar.gz'
+        targz: 'RemixWarp-linux-x64-1.0.4.tar.gz',
+        appx64: 'RemixWarp-MS-Store-1.0.4-x64.appx',
+        appxia32: 'RemixWarp-MS-Store-1.0.4-ia32.appx',
+        appxarm64: 'RemixWarp-MS-Store-1.0.4-arm64.appx'
       },
       '1.0.3': {
         win: 'RemixWarp-Setup-1.0.3-x64.exe',
         mac: 'RemixWarp-Setup-modern-v1.0.3.dmg',
         deb: 'RemixWarp-linux-amd64-1.0.3.deb',
         appimage: 'RemixWarp-linux-x86_64-1.0.3.AppImage',
-        targz: 'RemixWarp-linux-x64-1.0.3.tar.gz'
+        targz: 'RemixWarp-linux-x64-1.0.3.tar.gz',
+        appx64: 'RemixWarp-MS-Store-1.0.3-x64.appx',
+        appxia32: 'RemixWarp-MS-Store-1.0.3-ia32.appx',
+        appxarm64: 'RemixWarp-MS-Store-1.0.3-arm64.appx'
       },
       '1.0.2': {
         win: 'RemixWarp-Setup-1.0.2-x64.exe',
         mac: 'RemixWarp-Setup-modern-v1.0.2.dmg',
         deb: 'RemixWarp-linux-amd64-1.0.2.deb',
         appimage: 'RemixWarp-linux-x86_64-1.0.2.AppImage',
-        targz: 'RemixWarp-linux-x64-1.0.2.tar.gz'
+        targz: 'RemixWarp-linux-x64-1.0.2.tar.gz',
+        appx64: 'RemixWarp-MS-Store-1.0.2-x64.appx',
+        appxia32: 'RemixWarp-MS-Store-1.0.2-ia32.appx',
+        appxarm64: 'RemixWarp-MS-Store-1.0.2-arm64.appx'
       },
       '1.0.0': {
         win: 'RemixWarp-Setup-1.0.0-x64.exe',
         mac: 'RemixWarp-Setup-modern-v1.0.0.dmg',
         deb: 'RemixWarp-linux-amd64-1.0.0.deb',
         appimage: 'RemixWarp-linux-x86_64-1.0.0.AppImage',
-        targz: 'RemixWarp-linux-x64-1.0.0.tar.gz'
+        targz: 'RemixWarp-linux-x64-1.0.0.tar.gz',
+        appx64: 'RemixWarp-MS-Store-1.0.0-x64.appx',
+        appxia32: 'RemixWarp-MS-Store-1.0.0-ia32.appx',
+        appxarm64: 'RemixWarp-MS-Store-1.0.0-arm64.appx'
       }
     };
 
     // 可选下载版本。数组第一项为最新版，其余为旧版。
     var VERSIONS = [
-      { version: '1.0.4', label: '最新版 v1.0.4' },
+      { version: '1.1.0', label: '最新版 v1.1.0' },
+      { version: '1.0.9', label: '旧版 v1.0.9' },
+      { version: '1.0.8', label: '旧版 v1.0.8' },
+      { version: '1.0.7', label: '旧版 v1.0.7' },
+      { version: '1.0.6', label: '旧版 v1.0.6' },
+      { version: '1.0.5', label: '旧版 v1.0.5' },
+      { version: '1.0.4', label: '旧版 v1.0.4' },
       { version: '1.0.3', label: '旧版 v1.0.3' },
       { version: '1.0.2', label: '旧版 v1.0.2' },
       { version: '1.0.0', label: '旧版 v1.0.0' }
     ];
-    var activeVersion = '1.0.4';
+    var activeVersion = '1.1.0';
 
     var GITHUB_BASE = 'https://github.com/remixwarp/desktop/releases/download/v';
     var GH_PROXY = 'https://gh-proxy.org/';

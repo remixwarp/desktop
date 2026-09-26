@@ -16,7 +16,7 @@ const base = {
         // GUI-pinned lucide (webpack 4 cannot parse lucide 1.x ESM) + CJS rotur-sdk
         alias: {
             'lucide-react': path.resolve(__dirname, 'node_modules/scratch-gui/node_modules/lucide-react'),
-            'rotur-sdk': path.resolve(__dirname, 'node_modules/scratch-gui/node_modules/rotur-sdk/dist/index.js')
+            'rotur-sdk': path.resolve(__dirname, 'node_modules/rotur-sdk/dist/index.js')
         },
         mainFields: ['browser', 'main', 'module']
     },
