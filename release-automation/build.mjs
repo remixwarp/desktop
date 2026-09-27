@@ -275,11 +275,22 @@ const buildWindowsDir = () => build({
   manageUpdates: true
 });
 
-const buildMicrosoftStore = () => build({
-  platformName: 'WINDOWS',
-  platformType: 'appx',
-  manageUpdates: false
-});
+const buildMicrosoftStore = () => {
+  // AppX 包版本号必须是四段十进制 (Major.Minor.Build.Revision)，
+  // 否则微软商店会报 0x8051100F（程序包文件格式无效）。
+  const pkgVersion = JSON.parse(fs.readFileSync(pathUtil.join(process.cwd(), 'package.json'), 'utf-8')).version;
+  const appxVersion = pkgVersion.split('.').length === 3 ? `${pkgVersion}.0` : pkgVersion;
+  return build({
+    platformName: 'WINDOWS',
+    platformType: 'appx',
+    manageUpdates: false,
+    extraConfig: {
+      appx: {
+        version: appxVersion
+      }
+    }
+  });
+};
 
 // Mac OS
 
