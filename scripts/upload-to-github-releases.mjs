@@ -143,10 +143,48 @@ const getContentType = (file) => {
  * @param {string} file Absolute path. Will be uploaded with same file name.
  * @returns {Promise<Asset>}
  */
+/**
+ * Delete any existing asset of the given release whose name matches `fileName`.
+ * This makes re-running the release upload idempotent (e.g. after re-tagging
+ * the same version): GitHub rejects uploads of an asset name that already
+ * exists, so we remove the stale one first.
+ *
+ * @param {string} owner
+ * @param {string} repo
+ * @param {number} releaseId
+ * @param {string} fileName
+ * @returns {Promise<void>}
+ */
+const deleteExistingAsset = async (owner, repo, releaseId, fileName) => {
+    const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/releases/${releaseId}/assets`, {
+        headers: githubHeaders
+    });
+    if (!res.ok) {
+        console.warn(`Could not list assets for release ${releaseId}: HTTP ${res.status}`);
+        return;
+    }
+    const assets = await res.json();
+    for (const asset of assets) {
+        if (asset.name === fileName) {
+            console.log(`Deleting existing asset ${asset.name} (id ${asset.id})`);
+            const del = await fetch(`https://api.github.com/repos/${owner}/${repo}/releases/assets/${asset.id}`, {
+                method: 'DELETE',
+                headers: githubHeaders
+            });
+            if (!del.ok) {
+                console.warn(`Failed to delete asset ${asset.id}: HTTP ${del.status}`);
+            }
+        }
+    }
+};
+
 const uploadReleaseAsset = async (owner, repo, releaseId, file) => {
     const fileName = pathUtil.basename(file);
     const fileType = getContentType(fileName);
     const fileData = await fsPromises.readFile(file);
+
+    // Re-release safety: drop any stale asset with the same name first.
+    await deleteExistingAsset(owner, repo, releaseId, fileName);
 
     const res = await fetch(`https://uploads.github.com/repos/${owner}/${repo}/releases/${releaseId}/assets?name=${encodeURIComponent(fileName)}`, {
         method: 'POST',
