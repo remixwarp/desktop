@@ -18,6 +18,11 @@ const ROOT_PAGES = [
     'monaco-editor-iframe.html'
 ];
 
+// Monaco 编辑器的 AMD 运行时，会被复制成
+// dist-renderer-webpack/editor/monaco/vs（对应 tw-editor://./monaco/vs）。
+const MONACO_DIRECTORY = path.join('node_modules', 'monaco-editor', 'min', 'vs');
+const MONACO_TARGET_NAME = path.join('monaco', 'vs');
+
 const desktopRoot = path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), '..');
 const sourceDirectory = path.join(desktopRoot, 'node_modules', 'scratch-gui', 'static');
 const targetDirectory = path.join(desktopRoot, 'dist-renderer-webpack', 'editor');
@@ -38,4 +43,20 @@ for (const file of ROOT_PAGES) {
     }
     fs.copyFileSync(from, to);
     console.log(`[copy-editor-static] ${file} -> dist-renderer-webpack/editor/`);
+}
+
+// monaco-editor 可能在桌面端根目录，也可能只装在 scratch-gui 的 node_modules 里
+const monacoCandidates = [
+    path.join(desktopRoot, MONACO_DIRECTORY),
+    path.join(desktopRoot, 'node_modules', 'scratch-gui', MONACO_DIRECTORY)
+];
+const monacoSource = monacoCandidates.find(candidate => fs.existsSync(candidate));
+
+if (!monacoSource) {
+    console.warn('[copy-editor-static] 未找到 monaco-editor/min/vs，Monaco 编辑器将回退到 CDN');
+} else {
+    const monacoTarget = path.join(targetDirectory, MONACO_TARGET_NAME);
+    fs.rmSync(monacoTarget, {recursive: true, force: true});
+    fs.cpSync(monacoSource, monacoTarget, {recursive: true});
+    console.log('[copy-editor-static] monaco-editor/min/vs -> dist-renderer-webpack/editor/monaco/vs');
 }

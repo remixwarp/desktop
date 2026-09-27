@@ -533,8 +533,14 @@ class EditorWindow extends ProjectRunningWindow {
 
     this.window.webContents.on('will-frame-navigate', (event) => {
       if (!event.isMainFrame && /^https?:/.test(event.url)) {
-        // 放行扩展实验广场 iframe，让它留在应用内渲染而不是跳到系统浏览器
-        if (event.url.startsWith('https://rw-c.pages.dev/experiment-plaza/')) {
+        // 放行这些 iframe，让它们留在应用内渲染而不是跳到系统浏览器：
+        //  - 扩展实验广场
+        //  - B 站播放器（视频教程）
+        const ALLOWED_IFRAME_PREFIXES = [
+          'https://rw-c.pages.dev/experiment-plaza/',
+          'https://player.bilibili.com/'
+        ];
+        if (ALLOWED_IFRAME_PREFIXES.some(prefix => event.url.startsWith(prefix))) {
           return;
         }
         event.preventDefault();
