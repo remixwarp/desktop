@@ -276,19 +276,16 @@ const buildWindowsDir = () => build({
 });
 
 const buildMicrosoftStore = () => {
-  // AppX 包版本号必须是四段十进制 (Major.Minor.Build.Revision)，
-  // 否则微软商店会报 0x8051100F（程序包文件格式无效）。
-  const pkgVersion = JSON.parse(fs.readFileSync(pathUtil.join(process.cwd(), 'package.json'), 'utf-8')).version;
-  const appxVersion = pkgVersion.split('.').length === 3 ? `${pkgVersion}.0` : pkgVersion;
+  // 注意：不要在 appx 配置里写 `version` 字段——它不是 electron-builder
+  // AppXOptions 的合法属性，会导致配置 schema 校验失败
+  // （"configuration.appx should be one of these: null"）。
+  // AppX 包所需的四段版本号 (Major.Minor.Build.Revision) 由 electron-builder
+  // 自动从 package.json 的 version 推导（见 appInfo.getVersionInWeirdWindowsForm，
+  // 例如 1.1.3 -> 1.1.3.0），无需手动设置，否则反而引发 0x8051100F。
   return build({
     platformName: 'WINDOWS',
     platformType: 'appx',
-    manageUpdates: false,
-    extraConfig: {
-      appx: {
-        version: appxVersion
-      }
-    }
+    manageUpdates: false
   });
 };
 
