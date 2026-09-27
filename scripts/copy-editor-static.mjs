@@ -24,13 +24,21 @@ const MONACO_DIRECTORY = path.join('node_modules', 'monaco-editor', 'min', 'vs')
 const MONACO_TARGET_NAME = path.join('monaco', 'vs');
 
 const desktopRoot = path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), '..');
-const sourceDirectory = path.join(desktopRoot, 'node_modules', 'scratch-gui', 'static');
+
+// scratch-gui 的 static 目录来源：优先 node_modules（构建环境已 npm install），
+// 回退到工作区同级目录（尚未 npm install scratch-gui 时也能从源码取到页面）。
+const STATIC_CANDIDATES = [
+    path.join(desktopRoot, 'node_modules', 'scratch-gui', 'static'),
+    path.join(desktopRoot, '..', 'scratch-gui', 'static')
+];
+const sourceDirectory = STATIC_CANDIDATES.find(candidate => fs.existsSync(candidate));
 const targetDirectory = path.join(desktopRoot, 'dist-renderer-webpack', 'editor');
 
-if (!fs.existsSync(sourceDirectory)) {
-    console.warn(`[copy-editor-static] 未找到 ${sourceDirectory}，跳过（请先 npm install）`);
+if (!sourceDirectory) {
+    console.warn('[copy-editor-static] 未找到 scratch-gui 的 static 目录，跳过（请先 npm install 或确认工作区同级存在 scratch-gui）');
     process.exit(0);
 }
+console.log(`[copy-editor-static] 使用来源目录：${sourceDirectory}`);
 
 fs.mkdirSync(targetDirectory, {recursive: true});
 
@@ -45,10 +53,12 @@ for (const file of ROOT_PAGES) {
     console.log(`[copy-editor-static] ${file} -> dist-renderer-webpack/editor/`);
 }
 
-// monaco-editor 可能在桌面端根目录，也可能只装在 scratch-gui 的 node_modules 里
+// monaco-editor 可能在桌面端根目录，也可能装在 scratch-gui 的 node_modules 里
+//（node_modules/scratch-gui 或工作区同级 scratch-gui）。
 const monacoCandidates = [
     path.join(desktopRoot, MONACO_DIRECTORY),
-    path.join(desktopRoot, 'node_modules', 'scratch-gui', MONACO_DIRECTORY)
+    path.join(desktopRoot, 'node_modules', 'scratch-gui', MONACO_DIRECTORY),
+    path.join(desktopRoot, '..', 'scratch-gui', 'node_modules', 'monaco-editor', 'min', 'vs')
 ];
 const monacoSource = monacoCandidates.find(candidate => fs.existsSync(candidate));
 
