@@ -23,6 +23,7 @@ import {
 } from 'scratch-gui/src/reducers/tw';
 import {WrappedFileHandle} from './filesystem-api.js';
 import {setStrings} from '../prompt/prompt.js';
+import {isRJFilename} from 'scratch-gui/src/lib/rj/constants.js';
 
 let mountedOnce = false;
 
@@ -31,7 +32,7 @@ let mountedOnce = false;
  * @returns {string}
  */
 const getDefaultProjectTitle = (filename) => {
-  const match = filename.match(/([^/\\]+)\.sb[2|3]?$/);
+  const match = filename.match(/([^/\\]+)\.(?:sb[23]?|rj)$/i);
   if (!match) return filename;
   return match[1];
 };
@@ -159,7 +160,18 @@ const DesktopHOC = function (WrappedComponent) {
         this.props.onHasInitialProject(true, this.props.loadingState);
         const {name, type, data} = await EditorPreload.getFile(id);
 
-        await this.props.vm.loadProject(data);
+        if (isRJFilename(name)) {
+          // .rj 是 RemixWarp 的分片式作品格式（zip + manifest.json + 多个分片 json），
+          // 必须用专用反序列化器装载。若直接交给 vm.loadProject，它会被当成 sb3 zip
+          // 去找 project.json，从而报
+          // "Failed to unzip and extract project.json ... missing project or sprite json"。
+          // Web 端「通过编辑器打开」走 sb-file-uploader-hoc.jsx，那里做了同样的判断，
+          // 所以只有双击/命令行这类走本文件的路径才会踩到。
+          const {loadRJIntoVM} = await import('scratch-gui/src/lib/rj/deserialize.js');
+          await loadRJIntoVM(this.props.vm, data);
+        } else {
+          await this.props.vm.loadProject(data);
+        }
         this.props.onLoadingCompleted();
         this.props.onLoadedProject(this.props.loadingState, true);
 

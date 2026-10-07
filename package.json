@@ -237,6 +237,13 @@
         "description": "Scratch 1 Project",
         "role": "Editor",
         "mimeType": "application/x.scratch.sb"
+      },
+      {
+        "ext": "rj",
+        "name": "RemixWarp Project",
+        "description": "RemixWarp Project",
+        "role": "Editor",
+        "mimeType": "application/x.remixwarp.rj"
       }
     ]
   },

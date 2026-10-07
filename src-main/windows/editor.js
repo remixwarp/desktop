@@ -370,8 +370,8 @@ class EditorWindow extends ProjectRunningWindow {
         defaultPath: settings.lastDirectory,
         filters: [
           {
-            name: 'Scratch Project',
-            extensions: ['sb3', 'sb2', 'sb'],
+            name: 'Project',
+            extensions: ['sb3', 'sb2', 'sb', 'rj'],
           }
         ]
       });
@@ -534,10 +534,12 @@ class EditorWindow extends ProjectRunningWindow {
     this.window.webContents.on('will-frame-navigate', (event) => {
       if (!event.isMainFrame && /^https?:/.test(event.url)) {
         // 放行这些 iframe，让它们留在应用内渲染而不是跳到系统浏览器：
-        //  - 扩展实验广场
+        //  - rw-c.pages.dev 上的各个广场（配置广场 / 素材广场 / 扩展实验广场）
+        //    注意：这些广场都是以 iframe 嵌入编辑器的，若不在白名单里会被
+        //    preventDefault() 拦掉并弹到系统浏览器，应用内只剩一个空壳。
         //  - B 站播放器（视频教程）
         const ALLOWED_IFRAME_PREFIXES = [
-          'https://rw-c.pages.dev/experiment-plaza/',
+          'https://rw-c.pages.dev/',
           'https://player.bilibili.com/'
         ];
         if (ALLOWED_IFRAME_PREFIXES.some(prefix => event.url.startsWith(prefix))) {
@@ -712,9 +714,15 @@ class EditorWindow extends ProjectRunningWindow {
       });
     }
 
-    if (parsed.origin === 'https://rw-c.pages.dev/experiment-plaza') {
+    // rw-c.pages.dev 上还托管了 config-plaza / material-plaza 等页面，而 URL.origin
+    // 只包含协议+域名（不含路径），所以必须同时判断 origin 与路径前缀，
+    // 否则这里永远不会命中，实验广场就会绕过本协议直连远端。
+    // 去掉 /experiment-plaza 前缀（同 ae-extensions 的做法）：bl-extensions 的
+    // remoteFallback 在回源时会自动补回该前缀，本地缓存目录也不含此前缀。
+    if (parsed.origin === 'https://rw-c.pages.dev' && parsed.pathname.startsWith('/experiment-plaza')) {
+      const plazaPathname = parsed.pathname.slice('/experiment-plaza'.length);
       return callback({
-        redirectURL: `bl-extensions://.${parsed.pathname}`
+        redirectURL: `bl-extensions://.${plazaPathname}`
       });
     }
 

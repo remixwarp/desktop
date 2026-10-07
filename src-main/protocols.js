@@ -71,7 +71,11 @@ const FILE_SCHEMES = {
     stream: true,
     directoryIndex: 'index.html',
     defaultExtension: '.html',
-    csp: "default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; script-src 'self' 'unsafe-inline'",
+    // 该协议承载的是「扩展实验广场」这个交互式 SPA（remoteFallback 指向它），
+    // 与纯静态的扩展文档页不同：需要加载自身样式/字体，并向接口取数。
+    // 原 CSP 只有 style-src 'unsafe-inline'（不含 'self'，外链样式会被拦），
+    // 且未声明 connect-src 会回落到 default-src 'none' 导致取数被拦。
+    csp: "default-src 'none'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https:",
     remoteFallback: 'https://rw-c.pages.dev/experiment-plaza'
   },
   'ae-extensions': {

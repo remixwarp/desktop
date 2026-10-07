@@ -90,9 +90,12 @@ class ProjectRunningWindow extends AbtractWindow {
       });
     }
 
-    if (parsed.origin === 'https://rw-c.pages.dev/experiment-plaza') {
+    // URL.origin 不含路径，必须同时判断 origin 与路径前缀；
+    // 并去掉 /experiment-plaza 前缀，交给 bl-extensions 协议处理。
+    if (parsed.origin === 'https://rw-c.pages.dev' && parsed.pathname.startsWith('/experiment-plaza')) {
+      const plazaPathname = parsed.pathname.slice('/experiment-plaza'.length);
       return callback({
-        redirectURL: `bl-extensions://.${parsed.pathname}`
+        redirectURL: `bl-extensions://.${plazaPathname}`
       });
     }
 
@@ -125,13 +128,34 @@ class ProjectRunningWindow extends AbtractWindow {
     const parsed = new URL(details.url);
 
     if (WEB_PROTOCOLS.includes(parsed.protocol)) {
-      // Some third-party APIs (eg. YouTube embeds) require a non-empty referer header.
-      // The website being contacted already receives "bilup-desktop/x.y.z" in the user-agent so this isn't
-      // revealing any metadata that they couldn't already have access to.
-      return callback({
-        requestHeaders: {
-          referer: 'https://rw-desktop.pages.dev/docs/referer.html'
+      // 关键：webRequest 的 requestHeaders 是「整体替换」而非「合并」。
+      // 如果这里只传 { referer }，Chromium 会把 User-Agent / Accept / Cookie /
+      // Authorization 等全部丢掉，导致大量第三方站点（B 站播放器、各扩展库页面
+      // 等）直接拒绝响应——表现为"外壳能加载、内容请求不到"。
+      // 因此必须在原有请求头的基础上只覆盖 referer 一项。
+      const requestHeaders = {...details.requestHeaders};
+
+      // B 站播放器会校验 referer 来源，非 B 站域名会被拒绝播放视频源。
+      const isBilibili = parsed.hostname === 'bilibili.com' || parsed.hostname.endsWith('.bilibili.com');
+      const referer = isBilibili ?
+        'https://www.bilibili.com/' :
+        // Some third-party APIs (eg. YouTube embeds) require a non-empty referer header.
+        // The website being contacted already receives "bilup-desktop/x.y.z" in the user-agent so this isn't
+        // revealing any metadata that they couldn't already have access to.
+        'https://rw-desktop.pages.dev/docs/referer.html';
+
+      // 复用原有 referer 的大小写形式，避免出现两份 referer 头
+      let refererKey = 'referer';
+      for (const key of Object.keys(requestHeaders)) {
+        if (key.toLowerCase() === 'referer') {
+          refererKey = key;
+          break;
         }
+      }
+      requestHeaders[refererKey] = referer;
+
+      return callback({
+        requestHeaders
       });
     }
 
