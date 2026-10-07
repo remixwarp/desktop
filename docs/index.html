@@ -437,7 +437,7 @@
 
   <main>
     <div style="text-align:center">
-      <span class="version-badge">当前版本：v1.1.7</span>
+      <span class="version-badge">当前版本：v1.1.6</span>
     </div>
 
     <div class="old-warning" id="old-warning">
@@ -610,15 +610,8 @@
       <h2>更新日志</h2>
       <p class="note" style="margin:0 0 12px">点击版本可切换下方所有下载链接到对应版本。</p>
       <div lang="zh-CN">
-        <h3 class="changelog-version" data-version="1.1.7" role="button" tabindex="0">
-          v1.1.7（2026 年 10 月 7 日）<span class="changelog-badge">当前版本</span>
-        </h3>
-        <ul>
-          <li>修复视频教程中 B 站播放器一直“加载中”的问题：为编辑器窗口内嵌的 B 站 iframe 请求补齐 referer，否则视频源会被 B 站拒绝。</li>
-          <li>修复扩展实验广场链接错误/加载为空壳的问题：不再把它重定向到本地的 bl-extensions 协议，改为直接加载 https://rw-c.pages.dev/experiment-plaza/，与素材广场保持一致。</li>
-        </ul>
         <h3 class="changelog-version" data-version="1.1.6" role="button" tabindex="0">
-          v1.1.6（2026 年 10 月 7 日）
+          v1.1.6（2026 年 10 月 7 日）<span class="changelog-badge">当前版本</span>
         </h3>
         <ul>
           <li>修复视频教程与扩展实验广场「只有壳没有内容」的问题：第三方请求头此前被整体清空（丢掉了 User-Agent 等）导致 B 站播放器等加载失败，现已只覆盖 referer 并保留其余请求头；修正广场路径前缀判断；并放行配置广场 / 素材广场的 iframe，不再被弹到系统浏览器。</li>
@@ -726,7 +719,7 @@
     <section style="text-align:center">
       <h2>更多信息</h2>
       <div class="links">
-        <a href="https://github.com/remixwarp/desktop/releases/tag/v1.1.7">GitHub 发布页</a>
+        <a href="https://github.com/remixwarp/desktop/releases/tag/v1.1.6">GitHub 发布页</a>
         <a href="https://github.com/remixwarp/desktop">源代码</a>
         <a href="https://github.com/remixwarp/desktop/issues">报告问题</a>
         <a href="https://remixwarp.pages.dev/">在线编辑器</a>
@@ -743,16 +736,6 @@
     // 注意：electron-builder 会把版本号规范化为 1.0.1（Win/Linux），
     // 而 mac 的 dmg 由工作流用 tag 名（如 v1.0.2）重命名。
     var RELEASES = {
-      '1.1.7': {
-        win: 'RemixWarp-Setup-1.1.7-x64.exe',
-        mac: 'RemixWarp-Setup-modern-v1.1.7.dmg',
-        deb: 'RemixWarp-linux-amd64-1.1.7.deb',
-        appimage: 'RemixWarp-linux-x86_64-1.1.7.AppImage',
-        targz: 'RemixWarp-linux-x64-1.1.7.tar.gz',
-        appx64: 'RemixWarp-MS-Store-1.1.7-x64.appx',
-        appxia32: 'RemixWarp-MS-Store-1.1.7-ia32.appx',
-        appxarm64: 'RemixWarp-MS-Store-1.1.7-arm64.appx'
-      },
       '1.1.6': {
         win: 'RemixWarp-Setup-1.1.6-x64.exe',
         mac: 'RemixWarp-Setup-modern-v1.1.6.dmg',
@@ -917,7 +900,7 @@
 
     // 可选下载版本。数组第一项为最新版，其余为旧版。
     var VERSIONS = [
-      { version: '1.1.7', label: '最新版 v1.1.7' },
+      { version: '1.1.6', label: '最新版 v1.1.6' },
       { version: '1.1.4', label: '旧版 v1.1.4' },
       { version: '1.1.1', label: '旧版 v1.1.1' },
       { version: '1.1.0', label: '旧版 v1.1.0' },
@@ -931,7 +914,7 @@
       { version: '1.0.2', label: '旧版 v1.0.2' },
       { version: '1.0.0', label: '旧版 v1.0.0' }
     ];
-    var activeVersion = '1.1.7';
+    var activeVersion = '1.1.6';
 
     var GITHUB_BASE = 'https://github.com/remixwarp/desktop/releases/download/v';
     var GH_PROXY = 'https://gh-proxy.org/';
