@@ -26,6 +26,8 @@ const TYPE_URL = 'url';
 const TYPE_SCRATCH = 'scratch';
 const TYPE_SAMPLE = 'sample';
 
+const WEB_PROTOCOLS = ['http:', 'https:'];
+
 class OpenedFile {
   constructor (type, path) {
     /** @type {TYPE_FILE|TYPE_URL|TYPE_SCRATCH|TYPE_SAMPLE} */
@@ -714,17 +716,10 @@ class EditorWindow extends ProjectRunningWindow {
       });
     }
 
-    // rw-c.pages.dev 上还托管了 config-plaza / material-plaza 等页面，而 URL.origin
-    // 只包含协议+域名（不含路径），所以必须同时判断 origin 与路径前缀，
-    // 否则这里永远不会命中，实验广场就会绕过本协议直连远端。
-    // 去掉 /experiment-plaza 前缀（同 ae-extensions 的做法）：bl-extensions 的
-    // remoteFallback 在回源时会自动补回该前缀，本地缓存目录也不含此前缀。
-    if (parsed.origin === 'https://rw-c.pages.dev' && parsed.pathname.startsWith('/experiment-plaza')) {
-      const plazaPathname = parsed.pathname.slice('/experiment-plaza'.length);
-      return callback({
-        redirectURL: `bl-extensions://.${plazaPathname}`
-      });
-    }
+    // 注意：我们不把 /experiment-plaza 重定向到 bl-extensions 协议。
+    // dist-bilup-extensions 目录里只有 Bilup 扩展文件，没有扩展实验广场这个 SPA；
+    // 如果重定向，iframe 会加载到空壳/错误的本地文件。素材广场也是直接远程加载，
+    // 所以扩展实验广场同样保持直接访问 https://rw-c.pages.dev/experiment-plaza/。
 
     if (parsed.origin === 'https://editors.astras.top') {
       let pathname = parsed.pathname;
@@ -749,6 +744,38 @@ class EditorWindow extends ProjectRunningWindow {
     }
 
     super.onBeforeRequest(details, callback);
+  }
+
+  onBeforeSendHeaders (details, callback) {
+    const parsed = new URL(details.url);
+
+    if (!WEB_PROTOCOLS.includes(parsed.protocol)) {
+      return callback({});
+    }
+
+    // 只处理 B 站播放器 iframe（视频教程）的请求头。
+    // B 站会校验 referer，如果 referer 为空或不是 B 站域名，视频源会被拒绝，
+    // 导致页面一直停留在“加载中”。
+    const isBilibili = parsed.hostname === 'bilibili.com' || parsed.hostname.endsWith('.bilibili.com');
+    if (!isBilibili) {
+      return callback({});
+    }
+
+    // webRequest 的 requestHeaders 是整体替换，必须保留原有请求头，
+    // 否则 User-Agent / Accept / Cookie 等会被清空，第三方站点直接拒绝响应。
+    const requestHeaders = {...details.requestHeaders};
+    let refererKey = 'referer';
+    for (const key of Object.keys(requestHeaders)) {
+      if (key.toLowerCase() === 'referer') {
+        refererKey = key;
+        break;
+      }
+    }
+    requestHeaders[refererKey] = 'https://www.bilibili.com/';
+
+    return callback({
+      requestHeaders
+    });
   }
 
   enumerateMediaDevices () {
