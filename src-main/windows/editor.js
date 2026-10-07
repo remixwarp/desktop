@@ -716,10 +716,9 @@ class EditorWindow extends ProjectRunningWindow {
       });
     }
 
-    // 注意：我们不把 /experiment-plaza 重定向到 bl-extensions 协议。
-    // dist-bilup-extensions 目录里只有 Bilup 扩展文件，没有扩展实验广场这个 SPA；
-    // 如果重定向，iframe 会加载到空壳/错误的本地文件。素材广场也是直接远程加载，
-    // 所以扩展实验广场同样保持直接访问 https://rw-c.pages.dev/experiment-plaza/。
+    // 扩展实验广场 iframe 直接访问 https://rw-c.pages.dev/experiment-plaza/；
+    // dist-bilup-extensions 目录里没有对应的 SPA，重定向到 bl-extensions 会加载空壳。
+    // project-running-window 已不再把 experiment-plaza 交给本地协议，这里保持直接访问。
 
     if (parsed.origin === 'https://editors.astras.top') {
       let pathname = parsed.pathname;
@@ -753,11 +752,17 @@ class EditorWindow extends ProjectRunningWindow {
       return callback({});
     }
 
-    // 只处理 B 站播放器 iframe（视频教程）的请求头。
+    // 处理 B 站播放器 iframe（视频教程）的请求头。
     // B 站会校验 referer，如果 referer 为空或不是 B 站域名，视频源会被拒绝，
     // 导致页面一直停留在“加载中”。
+    // 播放器子资源可能来自 bilibili.com 之外的 CDN（如 *.bilivideo.com），
+    // 因此还要根据请求来源（referrer）判断：只要来自 player.bilibili.com 就放行 referer。
     const isBilibili = parsed.hostname === 'bilibili.com' || parsed.hostname.endsWith('.bilibili.com');
-    if (!isBilibili) {
+    const isFromBilibiliPlayer = details.referrer && (
+      details.referrer.startsWith('https://player.bilibili.com/') ||
+      details.referrer.startsWith('https://www.bilibili.com/')
+    );
+    if (!isBilibili && !isFromBilibiliPlayer) {
       return callback({});
     }
 

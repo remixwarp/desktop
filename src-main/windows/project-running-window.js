@@ -90,15 +90,6 @@ class ProjectRunningWindow extends AbtractWindow {
       });
     }
 
-    // URL.origin 不含路径，必须同时判断 origin 与路径前缀；
-    // 并去掉 /experiment-plaza 前缀，交给 bl-extensions 协议处理。
-    if (parsed.origin === 'https://rw-c.pages.dev' && parsed.pathname.startsWith('/experiment-plaza')) {
-      const plazaPathname = parsed.pathname.slice('/experiment-plaza'.length);
-      return callback({
-        redirectURL: `bl-extensions://.${plazaPathname}`
-      });
-    }
-
     if (parsed.origin === 'https://editors.astras.top') {
       let pathname = parsed.pathname;
       if (pathname.startsWith('/extensions')) {
@@ -136,8 +127,13 @@ class ProjectRunningWindow extends AbtractWindow {
       const requestHeaders = {...details.requestHeaders};
 
       // B 站播放器会校验 referer 来源，非 B 站域名会被拒绝播放视频源。
+      // 播放器子资源可能来自 *.bilivideo.com 等 CDN，所以按 referrer 识别播放器来源。
       const isBilibili = parsed.hostname === 'bilibili.com' || parsed.hostname.endsWith('.bilibili.com');
-      const referer = isBilibili ?
+      const isFromBilibiliPlayer = details.referrer && (
+        details.referrer.startsWith('https://player.bilibili.com/') ||
+        details.referrer.startsWith('https://www.bilibili.com/')
+      );
+      const referer = (isBilibili || isFromBilibiliPlayer) ?
         'https://www.bilibili.com/' :
         // Some third-party APIs (eg. YouTube embeds) require a non-empty referer header.
         // The website being contacted already receives "bilup-desktop/x.y.z" in the user-agent so this isn't

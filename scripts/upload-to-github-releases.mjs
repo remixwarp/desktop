@@ -178,14 +178,7 @@ const deleteExistingAsset = async (owner, repo, releaseId, fileName) => {
     }
 };
 
-const uploadReleaseAsset = async (owner, repo, releaseId, file) => {
-    const fileName = pathUtil.basename(file);
-    const fileType = getContentType(fileName);
-    const fileData = await fsPromises.readFile(file);
-
-    // Re-release safety: drop any stale asset with the same name first.
-    await deleteExistingAsset(owner, repo, releaseId, fileName);
-
+const tryUploadAsset = async (owner, repo, releaseId, fileName, fileType, fileData) => {
     const res = await fetch(`https://uploads.github.com/repos/${owner}/${repo}/releases/${releaseId}/assets?name=${encodeURIComponent(fileName)}`, {
         method: 'POST',
         headers: {
@@ -195,6 +188,28 @@ const uploadReleaseAsset = async (owner, repo, releaseId, file) => {
         },
         body: fileData
     });
+    return res;
+};
+
+const uploadReleaseAsset = async (owner, repo, releaseId, file) => {
+    const fileName = pathUtil.basename(file);
+    const fileType = getContentType(fileName);
+    const fileData = await fsPromises.readFile(file);
+
+    // Re-release safety: drop any stale asset with the same name first.
+    await deleteExistingAsset(owner, repo, releaseId, fileName);
+
+    let res = await tryUploadAsset(owner, repo, releaseId, fileName, fileType, fileData);
+
+    // GitHub asset deletion is eventually consistent; an immediate re-upload can
+    // return 422 "already exists" even after deletion. Retry once after a short delay.
+    if (!res.ok && res.status === 422) {
+        console.warn(`Upload of ${fileName} returned 422, waiting and retrying after delete...`);
+        await sleep(2000);
+        await deleteExistingAsset(owner, repo, releaseId, fileName);
+        await sleep(1000);
+        res = await tryUploadAsset(owner, repo, releaseId, fileName, fileType, fileData);
+    }
 
     if (!res.ok) {
         throw new Error(`HTTP ${res.status} uploading asset to release`);
