@@ -4,13 +4,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RemixWarp Desktop - 重构自由度</title>
+  <title data-i18n="page.title">RemixWarp Desktop - 重构自由度</title>
   <link rel="icon" href="./logo.png">
   <meta name="description"
     content="RemixWarp Desktop 是基于 TurboWarp 的中文增强版，支持实时协作、完整中文本地化与更多功能。">
   <meta name="theme-color" content="#75C1C4">
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="RemixWarp Desktop - 重新构建自由，离线可用" />
+  <meta property="og:title" content="RemixWarp Desktop - 重构自由度" />
   <meta property="og:description"
     content="RemixWarp Desktop 是基于 TurboWarp 的中文增强版，支持实时协作、完整中文本地化与更多功能。" />
   <meta property="og:image" content="./logo.png" />
@@ -49,16 +49,17 @@
     }
 
     header {
+      position: relative;
       text-align: center;
       padding: 48px 16px 24px;
-      background: linear-gradient(160deg, var(--accent-2), var(--accent));
+      background: #75c1c4;
       color: #fff;
     }
 
     header img {
       width: 96px;
       height: 96px;
-      border-radius: 20px;
+      border-radius: 0;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
     }
 
@@ -338,7 +339,7 @@
 
     .recommend-card {
       text-align: center;
-      background: linear-gradient(160deg, var(--accent-2), var(--accent));
+      background: #75c1c4;
       color: #fff;
       border-radius: 14px;
       padding: 22px 20px;
@@ -413,7 +414,57 @@
       transform: translateY(1px);
     }
 
-    footer {
+
+    /* 右上角语言 / 主题切换 */
+    .header-actions {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+    .header-actions button {
+      background: rgba(255, 255, 255, 0.22);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.05s ease;
+      backdrop-filter: blur(4px);
+    }
+    .header-actions button:hover {
+      background: rgba(255, 255, 255, 0.35);
+    }
+    .header-actions button:active {
+      transform: translateY(1px);
+    }
+
+    /* 主题覆盖 — 通过 html[data-theme="dark"] / "light" 覆盖 media query */
+    html[data-theme="dark"] {
+      color-scheme: dark;
+    }
+    html[data-theme="light"] {
+      color-scheme: light;
+    }
+    html[data-theme="dark"] body {
+      --bg: #15171c;
+      --fg: #f0f0f0;
+      --muted: #aaa;
+      --border: #333;
+      --card: #1e2128;
+    }
+    html[data-theme="light"] body {
+      --bg: #ffffff;
+      --fg: #1a1a1a;
+      --muted: #555;
+      --border: #ddd;
+      --card: #f7f9fa;
+    }
+
+    
       text-align: center;
       color: var(--muted);
       font-size: 0.85rem;
@@ -430,14 +481,18 @@
 
 <body data-os="unknown">
   <header>
+    <div class="header-actions">
+      <button id="lang-toggle" type="button" aria-label="切换语言">中</button>
+      <button id="theme-toggle" type="button" aria-label="切换主题">🌙</button>
+    </div>
     <img src="./logo.png" alt="RemixWarp logo">
-    <h1>RemixWarp Desktop</h1>
-    <p>重新构建自由，离线可用 · 基于 TurboWarp 的中文增强版</p>
+    <h1 data-i18n="page.title.short">RemixWarp Desktop</h1>
+    <p data-i18n="page.tagline">RemixWarp - 重构自由度</p>
   </header>
 
   <main>
     <div style="text-align:center">
-      <span class="version-badge">当前版本：v1.1.7</span>
+      <span class="version-badge"><span data-i18n="page.version-prefix">当前版本</span>：v1.1.7</span>
     </div>
 
     <div class="old-warning" id="old-warning">
@@ -446,9 +501,9 @@
     </div>
 
     <div class="recommend-card">
-      <p class="rec-label">已根据你的设备推荐下载</p>
+      <p class="rec-label" data-i18n="rec.label">已根据你的设备推荐下载</p>
       <a class="rec-button" id="recommend-button" href="#windows">
-        正在检测你的设备…
+        <span data-i18n="rec.detecting">正在检测你的设备…</span>
       </a>
       <p class="rec-sub">
         若推荐不正确，可手动在下方选择系统 ·
@@ -459,7 +514,7 @@
     </div>
 
         <section id="windows">
-      <h2>Windows 10 及更高版本</h2>
+      <h2 data-i18n="h2.windows">Windows 10 及更高版本</h2>
       <p class="note">下载安装程序，运行后按提示安装即可。</p>
       <ul class="download-list">
         <li class="dl-item">
@@ -619,7 +674,7 @@
     </section>
 
         <section id="mac">
-      <h2>macOS 12 及更高版本</h2>
+      <h2 data-i18n="h2.windows">macOS 12 及更高版本</h2>
       <p class="note">下载 .dmg 文件，打开后将 RemixWarp 拖入「应用程序」文件夹。如果提示已存在，请选择「替换」。</p>
       <ul class="download-list">
         <li class="dl-item">
@@ -709,7 +764,7 @@
     </section>
 
         <section id="linux">
-      <h2>Linux</h2>
+      <h2 data-i18n="h2.windows">Linux</h2>
       <p class="note">根据你的发行版选择对应的安装包。推荐使用 .deb（Debian/Ubuntu）或 AppImage（通用）。</p>
 
       <h3>Debian / Ubuntu / Linux Mint</h3>
@@ -987,8 +1042,8 @@
     </section>
 
     <section id="changelog">
-      <h2>更新日志</h2>
-      <p class="note" style="margin:0 0 12px">点击版本可切换下方所有下载链接到对应版本。</p>
+      <h2 data-i18n="changelog.title">更新日志</h2>
+      <p class="note" style="margin:0 0 12px" data-i18n="changelog.tip">点击版本可切换下方所有下载链接到对应版本。</p>
       <div lang="zh-CN">
         <h3 class="changelog-version" data-version="1.1.7" role="button" tabindex="0">
           v1.1.7（2026 年 10 月 7 日）<span class="changelog-badge">当前版本</span>
@@ -1104,7 +1159,7 @@
     </section>
 
     <section style="text-align:center">
-      <h2>更多信息</h2>
+      <h2 data-i18n="h2.windows">更多信息</h2>
       <div class="links">
         <a href="https://github.com/remixwarp/desktop/releases/tag/v1.1.7">GitHub 发布页</a>
         <a href="https://github.com/remixwarp/desktop">源代码</a>
@@ -1114,9 +1169,7 @@
     </section>
   </main>
 
-  <footer>
-    RemixWarp Desktop · 基于 TurboWarp 构建 · GPL-3.0 许可证
-  </footer>
+  <footer><span data-i18n="footer">RemixWarp Desktop · 基于 TurboWarp 构建 · GPL-3.0 许可证</span></footer>
 
   <script>
     // 全部可用下载产物清单（来自 release workflow + build.mjs 推导）。
@@ -1207,6 +1260,179 @@
     ];
     var activeVersion = '1.1.7';
 
+
+    // ======= i18n =======
+    var I18N = {
+      'zh-CN': {
+        'page.title': 'RemixWarp Desktop - 重构自由度',
+        'page.title.short': 'RemixWarp Desktop',
+        'page.tagline': 'RemixWarp - 重构自由度',
+        'page.version-prefix': '当前版本',
+        'changelog.tip': '点击版本可切换下方所有下载链接到对应版本。',
+        'changelog.title': '更新日志',
+        'h2.windows': 'Windows 10 及更高版本',
+        'h2.mac': 'macOS 12 及更高版本',
+        'h2.linux': 'Linux',
+        'h3.linux.deb': 'Debian / Ubuntu / Linux Mint（64 位）',
+        'h3.linux.appimage': 'AppImage（x86 64 位）',
+        'h3.linux.targz': 'tar.gz（x86 64 位）',
+        'rec.label': '已根据你的设备推荐下载',
+        'rec.detecting': '正在检测你的设备…',
+        'rec.open-all': '若推荐不正确，可手动在下方选择系统',
+        'rec.windows': 'Windows',
+        'rec.mac': 'macOS',
+        'rec.linux': 'Linux',
+        'rec.unknown': '未知的操作系统？点击查看全部',
+        'rec.win-label': '下载 Windows 安装程序（64 位，推荐）',
+        'rec.mac-label': '下载 macOS 安装包（Universal，12+）',
+        'rec.linux-label': '下载 Linux .deb（x86 64 位，推荐）',
+        'legacy.open': 'Windows 7 / 8 旧版支持',
+        'legacy.win-note': 'Legacy 版本使用 Electron 22（最后一个支持 Windows 7/8 的版本），不再收到新功能更新。',
+        'legacy.portable': '便携版（免安装）',
+        'legacy.portable-note': '解压即可运行，不会修改系统注册表。仅提供 x64 架构。',
+        'legacy.mac-open': '旧版 macOS 支持（11 / 10.15 / 10.13-10.14）',
+        'legacy.mac-note': 'Legacy DMG 使用旧版 Electron，不再收到新功能更新。',
+        'smart-screen': '如果出现 Windows SmartScreen 提示，请点击「更多信息」后选择「仍要运行」。',
+        'dev-dl-hint-win': 'Microsoft Store 开发包（.appx，使用加速连接，需开发者证书安装）：',
+        'ms-store-label': '也可以直接从 Microsoft Store 安装（推荐）：',
+        'note.mac-drag': '下载 .dmg 文件，打开后将 RemixWarp 拖入「应用程序」文件夹。如果提示已存在，请选择「替换」。',
+        'note.linux.pick': '根据你的发行版选择对应的安装包。推荐使用 .deb（Debian/Ubuntu）或 AppImage（通用）。',
+        'note.linux.deb': '支持 x86_64、arm64、armv7l。',
+        'note.linux.appimage': '无需安装，双击即可运行，只提供 x86_64 架构。',
+        'note.linux.targz': '解压即可运行，无依赖。支持 x86_64、arm64、armv7l。',
+        'note.linux.pacman': '.pkg.tar.zst 包，支持 x86_64、arm64、armv7l。',
+        'note.linux.rpm': '支持 x86_64、arm64、armv7l。',
+        'footer': 'RemixWarp Desktop · 基于 TurboWarp 构建 · GPL-3.0 许可证',
+        'lang.label-zh': '中',
+        'lang.label-en': 'EN',
+        'theme.label-dark': '🌙',
+        'theme.label-light': '☀️',
+      },
+      'en': {
+        'page.title': 'RemixWarp Desktop - Reframing Freedom',
+        'page.title.short': 'RemixWarp Desktop',
+        'page.tagline': 'RemixWarp - Reframing Freedom',
+        'page.version-prefix': 'Current version',
+        'changelog.tip': 'Click a version below to switch all download links on this page.',
+        'changelog.title': 'Changelog',
+        'h2.windows': 'Windows 10 and newer',
+        'h2.mac': 'macOS 12 and newer',
+        'h2.linux': 'Linux',
+        'h3.linux.deb': 'Debian / Ubuntu / Linux Mint (64-bit)',
+        'h3.linux.appimage': 'AppImage (x86 64-bit)',
+        'h3.linux.targz': 'tar.gz (x86 64-bit)',
+        'rec.label': 'Recommended for your device',
+        'rec.detecting': 'Detecting your device…',
+        'rec.open-all': 'If incorrect, choose manually:',
+        'rec.windows': 'Windows',
+        'rec.mac': 'macOS',
+        'rec.linux': 'Linux',
+        'rec.unknown': 'Unknown OS? See all options',
+        'rec.win-label': 'Download Windows Installer (64-bit, recommended)',
+        'rec.mac-label': 'Download macOS Installer (Universal, 12+)',
+        'rec.linux-label': 'Download Linux .deb (x86 64-bit, recommended)',
+        'legacy.open': 'Windows 7 / 8 legacy support',
+        'legacy.win-note': 'Legacy builds use Electron 22 (last release supporting Windows 7/8). No new features.',
+        'legacy.portable': 'Portable (no install)',
+        'legacy.portable-note': 'Extract and run — no registry changes. x64 only.',
+        'legacy.mac-open': 'Older macOS support (11 / 10.15 / 10.13-10.14)',
+        'legacy.mac-note': 'Legacy DMGs use older Electron. No new features.',
+        'smart-screen': 'If SmartScreen warns you, click "More info" → "Run anyway".',
+        'dev-dl-hint-win': 'Microsoft Store dev package (.appx, accelerated mirror — needs dev cert install):',
+        'ms-store-label': 'Also available on the Microsoft Store:',
+        'note.mac-drag': 'Open the .dmg, then drag RemixWarp into Applications. If it already exists, choose Replace.',
+        'note.linux.pick': 'Pick the right package for your distro. Recommended: .deb (Debian/Ubuntu) or AppImage (universal).',
+        'note.linux.deb': 'x86_64, arm64, armv7l.',
+        'note.linux.appimage': 'No install needed — double-click to run. x86_64 only.',
+        'note.linux.targz': 'Extract and run, zero dependencies. x86_64 / arm64 / armv7l.',
+        'note.linux.pacman': '.pkg.tar.zst. x86_64 / arm64 / armv7l.',
+        'note.linux.rpm': 'x86_64 / arm64 / armv7l.',
+        'footer': 'RemixWarp Desktop · built on TurboWarp · GPL-3.0 license',
+        'lang.label-zh': '中',
+        'lang.label-en': 'EN',
+        'theme.label-dark': '🌙',
+        'theme.label-light': '☀️',
+      },
+    };
+
+    var currentLang = localStorage.getItem('rw.lang') ||
+      (navigator.language && navigator.language.toLowerCase().indexOf('zh') === 0 ? 'zh-CN' : 'zh-CN');
+
+    // ======= Theme =======
+    var currentTheme = localStorage.getItem('rw.theme') || 'auto';
+    function applyTheme(theme) {
+      if (theme === 'auto') {
+        document.documentElement.removeAttribute('data-theme');
+      } else {
+        document.documentElement.setAttribute('data-theme', theme);
+      }
+      localStorage.setItem('rw.theme', theme);
+      document.getElementById('theme-toggle').textContent =
+        (theme === 'dark') ? '☀️' : '🌙';
+    }
+    function cycleTheme() {
+      var next = (currentTheme === 'light') ? 'dark' : 'light';
+      currentTheme = next;
+      applyTheme(next);
+    }
+
+    // ======= i18n runtime (override textContent on marked nodes) =======
+    var INJECTED = false;
+    function applyLang(lang) {
+      var dict = I18N[lang] || I18N['zh-CN'];
+      document.documentElement.lang = (lang === 'en') ? 'en' : 'zh-CN';
+      // <title>
+      var t = document.querySelector('title[data-i18n]');
+      if (t) document.title = dict['page.title'] || t.textContent;
+      // meta description / og:description 不常变，跳过
+      // data-i18n 文本节点
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        var key = el.getAttribute('data-i18n');
+        if (dict[key] !== undefined) el.textContent = dict[key];
+      });
+      // 版本徽章里的 "当前版本：vX.Y.Z"
+      var badge = document.querySelector('.version-badge');
+      if (badge) {
+        badge.innerHTML = '<span data-i18n="page.version-prefix">' + dict['page.version-prefix'] + '</span>：v' + activeVersion;
+      }
+      // recommend 区 label
+      var recLabel = document.querySelector('.rec-label');
+      if (recLabel) recLabel.textContent = dict['rec.label'];
+      // recommend-button 文案 render 时也会被 renderRecommend 重写，但这里在 renderAll 前先写默认
+      var rec = document.getElementById('recommend-button');
+      if (rec && rec.getAttribute('data-i18n-empty') !== null) rec.textContent = dict['rec.detecting'];
+      // recommend-card note
+      var openAll = document.querySelector('.rec-sub');
+      if (openAll) {
+        openAll.innerHTML = (dict['rec.open-all'] || 'If incorrect, choose manually') + ' · <a href="#windows">' + dict['rec.windows'] + '</a> · <a href="#mac">' + dict['rec.mac'] + '</a> · <a href="#linux">' + dict['rec.linux'] + '</a>';
+      }
+      // 各 section 里的 note 段落（根据已知模式）
+      replaceNote('.note', dict);
+      // 语言按钮 label
+      document.getElementById('lang-toggle').textContent =
+        (lang === 'en') ? dict['lang.label-zh'] : dict['lang.label-en'];
+      localStorage.setItem('rw.lang', lang);
+    }
+    // 通用 note 文本替换：根据旧中文文本查找 key
+    var NOTE_KEYS = {
+      '下载安装程序，运行后按提示安装即可。': 'win.note',
+      '下载 .dmg 文件，打开后将 RemixWarp 拖入「应用程序」文件夹。如果提示已存在，请选择「替换」。': 'mac.note',
+      '下载 .dmg 文件，打开后将 RemixWarp 拖入"应用程序"文件夹。如果提示已存在，请选择"替换"。': 'mac.note',
+      '根据你的发行版选择对应的安装包。推荐使用 .deb 或 AppImage。': 'linux.note',
+      '根据你的发行版选择对应的安装包。推荐使用 .deb（Debian/Ubuntu）或 AppImage（通用）。': 'linux.note',
+      '如果出现 Windows SmartScreen 提示，请点击「更多信息」后选择「仍要运行」。': 'smart-screen',
+      'Legacy 版本使用 Electron 22（最后一个支持 Windows 7/8 的版本），不再收到新功能更新。': 'legacy.win-note',
+      '解压即可运行，不会修改系统注册表。仅提供 x64 架构。': 'legacy.portable-note',
+      'Legacy DMG 使用旧版 Electron，不再收到新功能更新。': 'legacy.mac-note',
+    };
+    function replaceNote(sel, dict) {
+      document.querySelectorAll(sel).forEach(function (el) {
+        var txt = el.textContent.trim();
+        var key = NOTE_KEYS[txt];
+        if (key && dict[key]) el.textContent = dict[key];
+      });
+    }
+
     var GITHUB_BASE = 'https://github.com/remixwarp/desktop/releases/download/v';
     var GH_PROXY = 'https://gh-proxy.org/';
     var V4_PROXY = 'https://v4.gh-proxy.org/';
@@ -1284,11 +1510,11 @@
     changelogVersions.forEach(function (el) {
       el.addEventListener('click', function () {
         activeVersion = el.getAttribute('data-version');
-        renderAll();
         // 切换版本后关闭已展开的下载选项
         document.querySelectorAll('.dl-item.open').forEach(function (item) {
           item.classList.remove('open');
         });
+        renderAll();
       });
       el.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -1305,7 +1531,23 @@
       changelogVersions.forEach(function (el) {
         el.classList.toggle('active', el.getAttribute('data-version') === activeVersion);
       });
+      applyLang(currentLang);
     };
+
+    // ===== 语言 / 主题按钮事件绑定 =====
+    var langBtn = document.getElementById('lang-toggle');
+    if (langBtn) {
+      langBtn.addEventListener('click', function () {
+        currentLang = (currentLang === 'en') ? 'zh-CN' : 'en';
+        applyLang(currentLang);
+      });
+    }
+    var themeBtn = document.getElementById('theme-toggle');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', cycleTheme);
+    }
+    applyTheme(currentTheme);
+    applyLang(currentLang);
     renderAll();
 
     // 下载选项展开/收起
