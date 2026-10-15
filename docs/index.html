@@ -432,6 +432,8 @@
       padding: 6px 12px;
       font-size: 0.85rem;
       cursor: pointer;
+      display: inline-flex;
+      align-items: center;
       transition: background 0.15s ease, transform 0.05s ease;
       backdrop-filter: blur(4px);
     }
@@ -483,7 +485,7 @@
   <header>
     <div class="header-actions">
       <button id="lang-toggle" type="button" aria-label="切换语言">中</button>
-      <button id="theme-toggle" type="button" aria-label="切换主题">🌙</button>
+      <button id="theme-toggle" type="button" aria-label="切换主题"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
     </div>
     <img src="./logo.png" alt="RemixWarp logo">
     <h1 data-i18n="page.title.short">RemixWarp Desktop</h1>
@@ -1169,7 +1171,7 @@
     </section>
   </main>
 
-  <footer><span data-i18n="footer">RemixWarp Desktop · 基于 TurboWarp 构建 · GPL-3.0 许可证</span></footer>
+  <footer><span data-i18n="footer">RemixWarp · 重构自由度</span></footer>
 
   <script>
     // 全部可用下载产物清单（来自 release workflow + build.mjs 推导）。
@@ -1302,11 +1304,11 @@
         'note.linux.targz': '解压即可运行，无依赖。支持 x86_64、arm64、armv7l。',
         'note.linux.pacman': '.pkg.tar.zst 包，支持 x86_64、arm64、armv7l。',
         'note.linux.rpm': '支持 x86_64、arm64、armv7l。',
-        'footer': 'RemixWarp Desktop · 基于 TurboWarp 构建 · GPL-3.0 许可证',
+        'footer': 'RemixWarp · 重构自由度',
         'lang.label-zh': '中',
         'lang.label-en': 'EN',
-        'theme.label-dark': '🌙',
-        'theme.label-light': '☀️',
+        'theme.label-dark': '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',
+        'theme.label-light': '<svg viewBox="0 0 1024 1024" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M502.126 948.59a402.286 402.286 0 1 0 0-804.572 402.286 402.286 0 0 0 0 804.572z m0-731.429a329.143 329.143 0 1 1 0 658.286 329.143 329.143 0 0 1 0-658.286z m0 621.714V253.733a292.571 292.571 0 1 1 0 585.142z"/></svg>',
       },
       'en': {
         'page.title': 'RemixWarp Desktop - Reframing Freedom',
@@ -1347,11 +1349,11 @@
         'note.linux.targz': 'Extract and run, zero dependencies. x86_64 / arm64 / armv7l.',
         'note.linux.pacman': '.pkg.tar.zst. x86_64 / arm64 / armv7l.',
         'note.linux.rpm': 'x86_64 / arm64 / armv7l.',
-        'footer': 'RemixWarp Desktop · built on TurboWarp · GPL-3.0 license',
+        'footer': 'RemixWarp · Reframing Freedom',
         'lang.label-zh': '中',
         'lang.label-en': 'EN',
-        'theme.label-dark': '🌙',
-        'theme.label-light': '☀️',
+        'theme.label-dark': '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',
+        'theme.label-light': '<svg viewBox="0 0 1024 1024" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M502.126 948.59a402.286 402.286 0 1 0 0-804.572 402.286 402.286 0 0 0 0 804.572z m0-731.429a329.143 329.143 0 1 1 0 658.286 329.143 329.143 0 0 1 0-658.286z m0 621.714V253.733a292.571 292.571 0 1 1 0 585.142z"/></svg>',
       },
     };
 
@@ -1367,8 +1369,8 @@
         document.documentElement.setAttribute('data-theme', theme);
       }
       localStorage.setItem('rw.theme', theme);
-      document.getElementById('theme-toggle').textContent =
-        (theme === 'dark') ? '☀️' : '🌙';
+      document.getElementById('theme-toggle').innerHTML =
+        (theme === 'dark') ? I18N[currentLang]['theme.label-light'] : I18N[currentLang]['theme.label-dark'];
     }
     function cycleTheme() {
       var next = (currentTheme === 'light') ? 'dark' : 'light';
