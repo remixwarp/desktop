@@ -458,46 +458,158 @@
       </p>
     </div>
 
-    <section id="windows">
+        <section id="windows">
       <h2>Windows 10 及更高版本</h2>
       <p class="note">下载安装程序，运行后按提示安装即可。</p>
       <ul class="download-list">
         <li class="dl-item">
           <button class="download-button" type="button" onclick="toggleDl(this)">
-            下载安装程序（64 位，推荐）<span class="dl-caret">▾</span>
+            Windows 安装程序（64 位，推荐）<span class="dl-caret">▾</span>
           </button>
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
-              data-mode="v4" data-file="win" href="#">
+              data-mode="v4" data-file="win-nsis-x64" href="#">
               更快的加速连接<small>（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
-              data-mode="gh" data-file="win" href="#">
+              data-mode="gh" data-file="win-nsis-x64" href="#">
               加速连接
             </a>
             <a class="dl-opt github dl-link"
-              data-mode="github" data-file="win" href="#">
+              data-mode="github" data-file="win-nsis-x64" href="#">
+              GitHub 连接
+            </a>
+          </div>
+        </li>
+        <li class="dl-item">
+          <button class="download-button" type="button" onclick="toggleDl(this)">
+            Windows 安装程序（32 位）<span class="dl-caret">▾</span>
+          </button>
+          <div class="dl-options">
+            <a class="dl-opt fast dl-link"
+              data-mode="v4" data-file="win-nsis-ia32" href="#">
+              更快的加速连接<small>（推荐）</small>
+            </a>
+            <a class="dl-opt fast dl-link"
+              data-mode="gh" data-file="win-nsis-ia32" href="#">
+              加速连接
+            </a>
+            <a class="dl-opt github dl-link"
+              data-mode="github" data-file="win-nsis-ia32" href="#">
+              GitHub 连接
+            </a>
+          </div>
+        </li>
+        <li class="dl-item">
+          <button class="download-button" type="button" onclick="toggleDl(this)">
+            Windows 安装程序（ARM 64 位）<span class="dl-caret">▾</span>
+          </button>
+          <div class="dl-options">
+            <a class="dl-opt fast dl-link"
+              data-mode="v4" data-file="win-nsis-arm64" href="#">
+              更快的加速连接<small>（推荐）</small>
+            </a>
+            <a class="dl-opt fast dl-link"
+              data-mode="gh" data-file="win-nsis-arm64" href="#">
+              加速连接
+            </a>
+            <a class="dl-opt github dl-link"
+              data-mode="github" data-file="win-nsis-arm64" href="#">
               GitHub 连接
             </a>
           </div>
         </li>
       </ul>
-      <p class="note">如果出现 Windows SmartScreen 提示，请点击“更多信息”后选择“仍要运行”。</p>
-      <p class="dev-dl-hint">开发人员下载（MSIX/Appx 包，使用加速连接，需开发者证书安装）：</p>
+
+      <details class="legacy-details">
+        <summary>Windows 7 / 8 旧版支持</summary>
+        <p class="note">Legacy 版本使用 Electron 22（最后一个支持 Windows 7/8 的版本），不再收到新功能更新。</p>
+        <ul class="download-list">
+        <li class="dl-item">
+          <button class="download-button" type="button" onclick="toggleDl(this)">
+            Windows Legacy 安装程序（64 位，Windows 7/8）<span class="dl-caret">▾</span>
+          </button>
+          <div class="dl-options">
+            <a class="dl-opt fast dl-link"
+              data-mode="v4" data-file="win-legacy-x64" href="#">
+              更快的加速连接<small>（推荐）</small>
+            </a>
+            <a class="dl-opt fast dl-link"
+              data-mode="gh" data-file="win-legacy-x64" href="#">
+              加速连接
+            </a>
+            <a class="dl-opt github dl-link"
+              data-mode="github" data-file="win-legacy-x64" href="#">
+              GitHub 连接
+            </a>
+          </div>
+        </li>
+        <li class="dl-item">
+          <button class="download-button" type="button" onclick="toggleDl(this)">
+            Windows Legacy 安装程序（32 位，Windows 7/8）<span class="dl-caret">▾</span>
+          </button>
+          <div class="dl-options">
+            <a class="dl-opt fast dl-link"
+              data-mode="v4" data-file="win-legacy-ia32" href="#">
+              更快的加速连接<small>（推荐）</small>
+            </a>
+            <a class="dl-opt fast dl-link"
+              data-mode="gh" data-file="win-legacy-ia32" href="#">
+              加速连接
+            </a>
+            <a class="dl-opt github dl-link"
+              data-mode="github" data-file="win-legacy-ia32" href="#">
+              GitHub 连接
+            </a>
+          </div>
+        </li>
+        </ul>
+      </details>
+
+      <details class="legacy-details">
+        <summary>便携版（免安装）</summary>
+        <p class="note">解压即可运行，不会修改系统注册表。仅提供 x64 架构。</p>
+        <ul class="download-list">
+        <li class="dl-item">
+          <button class="download-button" type="button" onclick="toggleDl(this)">
+            Windows Portable 便携版（64 位，免安装）<span class="dl-caret">▾</span>
+          </button>
+          <div class="dl-options">
+            <a class="dl-opt fast dl-link"
+              data-mode="v4" data-file="win-portable-x64" href="#">
+              更快的加速连接<small>（推荐）</small>
+            </a>
+            <a class="dl-opt fast dl-link"
+              data-mode="gh" data-file="win-portable-x64" href="#">
+              加速连接
+            </a>
+            <a class="dl-opt github dl-link"
+              data-mode="github" data-file="win-portable-x64" href="#">
+              GitHub 连接
+            </a>
+          </div>
+        </li>
+        </ul>
+      </details>
+
+      <p class="note">如果出现 Windows SmartScreen 提示，请点击「更多信息」后选择「仍要运行」。</p>
+
+      <div class="dev-dl-hint">Microsoft Store 开发包（.appx，使用加速连接，需开发者证书安装）：</div>
       <div class="dev-dl-row">
         <a class="dev-dl-btn dl-link"
-          data-mode="v4" data-file="appx64" href="#">
+          data-mode="v4" data-file="win-appx-x64" href="#">
           .appx x64
         </a>
         <a class="dev-dl-btn dl-link"
-          data-mode="v4" data-file="appxia32" href="#">
+          data-mode="v4" data-file="win-appx-ia32" href="#">
           .appx ia32
         </a>
         <a class="dev-dl-btn dl-link"
-          data-mode="v4" data-file="appxarm64" href="#">
+          data-mode="v4" data-file="win-appx-arm64" href="#">
           .appx arm64
         </a>
       </div>
+
       <div class="ms-store-section">
         <p class="ms-store-label">也可以直接从 Microsoft Store 安装（推荐）：</p>
         <a href="https://apps.microsoft.com/detail/9NKQJR845M6J" target="_blank" rel="noopener" aria-label="Get RemixWarp Desktop from Microsoft Store">
@@ -506,104 +618,372 @@
       </div>
     </section>
 
-    <section id="mac">
+        <section id="mac">
       <h2>macOS 12 及更高版本</h2>
-      <p class="note">下载 .dmg 文件，打开后将 RemixWarp 拖入“应用程序”文件夹。如果提示已存在，请选择“替换”。</p>
+      <p class="note">下载 .dmg 文件，打开后将 RemixWarp 拖入「应用程序」文件夹。如果提示已存在，请选择「替换」。</p>
       <ul class="download-list">
         <li class="dl-item">
           <button class="download-button" type="button" onclick="toggleDl(this)">
-            下载适用于 macOS 12 及更高版本<span class="dl-caret">▾</span>
+            macOS Universal（12+，Apple Silicon + Intel）<span class="dl-caret">▾</span>
           </button>
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
-              data-mode="v4" data-file="mac" href="#">
+              data-mode="v4" data-file="mac-modern-universal" href="#">
               更快的加速连接<small>（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
-              data-mode="gh" data-file="mac" href="#">
+              data-mode="gh" data-file="mac-modern-universal" href="#">
               加速连接
             </a>
             <a class="dl-opt github dl-link"
-              data-mode="github" data-file="mac" href="#">
+              data-mode="github" data-file="mac-modern-universal" href="#">
               GitHub 连接
             </a>
           </div>
         </li>
       </ul>
+
+      <details class="legacy-details">
+        <summary>旧版 macOS 支持（11 / 10.15 / 10.13-10.14）</summary>
+        <p class="note">Legacy DMG 使用旧版 Electron，不再收到新功能更新。</p>
+        <ul class="download-list">
+        <li class="dl-item">
+          <button class="download-button" type="button" onclick="toggleDl(this)">
+            macOS Legacy 11（Universal）<span class="dl-caret">▾</span>
+          </button>
+          <div class="dl-options">
+            <a class="dl-opt fast dl-link"
+              data-mode="v4" data-file="mac-legacy-11-universal" href="#">
+              更快的加速连接<small>（推荐）</small>
+            </a>
+            <a class="dl-opt fast dl-link"
+              data-mode="gh" data-file="mac-legacy-11-universal" href="#">
+              加速连接
+            </a>
+            <a class="dl-opt github dl-link"
+              data-mode="github" data-file="mac-legacy-11-universal" href="#">
+              GitHub 连接
+            </a>
+          </div>
+        </li>
+        <li class="dl-item">
+          <button class="download-button" type="button" onclick="toggleDl(this)">
+            macOS Legacy 10.15（Intel）<span class="dl-caret">▾</span>
+          </button>
+          <div class="dl-options">
+            <a class="dl-opt fast dl-link"
+              data-mode="v4" data-file="mac-legacy-1015-x64" href="#">
+              更快的加速连接<small>（推荐）</small>
+            </a>
+            <a class="dl-opt fast dl-link"
+              data-mode="gh" data-file="mac-legacy-1015-x64" href="#">
+              加速连接
+            </a>
+            <a class="dl-opt github dl-link"
+              data-mode="github" data-file="mac-legacy-1015-x64" href="#">
+              GitHub 连接
+            </a>
+          </div>
+        </li>
+        <li class="dl-item">
+          <button class="download-button" type="button" onclick="toggleDl(this)">
+            macOS Legacy 10.13-10.14（Intel）<span class="dl-caret">▾</span>
+          </button>
+          <div class="dl-options">
+            <a class="dl-opt fast dl-link"
+              data-mode="v4" data-file="mac-legacy-1013-x64" href="#">
+              更快的加速连接<small>（推荐）</small>
+            </a>
+            <a class="dl-opt fast dl-link"
+              data-mode="gh" data-file="mac-legacy-1013-x64" href="#">
+              加速连接
+            </a>
+            <a class="dl-opt github dl-link"
+              data-mode="github" data-file="mac-legacy-1013-x64" href="#">
+              GitHub 连接
+            </a>
+          </div>
+        </li>
+        </ul>
+      </details>
     </section>
 
-    <section id="linux">
+        <section id="linux">
       <h2>Linux</h2>
-      <p class="note">根据你的发行版选择对应的安装包。推荐使用 .deb 或 AppImage。</p>
+      <p class="note">根据你的发行版选择对应的安装包。推荐使用 .deb（Debian/Ubuntu）或 AppImage（通用）。</p>
 
-      <h3>Debian / Ubuntu / Linux Mint（64 位）</h3>
+      <h3>Debian / Ubuntu / Linux Mint</h3>
+      <p class="note">支持 x86_64、arm64、armv7l。</p>
       <ul class="download-list">
         <li class="dl-item">
           <button class="download-button" type="button" onclick="toggleDl(this)">
-            下载 .deb（x86 64 位）<span class="dl-caret">▾</span>
+            Linux .deb（x86_64）<span class="dl-caret">▾</span>
           </button>
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
-              data-mode="v4" data-file="deb" href="#">
+              data-mode="v4" data-file="linux-deb-x64" href="#">
               更快的加速连接<small>（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
-              data-mode="gh" data-file="deb" href="#">
+              data-mode="gh" data-file="linux-deb-x64" href="#">
               加速连接
             </a>
             <a class="dl-opt github dl-link"
-              data-mode="github" data-file="deb" href="#">
+              data-mode="github" data-file="linux-deb-x64" href="#">
+              GitHub 连接
+            </a>
+          </div>
+        </li>
+        <li class="dl-item">
+          <button class="download-button" type="button" onclick="toggleDl(this)">
+            Linux .deb（arm64）<span class="dl-caret">▾</span>
+          </button>
+          <div class="dl-options">
+            <a class="dl-opt fast dl-link"
+              data-mode="v4" data-file="linux-deb-arm64" href="#">
+              更快的加速连接<small>（推荐）</small>
+            </a>
+            <a class="dl-opt fast dl-link"
+              data-mode="gh" data-file="linux-deb-arm64" href="#">
+              加速连接
+            </a>
+            <a class="dl-opt github dl-link"
+              data-mode="github" data-file="linux-deb-arm64" href="#">
+              GitHub 连接
+            </a>
+          </div>
+        </li>
+        <li class="dl-item">
+          <button class="download-button" type="button" onclick="toggleDl(this)">
+            Linux .deb（armv7l）<span class="dl-caret">▾</span>
+          </button>
+          <div class="dl-options">
+            <a class="dl-opt fast dl-link"
+              data-mode="v4" data-file="linux-deb-armv7l" href="#">
+              更快的加速连接<small>（推荐）</small>
+            </a>
+            <a class="dl-opt fast dl-link"
+              data-mode="gh" data-file="linux-deb-armv7l" href="#">
+              加速连接
+            </a>
+            <a class="dl-opt github dl-link"
+              data-mode="github" data-file="linux-deb-armv7l" href="#">
               GitHub 连接
             </a>
           </div>
         </li>
       </ul>
 
-      <h3>AppImage（x86 64 位）</h3>
+      <h3>AppImage（通用）</h3>
+      <p class="note">无需安装，双击即可运行，只提供 x86_64 架构。</p>
       <ul class="download-list">
         <li class="dl-item">
           <button class="download-button" type="button" onclick="toggleDl(this)">
-            下载 .AppImage（x86 64 位）<span class="dl-caret">▾</span>
+            Linux .AppImage（x86_64）<span class="dl-caret">▾</span>
           </button>
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
-              data-mode="v4" data-file="appimage" href="#">
+              data-mode="v4" data-file="linux-appimage-x64" href="#">
               更快的加速连接<small>（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
-              data-mode="gh" data-file="appimage" href="#">
+              data-mode="gh" data-file="linux-appimage-x64" href="#">
               加速连接
             </a>
             <a class="dl-opt github dl-link"
-              data-mode="github" data-file="appimage" href="#">
+              data-mode="github" data-file="linux-appimage-x64" href="#">
               GitHub 连接
             </a>
           </div>
         </li>
       </ul>
 
-      <h3>tar.gz（x86 64 位）</h3>
+      <h3>tar.gz（便携）</h3>
+      <p class="note">解压即可运行，无依赖。支持 x86_64、arm64、armv7l。</p>
       <ul class="download-list">
         <li class="dl-item">
           <button class="download-button" type="button" onclick="toggleDl(this)">
-            下载 .tar.gz（x86 64 位）<span class="dl-caret">▾</span>
+            Linux .tar.gz（x86_64）<span class="dl-caret">▾</span>
           </button>
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
-              data-mode="v4" data-file="targz" href="#">
+              data-mode="v4" data-file="linux-targz-x64" href="#">
               更快的加速连接<small>（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
-              data-mode="gh" data-file="targz" href="#">
+              data-mode="gh" data-file="linux-targz-x64" href="#">
               加速连接
             </a>
             <a class="dl-opt github dl-link"
-              data-mode="github" data-file="targz" href="#">
+              data-mode="github" data-file="linux-targz-x64" href="#">
+              GitHub 连接
+            </a>
+          </div>
+        </li>
+        <li class="dl-item">
+          <button class="download-button" type="button" onclick="toggleDl(this)">
+            Linux .tar.gz（arm64）<span class="dl-caret">▾</span>
+          </button>
+          <div class="dl-options">
+            <a class="dl-opt fast dl-link"
+              data-mode="v4" data-file="linux-targz-arm64" href="#">
+              更快的加速连接<small>（推荐）</small>
+            </a>
+            <a class="dl-opt fast dl-link"
+              data-mode="gh" data-file="linux-targz-arm64" href="#">
+              加速连接
+            </a>
+            <a class="dl-opt github dl-link"
+              data-mode="github" data-file="linux-targz-arm64" href="#">
+              GitHub 连接
+            </a>
+          </div>
+        </li>
+        <li class="dl-item">
+          <button class="download-button" type="button" onclick="toggleDl(this)">
+            Linux .tar.gz（armv7l）<span class="dl-caret">▾</span>
+          </button>
+          <div class="dl-options">
+            <a class="dl-opt fast dl-link"
+              data-mode="v4" data-file="linux-targz-armv7l" href="#">
+              更快的加速连接<small>（推荐）</small>
+            </a>
+            <a class="dl-opt fast dl-link"
+              data-mode="gh" data-file="linux-targz-armv7l" href="#">
+              加速连接
+            </a>
+            <a class="dl-opt github dl-link"
+              data-mode="github" data-file="linux-targz-armv7l" href="#">
               GitHub 连接
             </a>
           </div>
         </li>
       </ul>
+
+      <h3>Arch Linux（pacman）</h3>
+      <p class="note">.pkg.tar.zst 包，支持 x86_64、arm64、armv7l。</p>
+      <ul class="download-list">
+        <li class="dl-item">
+          <button class="download-button" type="button" onclick="toggleDl(this)">
+            Linux Arch .pkg.tar.zst（x86_64）<span class="dl-caret">▾</span>
+          </button>
+          <div class="dl-options">
+            <a class="dl-opt fast dl-link"
+              data-mode="v4" data-file="linux-pacman-x64" href="#">
+              更快的加速连接<small>（推荐）</small>
+            </a>
+            <a class="dl-opt fast dl-link"
+              data-mode="gh" data-file="linux-pacman-x64" href="#">
+              加速连接
+            </a>
+            <a class="dl-opt github dl-link"
+              data-mode="github" data-file="linux-pacman-x64" href="#">
+              GitHub 连接
+            </a>
+          </div>
+        </li>
+        <li class="dl-item">
+          <button class="download-button" type="button" onclick="toggleDl(this)">
+            Linux Arch .pkg.tar.zst（arm64）<span class="dl-caret">▾</span>
+          </button>
+          <div class="dl-options">
+            <a class="dl-opt fast dl-link"
+              data-mode="v4" data-file="linux-pacman-arm64" href="#">
+              更快的加速连接<small>（推荐）</small>
+            </a>
+            <a class="dl-opt fast dl-link"
+              data-mode="gh" data-file="linux-pacman-arm64" href="#">
+              加速连接
+            </a>
+            <a class="dl-opt github dl-link"
+              data-mode="github" data-file="linux-pacman-arm64" href="#">
+              GitHub 连接
+            </a>
+          </div>
+        </li>
+        <li class="dl-item">
+          <button class="download-button" type="button" onclick="toggleDl(this)">
+            Linux Arch .pkg.tar.zst（armv7l）<span class="dl-caret">▾</span>
+          </button>
+          <div class="dl-options">
+            <a class="dl-opt fast dl-link"
+              data-mode="v4" data-file="linux-pacman-armv7l" href="#">
+              更快的加速连接<small>（推荐）</small>
+            </a>
+            <a class="dl-opt fast dl-link"
+              data-mode="gh" data-file="linux-pacman-armv7l" href="#">
+              加速连接
+            </a>
+            <a class="dl-opt github dl-link"
+              data-mode="github" data-file="linux-pacman-armv7l" href="#">
+              GitHub 连接
+            </a>
+          </div>
+        </li>
+      </ul>
+
+      <h3>Fedora / RHEL / openSUSE（RPM）</h3>
+      <p class="note">支持 x86_64、arm64、armv7l。</p>
+      <ul class="download-list">
+        <li class="dl-item">
+          <button class="download-button" type="button" onclick="toggleDl(this)">
+            Linux .rpm（x86_64）<span class="dl-caret">▾</span>
+          </button>
+          <div class="dl-options">
+            <a class="dl-opt fast dl-link"
+              data-mode="v4" data-file="linux-rpm-x64" href="#">
+              更快的加速连接<small>（推荐）</small>
+            </a>
+            <a class="dl-opt fast dl-link"
+              data-mode="gh" data-file="linux-rpm-x64" href="#">
+              加速连接
+            </a>
+            <a class="dl-opt github dl-link"
+              data-mode="github" data-file="linux-rpm-x64" href="#">
+              GitHub 连接
+            </a>
+          </div>
+        </li>
+        <li class="dl-item">
+          <button class="download-button" type="button" onclick="toggleDl(this)">
+            Linux .rpm（arm64）<span class="dl-caret">▾</span>
+          </button>
+          <div class="dl-options">
+            <a class="dl-opt fast dl-link"
+              data-mode="v4" data-file="linux-rpm-arm64" href="#">
+              更快的加速连接<small>（推荐）</small>
+            </a>
+            <a class="dl-opt fast dl-link"
+              data-mode="gh" data-file="linux-rpm-arm64" href="#">
+              加速连接
+            </a>
+            <a class="dl-opt github dl-link"
+              data-mode="github" data-file="linux-rpm-arm64" href="#">
+              GitHub 连接
+            </a>
+          </div>
+        </li>
+        <li class="dl-item">
+          <button class="download-button" type="button" onclick="toggleDl(this)">
+            Linux .rpm（armv7l）<span class="dl-caret">▾</span>
+          </button>
+          <div class="dl-options">
+            <a class="dl-opt fast dl-link"
+              data-mode="v4" data-file="linux-rpm-armv7l" href="#">
+              更快的加速连接<small>（推荐）</small>
+            </a>
+            <a class="dl-opt fast dl-link"
+              data-mode="gh" data-file="linux-rpm-armv7l" href="#">
+              加速连接
+            </a>
+            <a class="dl-opt github dl-link"
+              data-mode="github" data-file="linux-rpm-armv7l" href="#">
+              GitHub 连接
+            </a>
+          </div>
+        </li>
+      </ul>
+
     </section>
 
     <section id="changelog">
@@ -739,181 +1119,75 @@
   </footer>
 
   <script>
-    // 各版本的精确产物文件名（来自 GitHub Releases 实际生成的 assets）
-    // 注意：electron-builder 会把版本号规范化为 1.0.1（Win/Linux），
-    // 而 mac 的 dmg 由工作流用 tag 名（如 v1.0.2）重命名。
-    var RELEASES = {
-      '1.1.7': {
-        win: 'RemixWarp-Setup-1.1.7-x64.exe',
-        mac: 'RemixWarp-Setup-modern-v1.1.7.dmg',
-        deb: 'RemixWarp-linux-amd64-1.1.7.deb',
-        appimage: 'RemixWarp-linux-x86_64-1.1.7.AppImage',
-        targz: 'RemixWarp-linux-x64-1.1.7.tar.gz',
-        appx64: 'RemixWarp-MS-Store-1.1.7-x64.appx',
-        appxia32: 'RemixWarp-MS-Store-1.1.7-ia32.appx',
-        appxarm64: 'RemixWarp-MS-Store-1.1.7-arm64.appx'
-      },
-      '1.1.6': {
-        win: 'RemixWarp-Setup-1.1.6-x64.exe',
-        mac: 'RemixWarp-Setup-modern-v1.1.6.dmg',
-        deb: 'RemixWarp-linux-amd64-1.1.6.deb',
-        appimage: 'RemixWarp-linux-x86_64-1.1.6.AppImage',
-        targz: 'RemixWarp-linux-x64-1.1.6.tar.gz',
-        appx64: 'RemixWarp-MS-Store-1.1.6-x64.appx',
-        appxia32: 'RemixWarp-MS-Store-1.1.6-ia32.appx',
-        appxarm64: 'RemixWarp-MS-Store-1.1.6-arm64.appx'
-      },
-      '1.1.5': {
-        win: 'RemixWarp-Setup-1.1.5-x64.exe',
-        mac: 'RemixWarp-Setup-modern-v1.1.5.dmg',
-        deb: 'RemixWarp-linux-amd64-1.1.5.deb',
-        appimage: 'RemixWarp-linux-x86_64-1.1.5.AppImage',
-        targz: 'RemixWarp-linux-x64-1.1.5.tar.gz',
-        appx64: 'RemixWarp-MS-Store-1.1.5-x64.appx',
-        appxia32: 'RemixWarp-MS-Store-1.1.5-ia32.appx',
-        appxarm64: 'RemixWarp-MS-Store-1.1.5-arm64.appx'
-      },
-      '1.1.4': {
-        win: 'RemixWarp-Setup-1.1.4-x64.exe',
-        mac: 'RemixWarp-Setup-modern-v1.1.4.dmg',
-        deb: 'RemixWarp-linux-amd64-1.1.4.deb',
-        appimage: 'RemixWarp-linux-x86_64-1.1.4.AppImage',
-        targz: 'RemixWarp-linux-x64-1.1.4.tar.gz',
-        appx64: 'RemixWarp-MS-Store-1.1.4-x64.appx',
-        appxia32: 'RemixWarp-MS-Store-1.1.4-ia32.appx',
-        appxarm64: 'RemixWarp-MS-Store-1.1.4-arm64.appx'
-      },
-      '1.1.3': {
-        win: 'RemixWarp-Setup-1.1.3-x64.exe',
-        mac: 'RemixWarp-Setup-modern-v1.1.3.dmg',
-        deb: 'RemixWarp-linux-amd64-1.1.3.deb',
-        appimage: 'RemixWarp-linux-x86_64-1.1.3.AppImage',
-        targz: 'RemixWarp-linux-x64-1.1.3.tar.gz',
-        appx64: 'RemixWarp-MS-Store-1.1.3-x64.appx',
-        appxia32: 'RemixWarp-MS-Store-1.1.3-ia32.appx',
-        appxarm64: 'RemixWarp-MS-Store-1.1.3-arm64.appx'
-      },
-      '1.1.2': {
-        win: 'RemixWarp-Setup-1.1.2-x64.exe',
-        mac: 'RemixWarp-Setup-modern-v1.1.2.dmg',
-        deb: 'RemixWarp-linux-amd64-1.1.2.deb',
-        appimage: 'RemixWarp-linux-x86_64-1.1.2.AppImage',
-        targz: 'RemixWarp-linux-x64-1.1.2.tar.gz',
-        appx64: 'RemixWarp-MS-Store-1.1.2-x64.appx',
-        appxia32: 'RemixWarp-MS-Store-1.1.2-ia32.appx',
-        appxarm64: 'RemixWarp-MS-Store-1.1.2-arm64.appx'
-      },
-      '1.1.1': {
-        win: 'RemixWarp-Setup-1.1.1-x64.exe',
-        mac: 'RemixWarp-Setup-modern-v1.1.1.dmg',
-        deb: 'RemixWarp-linux-amd64-1.1.1.deb',
-        appimage: 'RemixWarp-linux-x86_64-1.1.1.AppImage',
-        targz: 'RemixWarp-linux-x64-1.1.1.tar.gz',
-        appx64: 'RemixWarp-MS-Store-1.1.1-x64.appx',
-        appxia32: 'RemixWarp-MS-Store-1.1.1-ia32.appx',
-        appxarm64: 'RemixWarp-MS-Store-1.1.1-arm64.appx'
-      },
-      '1.1.0': {
-        win: 'RemixWarp-Setup-1.1.0-x64.exe',
-        mac: 'RemixWarp-Setup-modern-v1.1.0.dmg',
-        deb: 'RemixWarp-linux-amd64-1.1.0.deb',
-        appimage: 'RemixWarp-linux-x86_64-1.1.0.AppImage',
-        targz: 'RemixWarp-linux-x64-1.1.0.tar.gz',
-        appx64: 'RemixWarp-MS-Store-1.1.0-x64.appx',
-        appxia32: 'RemixWarp-MS-Store-1.1.0-ia32.appx',
-        appxarm64: 'RemixWarp-MS-Store-1.1.0-arm64.appx'
-      },
-      '1.0.9': {
-        win: 'RemixWarp-Setup-1.0.9-x64.exe',
-        mac: 'RemixWarp-Setup-modern-v1.0.9.dmg',
-        deb: 'RemixWarp-linux-amd64-1.0.9.deb',
-        appimage: 'RemixWarp-linux-x86_64-1.0.9.AppImage',
-        targz: 'RemixWarp-linux-x64-1.0.9.tar.gz',
-        appx64: 'RemixWarp-MS-Store-1.0.9-x64.appx',
-        appxia32: 'RemixWarp-MS-Store-1.0.9-ia32.appx',
-        appxarm64: 'RemixWarp-MS-Store-1.0.9-arm64.appx'
-      },
-      '1.0.8': {
-        win: 'RemixWarp-Setup-1.0.8-x64.exe',
-        mac: 'RemixWarp-Setup-modern-v1.0.8.dmg',
-        deb: 'RemixWarp-linux-amd64-1.0.8.deb',
-        appimage: 'RemixWarp-linux-x86_64-1.0.8.AppImage',
-        targz: 'RemixWarp-linux-x64-1.0.8.tar.gz',
-        appx64: 'RemixWarp-MS-Store-1.0.8-x64.appx',
-        appxia32: 'RemixWarp-MS-Store-1.0.8-ia32.appx',
-        appxarm64: 'RemixWarp-MS-Store-1.0.8-arm64.appx'
-      },
-      '1.0.7': {
-        win: 'RemixWarp-Setup-1.0.7-x64.exe',
-        mac: 'RemixWarp-Setup-modern-v1.0.7.dmg',
-        deb: 'RemixWarp-linux-amd64-1.0.7.deb',
-        appimage: 'RemixWarp-linux-x86_64-1.0.7.AppImage',
-        targz: 'RemixWarp-linux-x64-1.0.7.tar.gz',
-        appx64: 'RemixWarp-MS-Store-1.0.7-x64.appx',
-        appxia32: 'RemixWarp-MS-Store-1.0.7-ia32.appx',
-        appxarm64: 'RemixWarp-MS-Store-1.0.7-arm64.appx'
-      },
-      '1.0.6': {
-        win: 'RemixWarp-Setup-1.0.6-x64.exe',
-        mac: 'RemixWarp-Setup-modern-v1.0.6.dmg',
-        deb: 'RemixWarp-linux-amd64-1.0.6.deb',
-        appimage: 'RemixWarp-linux-x86_64-1.0.6.AppImage',
-        targz: 'RemixWarp-linux-x64-1.0.6.tar.gz',
-        appx64: 'RemixWarp-MS-Store-1.0.6-x64.appx',
-        appxia32: 'RemixWarp-MS-Store-1.0.6-ia32.appx',
-        appxarm64: 'RemixWarp-MS-Store-1.0.6-arm64.appx'
-      },
-      '1.0.5': {
-        win: 'RemixWarp-Setup-1.0.5-x64.exe',
-        mac: 'RemixWarp-Setup-modern-v1.0.5.dmg',
-        deb: 'RemixWarp-linux-amd64-1.0.5.deb',
-        appimage: 'RemixWarp-linux-x86_64-1.0.5.AppImage',
-        targz: 'RemixWarp-linux-x64-1.0.5.tar.gz',
-        appx64: 'RemixWarp-MS-Store-1.0.5-x64.appx',
-        appxia32: 'RemixWarp-MS-Store-1.0.5-ia32.appx',
-        appxarm64: 'RemixWarp-MS-Store-1.0.5-arm64.appx'
-      },
-      '1.0.4': {
-        win: 'RemixWarp-Setup-1.0.4-x64.exe',
-        mac: 'RemixWarp-Setup-modern-v1.0.4.dmg',
-        deb: 'RemixWarp-linux-amd64-1.0.4.deb',
-        appimage: 'RemixWarp-linux-x86_64-1.0.4.AppImage',
-        targz: 'RemixWarp-linux-x64-1.0.4.tar.gz',
-        appx64: 'RemixWarp-MS-Store-1.0.4-x64.appx',
-        appxia32: 'RemixWarp-MS-Store-1.0.4-ia32.appx',
-        appxarm64: 'RemixWarp-MS-Store-1.0.4-arm64.appx'
-      },
-      '1.0.3': {
-        win: 'RemixWarp-Setup-1.0.3-x64.exe',
-        mac: 'RemixWarp-Setup-modern-v1.0.3.dmg',
-        deb: 'RemixWarp-linux-amd64-1.0.3.deb',
-        appimage: 'RemixWarp-linux-x86_64-1.0.3.AppImage',
-        targz: 'RemixWarp-linux-x64-1.0.3.tar.gz',
-        appx64: 'RemixWarp-MS-Store-1.0.3-x64.appx',
-        appxia32: 'RemixWarp-MS-Store-1.0.3-ia32.appx',
-        appxarm64: 'RemixWarp-MS-Store-1.0.3-arm64.appx'
-      },
-      '1.0.2': {
-        win: 'RemixWarp-Setup-1.0.2-x64.exe',
-        mac: 'RemixWarp-Setup-modern-v1.0.2.dmg',
-        deb: 'RemixWarp-linux-amd64-1.0.2.deb',
-        appimage: 'RemixWarp-linux-x86_64-1.0.2.AppImage',
-        targz: 'RemixWarp-linux-x64-1.0.2.tar.gz',
-        appx64: 'RemixWarp-MS-Store-1.0.2-x64.appx',
-        appxia32: 'RemixWarp-MS-Store-1.0.2-ia32.appx',
-        appxarm64: 'RemixWarp-MS-Store-1.0.2-arm64.appx'
-      },
-      '1.0.0': {
-        win: 'RemixWarp-Setup-1.0.0-x64.exe',
-        mac: 'RemixWarp-Setup-modern-v1.0.0.dmg',
-        deb: 'RemixWarp-linux-amd64-1.0.0.deb',
-        appimage: 'RemixWarp-linux-x86_64-1.0.0.AppImage',
-        targz: 'RemixWarp-linux-x64-1.0.0.tar.gz',
-        appx64: 'RemixWarp-MS-Store-1.0.0-x64.appx',
-        appxia32: 'RemixWarp-MS-Store-1.0.0-ia32.appx',
-        appxarm64: 'RemixWarp-MS-Store-1.0.0-arm64.appx'
-      }
+    // 全部可用下载产物清单（来自 release workflow + build.mjs 推导）。
+    // 每个条目的 .file(ver, vtag) 会根据版本号实时生成本版本下的真实文件名，
+    // 避免在 RELEASES 里为每个版本硬编码重复的对象。
+    var ASSET_DEFS = {
+      'win-nsis-x64': 'Windows 安装程序（64 位，推荐）',
+      'win-nsis-ia32': 'Windows 安装程序（32 位）',
+      'win-nsis-arm64': 'Windows 安装程序（ARM 64 位）',
+      'win-legacy-x64': 'Windows Legacy 安装程序（64 位，Windows 7/8）',
+      'win-legacy-ia32': 'Windows Legacy 安装程序（32 位，Windows 7/8）',
+      'win-portable-x64': 'Windows Portable 便携版（64 位，免安装）',
+      'win-appx-x64': '.appx x64（Microsoft Store 开发包）',
+      'win-appx-ia32': '.appx ia32（Microsoft Store 开发包）',
+      'win-appx-arm64': '.appx arm64（Microsoft Store 开发包）',
+      'mac-modern-universal': 'macOS Universal（12+，Apple Silicon + Intel）',
+      'mac-legacy-11-universal': 'macOS Legacy 11（Universal）',
+      'mac-legacy-1015-x64': 'macOS Legacy 10.15（Intel）',
+      'mac-legacy-1013-x64': 'macOS Legacy 10.13-10.14（Intel）',
+      'linux-deb-x64': 'Linux .deb（x86_64）',
+      'linux-deb-arm64': 'Linux .deb（arm64）',
+      'linux-deb-armv7l': 'Linux .deb（armv7l）',
+      'linux-appimage-x64': 'Linux .AppImage（x86_64）',
+      'linux-targz-x64': 'Linux .tar.gz（x86_64）',
+      'linux-targz-arm64': 'Linux .tar.gz（arm64）',
+      'linux-targz-armv7l': 'Linux .tar.gz（armv7l）',
+      'linux-pacman-x64': 'Linux Arch .pkg.tar.zst（x86_64）',
+      'linux-pacman-arm64': 'Linux Arch .pkg.tar.zst（arm64）',
+      'linux-pacman-armv7l': 'Linux Arch .pkg.tar.zst（armv7l）',
+      'linux-rpm-x64': 'Linux .rpm（x86_64）',
+      'linux-rpm-arm64': 'Linux .rpm（arm64）',
+      'linux-rpm-armv7l': 'Linux .rpm（armv7l）',
     };
+
+    // 各 key 对应的文件名生成规则
+    var ASSET_FNS = {
+      'win-nsis-x64': function (ver, vtag) { return `RemixWarp-Setup-${ver}-x64.exe`; },      'win-nsis-ia32': function (ver, vtag) { return `RemixWarp-Setup-${ver}-ia32.exe`; },      'win-nsis-arm64': function (ver, vtag) { return `RemixWarp-Setup-${ver}-arm64.exe`; },      'win-legacy-x64': function (ver, vtag) { return `RemixWarp-Legacy-Setup-${ver}-x64.exe`; },      'win-legacy-ia32': function (ver, vtag) { return `RemixWarp-Legacy-Setup-${ver}-ia32.exe`; },      'win-portable-x64': function (ver, vtag) { return `RemixWarp Portable ${ver} x64.exe`; },      'win-appx-x64': function (ver, vtag) { return `RemixWarp-MS-Store-${ver}-x64.appx`; },      'win-appx-ia32': function (ver, vtag) { return `RemixWarp-MS-Store-${ver}-ia32.appx`; },      'win-appx-arm64': function (ver, vtag) { return `RemixWarp-MS-Store-${ver}-arm64.appx`; },      'mac-modern-universal': function (ver, vtag) { return `RemixWarp-Setup-modern-${vtag}.dmg`; },      'mac-legacy-11-universal': function (ver, vtag) { return `RemixWarp-Setup-legacy-11-${vtag}.dmg`; },      'mac-legacy-1015-x64': function (ver, vtag) { return `RemixWarp-Setup-legacy-10.15-${vtag}.dmg`; },      'mac-legacy-1013-x64': function (ver, vtag) { return `RemixWarp-Setup-legacy-10.13-10.14-${vtag}.dmg`; },      'linux-deb-x64': function (ver, vtag) { return `RemixWarp-linux-amd64-${ver}.deb`; },      'linux-deb-arm64': function (ver, vtag) { return `RemixWarp-linux-arm64-${ver}.deb`; },      'linux-deb-armv7l': function (ver, vtag) { return `RemixWarp-linux-armv7l-${ver}.deb`; },      'linux-appimage-x64': function (ver, vtag) { return `RemixWarp-linux-x86_64-${ver}.AppImage`; },      'linux-targz-x64': function (ver, vtag) { return `RemixWarp-linux-x64-${ver}.tar.gz`; },      'linux-targz-arm64': function (ver, vtag) { return `RemixWarp-linux-arm64-${ver}.tar.gz`; },      'linux-targz-armv7l': function (ver, vtag) { return `RemixWarp-linux-armv7l-${ver}.tar.gz`; },      'linux-pacman-x64': function (ver, vtag) { return `RemixWarp-linux-x64-${ver}.pkg.tar.zst`; },      'linux-pacman-arm64': function (ver, vtag) { return `RemixWarp-linux-arm64-${ver}.pkg.tar.zst`; },      'linux-pacman-armv7l': function (ver, vtag) { return `RemixWarp-linux-armv7l-${ver}.pkg.tar.zst`; },      'linux-rpm-x64': function (ver, vtag) { return `RemixWarp-linux-x64-${ver}.rpm`; },      'linux-rpm-arm64': function (ver, vtag) { return `RemixWarp-linux-arm64-${ver}.rpm`; },      'linux-rpm-armv7l': function (ver, vtag) { return `RemixWarp-linux-armv7l-${ver}.rpm`; },
+    };
+
+    // 构建某版本下全部产物 key -> 文件名 映射
+    var buildAssetMap = function (ver) {
+      var vtag = 'v' + ver;
+      var out = {};
+      for (var key in ASSET_FNS) {
+        out[key] = ASSET_FNS[key](ver, vtag);
+      }
+      return out;
+    };
+
+    // 兼容旧的 RELEASES 引用：把 RELEASES[ver] 定义为 buildAssetMap 的结果
+    var RELEASES_HISTORY = {
+      '1.1.6': null,  // 由 buildAssetMap(1.1.6) 动态生成
+      '1.1.4': null,  // 由 buildAssetMap(1.1.4) 动态生成
+      '1.1.1': null,  // 由 buildAssetMap(1.1.1) 动态生成
+      '1.1.0': null,  // 由 buildAssetMap(1.1.0) 动态生成
+      '1.0.9': null,  // 由 buildAssetMap(1.0.9) 动态生成
+      '1.0.8': null,  // 由 buildAssetMap(1.0.8) 动态生成
+      '1.0.7': null,  // 由 buildAssetMap(1.0.7) 动态生成
+      '1.0.6': null,  // 由 buildAssetMap(1.0.6) 动态生成
+      '1.0.5': null,  // 由 buildAssetMap(1.0.5) 动态生成
+      '1.0.4': null,  // 由 buildAssetMap(1.0.4) 动态生成
+      '1.0.3': null,  // 由 buildAssetMap(1.0.3) 动态生成
+      '1.0.2': null,  // 由 buildAssetMap(1.0.2) 动态生成
+      '1.0.0': null,  // 由 buildAssetMap(1.0.0) 动态生成
+    };
+    var RELEASES = function (ver) {
+      // 对所有版本统一：由 buildAssetMap 动态生成全部文件名，
+      // 避免每次发新版都要手填几十行 JSON。
+      return buildAssetMap(ver);
+    };
+
 
     // 可选下载版本。数组第一项为最新版，其余为旧版。
     var VERSIONS = [
@@ -962,7 +1236,7 @@
 
     // 重写所有下载链接为目标版本
     var renderLinks = function () {
-      var files = RELEASES[activeVersion] || RELEASES[VERSIONS[0].version];
+      var files = RELEASES(activeVersion) || RELEASES(VERSIONS[0].version);
       var links = document.querySelectorAll('.dl-link');
       links.forEach(function (a) {
         var key = a.getAttribute('data-file');
@@ -974,18 +1248,18 @@
     // 推荐下载：直接指向对应安装包的加速连接
     var recBtn = document.getElementById('recommend-button');
     var renderRecommend = function () {
-      var files = RELEASES[activeVersion] || RELEASES[VERSIONS[0].version];
+      var files = RELEASES(activeVersion) || RELEASES(VERSIONS[0].version);
       var file = null;
       var label = '未知的操作系统？点击查看全部';
       if (os === 'windows') {
-        file = files.win;
-        label = '下载安装程序（64 位，推荐）';
+        file = files['win-nsis-x64'];
+        label = '下载 Windows 安装程序（64 位，推荐）';
       } else if (os === 'mac') {
-        file = files.mac;
-        label = '下载适用于 macOS 12 及更高版本';
+        file = files['mac-modern-universal'];
+        label = '下载 macOS 安装包（Universal，12+）';
       } else if (os === 'linux') {
-        file = files.deb;
-        label = '下载 .deb（x86 64 位，推荐）';
+        file = files['linux-deb-x64'];
+        label = '下载 Linux .deb（x86 64 位，推荐）';
       }
       recBtn.textContent = label;
       recBtn.href = file ? V4_PROXY + GITHUB_BASE + activeVersion + '/' + file : '#windows';
