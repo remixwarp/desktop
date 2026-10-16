@@ -580,11 +580,11 @@
 
       <details class="legacy-details">
         <summary>Windows 7 / 8 旧版支持</summary>
-        <p class="note">Legacy 版本使用 Electron 22（最后一个支持 Windows 7/8 的版本），不再收到新功能更新。</p>
+        <p class="note">旧版使用 Electron 22（最后一个支持 Windows 7/8 的版本），不再收到新功能更新。</p>
         <ul class="download-list">
         <li class="dl-item">
           <button class="download-button" type="button" onclick="toggleDl(this)">
-            Windows Legacy 安装程序（64 位，Windows 7/8）<span class="dl-caret">▾</span>
+            Windows 旧版安装程序（64 位，Windows 7/8）<span class="dl-caret">▾</span>
           </button>
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
@@ -603,7 +603,7 @@
         </li>
         <li class="dl-item">
           <button class="download-button" type="button" onclick="toggleDl(this)">
-            Windows Legacy 安装程序（32 位，Windows 7/8）<span class="dl-caret">▾</span>
+            Windows 旧版安装程序（32 位，Windows 7/8）<span class="dl-caret">▾</span>
           </button>
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
@@ -681,7 +681,7 @@
       <ul class="download-list">
         <li class="dl-item">
           <button class="download-button" type="button" onclick="toggleDl(this)">
-            macOS Universal（12+，Apple Silicon + Intel）<span class="dl-caret">▾</span>
+            macOS 通用版（12+，Apple Silicon / Intel）<span class="dl-caret">▾</span>
           </button>
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
@@ -702,11 +702,11 @@
 
       <details class="legacy-details">
         <summary>旧版 macOS 支持（11 / 10.15 / 10.13-10.14）</summary>
-        <p class="note">Legacy DMG 使用旧版 Electron，不再收到新功能更新。</p>
+        <p class="note">旧版 DMG 使用旧版 Electron，不再收到新功能更新。</p>
         <ul class="download-list">
         <li class="dl-item">
           <button class="download-button" type="button" onclick="toggleDl(this)">
-            macOS Legacy 11（Universal）<span class="dl-caret">▾</span>
+            macOS 旧版 11（通用）<span class="dl-caret">▾</span>
           </button>
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
@@ -725,7 +725,7 @@
         </li>
         <li class="dl-item">
           <button class="download-button" type="button" onclick="toggleDl(this)">
-            macOS Legacy 10.15（Intel）<span class="dl-caret">▾</span>
+            macOS 旧版 10.15（Intel）<span class="dl-caret">▾</span>
           </button>
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
@@ -744,7 +744,7 @@
         </li>
         <li class="dl-item">
           <button class="download-button" type="button" onclick="toggleDl(this)">
-            macOS Legacy 10.13-10.14（Intel）<span class="dl-caret">▾</span>
+            macOS 旧版 10.13-10.14（Intel）<span class="dl-caret">▾</span>
           </button>
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
@@ -1181,16 +1181,16 @@
       'win-nsis-x64': 'Windows 安装程序（64 位，推荐）',
       'win-nsis-ia32': 'Windows 安装程序（32 位）',
       'win-nsis-arm64': 'Windows 安装程序（ARM 64 位）',
-      'win-legacy-x64': 'Windows Legacy 安装程序（64 位，Windows 7/8）',
-      'win-legacy-ia32': 'Windows Legacy 安装程序（32 位，Windows 7/8）',
+      'win-legacy-x64': 'Windows 旧版安装程序（64 位，Windows 7/8）',
+      'win-legacy-ia32': 'Windows 旧版安装程序（32 位，Windows 7/8）',
       'win-portable-x64': 'Windows Portable 便携版（64 位，免安装）',
       'win-appx-x64': '.appx x64（Microsoft Store 开发包）',
       'win-appx-ia32': '.appx ia32（Microsoft Store 开发包）',
       'win-appx-arm64': '.appx arm64（Microsoft Store 开发包）',
-      'mac-modern-universal': 'macOS Universal（12+，Apple Silicon + Intel）',
-      'mac-legacy-11-universal': 'macOS Legacy 11（Universal）',
-      'mac-legacy-1015-x64': 'macOS Legacy 10.15（Intel）',
-      'mac-legacy-1013-x64': 'macOS Legacy 10.13-10.14（Intel）',
+      'mac-modern-universal': 'macOS 通用版（12+，Apple Silicon / Intel）',
+      'mac-legacy-11-universal': 'macOS 旧版 11（通用）',
+      'mac-legacy-1015-x64': 'macOS 旧版 10.15（Intel）',
+      'mac-legacy-1013-x64': 'macOS 旧版 10.13-10.14（Intel）',
       'linux-deb-x64': 'Linux .deb（x86_64）',
       'linux-deb-arm64': 'Linux .deb（arm64）',
       'linux-deb-armv7l': 'Linux .deb（armv7l）',
@@ -1286,14 +1286,14 @@
         'rec.linux': 'Linux',
         'rec.unknown': '未知的操作系统？点击查看全部',
         'rec.win-label': '下载 Windows 安装程序（64 位，推荐）',
-        'rec.mac-label': '下载 macOS 安装包（Universal，12+）',
+        'rec.mac-label': '下载 macOS 安装包（通用版，12+）',
         'rec.linux-label': '下载 Linux .deb（x86 64 位，推荐）',
         'legacy.open': 'Windows 7 / 8 旧版支持',
-        'legacy.win-note': 'Legacy 版本使用 Electron 22（最后一个支持 Windows 7/8 的版本），不再收到新功能更新。',
+        'legacy.win-note': '旧版使用 Electron 22（最后一个支持 Windows 7/8 的版本），不再收到新功能更新。',
         'legacy.portable': '便携版（免安装）',
         'legacy.portable-note': '解压即可运行，不会修改系统注册表。仅提供 x64 架构。',
         'legacy.mac-open': '旧版 macOS 支持（11 / 10.15 / 10.13-10.14）',
-        'legacy.mac-note': 'Legacy DMG 使用旧版 Electron，不再收到新功能更新。',
+        'legacy.mac-note': '旧版 DMG 使用旧版 Electron，不再收到新功能更新。',
         'smart-screen': '如果出现 Windows SmartScreen 提示，请点击「更多信息」后选择「仍要运行」。',
         'dev-dl-hint-win': 'Microsoft Store 开发包（.appx，使用加速连接，需开发者证书安装）：',
         'ms-store-label': '也可以直接从 Microsoft Store 安装（推荐）：',
@@ -1423,9 +1423,9 @@
       '根据你的发行版选择对应的安装包。推荐使用 .deb 或 AppImage。': 'linux.note',
       '根据你的发行版选择对应的安装包。推荐使用 .deb（Debian/Ubuntu）或 AppImage（通用）。': 'linux.note',
       '如果出现 Windows SmartScreen 提示，请点击「更多信息」后选择「仍要运行」。': 'smart-screen',
-      'Legacy 版本使用 Electron 22（最后一个支持 Windows 7/8 的版本），不再收到新功能更新。': 'legacy.win-note',
+      '旧版使用 Electron 22（最后一个支持 Windows 7/8 的版本），不再收到新功能更新。': 'legacy.win-note',
       '解压即可运行，不会修改系统注册表。仅提供 x64 架构。': 'legacy.portable-note',
-      'Legacy DMG 使用旧版 Electron，不再收到新功能更新。': 'legacy.mac-note',
+      '旧版 DMG 使用旧版 Electron，不再收到新功能更新。': 'legacy.mac-note',
     };
     function replaceNote(sel, dict) {
       document.querySelectorAll(sel).forEach(function (el) {
@@ -1484,7 +1484,7 @@
         label = '下载 Windows 安装程序（64 位，推荐）';
       } else if (os === 'mac') {
         file = files['mac-modern-universal'];
-        label = '下载 macOS 安装包（Universal，12+）';
+        label = '下载 macOS 安装包（通用版，12+）';
       } else if (os === 'linux') {
         file = files['linux-deb-x64'];
         label = '下载 Linux .deb（x86 64 位，推荐）';
