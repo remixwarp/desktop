@@ -478,6 +478,11 @@
       padding: 1px 6px;
       border-radius: 5px;
     }
+
+    /* 英文状态下隐藏加速镜像选项（只留 GitHub 直连） */
+    html[data-lang="en"] .dl-opt.fast {
+      display: none !important;
+    }
   </style>
 </head>
 
@@ -517,7 +522,7 @@
 
         <section id="windows">
       <h2 data-i18n="h2.windows">Windows 10 及更高版本</h2>
-      <p class="note">下载安装程序，运行后按提示安装即可。</p>
+      <p class="note" data-i18n="win.note">下载安装程序，运行后按提示安装即可。</p>
       <ul class="download-list">
         <li class="dl-item">
           <button class="download-button" type="button" onclick="toggleDl(this)">
@@ -526,15 +531,15 @@
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
               data-mode="v4" data-file="win-nsis-x64" href="#">
-              更快的加速连接<small>（推荐）</small>
+              <span data-i18n="dl.fast-recommended">更快的加速连接</span><small data-i18n="dl.fast-recommend-tag">（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
               data-mode="gh" data-file="win-nsis-x64" href="#">
-              加速连接
+              <span data-i18n="dl.accel">加速连接</span>
             </a>
             <a class="dl-opt github dl-link"
               data-mode="github" data-file="win-nsis-x64" href="#">
-              GitHub 连接
+              <span data-i18n="dl.github">GitHub 连接</span>
             </a>
           </div>
         </li>
@@ -545,15 +550,15 @@
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
               data-mode="v4" data-file="win-nsis-ia32" href="#">
-              更快的加速连接<small>（推荐）</small>
+              <span data-i18n="dl.fast-recommended">更快的加速连接</span><small data-i18n="dl.fast-recommend-tag">（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
               data-mode="gh" data-file="win-nsis-ia32" href="#">
-              加速连接
+              <span data-i18n="dl.accel">加速连接</span>
             </a>
             <a class="dl-opt github dl-link"
               data-mode="github" data-file="win-nsis-ia32" href="#">
-              GitHub 连接
+              <span data-i18n="dl.github">GitHub 连接</span>
             </a>
           </div>
         </li>
@@ -564,23 +569,23 @@
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
               data-mode="v4" data-file="win-nsis-arm64" href="#">
-              更快的加速连接<small>（推荐）</small>
+              <span data-i18n="dl.fast-recommended">更快的加速连接</span><small data-i18n="dl.fast-recommend-tag">（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
               data-mode="gh" data-file="win-nsis-arm64" href="#">
-              加速连接
+              <span data-i18n="dl.accel">加速连接</span>
             </a>
             <a class="dl-opt github dl-link"
               data-mode="github" data-file="win-nsis-arm64" href="#">
-              GitHub 连接
+              <span data-i18n="dl.github">GitHub 连接</span>
             </a>
           </div>
         </li>
       </ul>
 
       <details class="legacy-details">
-        <summary>Windows 7 / 8 旧版支持</summary>
-        <p class="note">旧版使用 Electron 22（最后一个支持 Windows 7/8 的版本），不再收到新功能更新。</p>
+        <summary data-i18n="legacy.open">Windows 7 / 8 旧版支持</summary>
+        <p class="note" data-i18n="legacy.win-note">旧版使用 Electron 22（最后一个支持 Windows 7/8 的版本），不再收到新功能更新。</p>
         <ul class="download-list">
         <li class="dl-item">
           <button class="download-button" type="button" onclick="toggleDl(this)">
@@ -589,15 +594,15 @@
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
               data-mode="v4" data-file="win-legacy-x64" href="#">
-              更快的加速连接<small>（推荐）</small>
+              <span data-i18n="dl.fast-recommended">更快的加速连接</span><small data-i18n="dl.fast-recommend-tag">（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
               data-mode="gh" data-file="win-legacy-x64" href="#">
-              加速连接
+              <span data-i18n="dl.accel">加速连接</span>
             </a>
             <a class="dl-opt github dl-link"
               data-mode="github" data-file="win-legacy-x64" href="#">
-              GitHub 连接
+              <span data-i18n="dl.github">GitHub 连接</span>
             </a>
           </div>
         </li>
@@ -608,15 +613,15 @@
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
               data-mode="v4" data-file="win-legacy-ia32" href="#">
-              更快的加速连接<small>（推荐）</small>
+              <span data-i18n="dl.fast-recommended">更快的加速连接</span><small data-i18n="dl.fast-recommend-tag">（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
               data-mode="gh" data-file="win-legacy-ia32" href="#">
-              加速连接
+              <span data-i18n="dl.accel">加速连接</span>
             </a>
             <a class="dl-opt github dl-link"
               data-mode="github" data-file="win-legacy-ia32" href="#">
-              GitHub 连接
+              <span data-i18n="dl.github">GitHub 连接</span>
             </a>
           </div>
         </li>
@@ -624,8 +629,8 @@
       </details>
 
       <details class="legacy-details">
-        <summary>便携版（免安装）</summary>
-        <p class="note">解压即可运行，不会修改系统注册表。仅提供 x64 架构。</p>
+        <summary data-i18n="legacy.portable">便携版（免安装）</summary>
+        <p class="note" data-i18n="legacy.portable-note">解压即可运行，不会修改系统注册表。仅提供 x64 架构。</p>
         <ul class="download-list">
         <li class="dl-item">
           <button class="download-button" type="button" onclick="toggleDl(this)">
@@ -634,24 +639,24 @@
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
               data-mode="v4" data-file="win-portable-x64" href="#">
-              更快的加速连接<small>（推荐）</small>
+              <span data-i18n="dl.fast-recommended">更快的加速连接</span><small data-i18n="dl.fast-recommend-tag">（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
               data-mode="gh" data-file="win-portable-x64" href="#">
-              加速连接
+              <span data-i18n="dl.accel">加速连接</span>
             </a>
             <a class="dl-opt github dl-link"
               data-mode="github" data-file="win-portable-x64" href="#">
-              GitHub 连接
+              <span data-i18n="dl.github">GitHub 连接</span>
             </a>
           </div>
         </li>
         </ul>
       </details>
 
-      <p class="note">如果出现 Windows SmartScreen 提示，请点击「更多信息」后选择「仍要运行」。</p>
+      <p class="note" data-i18n="smart-screen">如果出现 Windows SmartScreen 提示，请点击「更多信息」后选择「仍要运行」。</p>
 
-      <div class="dev-dl-hint">Microsoft Store 开发包（.appx，使用加速连接，需开发者证书安装）：</div>
+      <div class="dev-dl-hint" data-i18n="dev-dl-hint-win">Microsoft Store 开发包（.appx，使用加速连接，需开发者证书安装）：</div>
       <div class="dev-dl-row">
         <a class="dev-dl-btn dl-link"
           data-mode="v4" data-file="win-appx-x64" href="#">
@@ -668,7 +673,7 @@
       </div>
 
       <div class="ms-store-section">
-        <p class="ms-store-label">也可以直接从 Microsoft Store 安装（推荐）：</p>
+        <p class="ms-store-label" data-i18n="ms-store-label">也可以直接从 Microsoft Store 安装（推荐）：</p>
         <a href="https://apps.microsoft.com/detail/9NKQJR845M6J" target="_blank" rel="noopener" aria-label="Get RemixWarp Desktop from Microsoft Store">
           <img class="ms-store-badge" src="./ms-store-badge.svg" alt="Get it from Microsoft Store">
         </a>
@@ -676,8 +681,8 @@
     </section>
 
         <section id="mac">
-      <h2 data-i18n="h2.windows">macOS 12 及更高版本</h2>
-      <p class="note">下载 .dmg 文件，打开后将 RemixWarp 拖入「应用程序」文件夹。如果提示已存在，请选择「替换」。</p>
+      <h2 data-i18n="h2.mac">macOS 12 及更高版本</h2>
+      <p class="note" data-i18n="note.mac-drag">下载 .dmg 文件，打开后将 RemixWarp 拖入「应用程序」文件夹。如果提示已存在，请选择「替换」。</p>
       <ul class="download-list">
         <li class="dl-item">
           <button class="download-button" type="button" onclick="toggleDl(this)">
@@ -686,23 +691,23 @@
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
               data-mode="v4" data-file="mac-modern-universal" href="#">
-              更快的加速连接<small>（推荐）</small>
+              <span data-i18n="dl.fast-recommended">更快的加速连接</span><small data-i18n="dl.fast-recommend-tag">（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
               data-mode="gh" data-file="mac-modern-universal" href="#">
-              加速连接
+              <span data-i18n="dl.accel">加速连接</span>
             </a>
             <a class="dl-opt github dl-link"
               data-mode="github" data-file="mac-modern-universal" href="#">
-              GitHub 连接
+              <span data-i18n="dl.github">GitHub 连接</span>
             </a>
           </div>
         </li>
       </ul>
 
       <details class="legacy-details">
-        <summary>旧版 macOS 支持（11 / 10.15 / 10.13-10.14）</summary>
-        <p class="note">旧版 DMG 使用旧版 Electron，不再收到新功能更新。</p>
+        <summary data-i18n="legacy.mac-open">旧版 macOS 支持（11 / 10.15 / 10.13-10.14）</summary>
+        <p class="note" data-i18n="legacy.mac-note">旧版 DMG 使用旧版 Electron，不再收到新功能更新。</p>
         <ul class="download-list">
         <li class="dl-item">
           <button class="download-button" type="button" onclick="toggleDl(this)">
@@ -711,15 +716,15 @@
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
               data-mode="v4" data-file="mac-legacy-11-universal" href="#">
-              更快的加速连接<small>（推荐）</small>
+              <span data-i18n="dl.fast-recommended">更快的加速连接</span><small data-i18n="dl.fast-recommend-tag">（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
               data-mode="gh" data-file="mac-legacy-11-universal" href="#">
-              加速连接
+              <span data-i18n="dl.accel">加速连接</span>
             </a>
             <a class="dl-opt github dl-link"
               data-mode="github" data-file="mac-legacy-11-universal" href="#">
-              GitHub 连接
+              <span data-i18n="dl.github">GitHub 连接</span>
             </a>
           </div>
         </li>
@@ -730,15 +735,15 @@
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
               data-mode="v4" data-file="mac-legacy-1015-x64" href="#">
-              更快的加速连接<small>（推荐）</small>
+              <span data-i18n="dl.fast-recommended">更快的加速连接</span><small data-i18n="dl.fast-recommend-tag">（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
               data-mode="gh" data-file="mac-legacy-1015-x64" href="#">
-              加速连接
+              <span data-i18n="dl.accel">加速连接</span>
             </a>
             <a class="dl-opt github dl-link"
               data-mode="github" data-file="mac-legacy-1015-x64" href="#">
-              GitHub 连接
+              <span data-i18n="dl.github">GitHub 连接</span>
             </a>
           </div>
         </li>
@@ -749,15 +754,15 @@
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
               data-mode="v4" data-file="mac-legacy-1013-x64" href="#">
-              更快的加速连接<small>（推荐）</small>
+              <span data-i18n="dl.fast-recommended">更快的加速连接</span><small data-i18n="dl.fast-recommend-tag">（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
               data-mode="gh" data-file="mac-legacy-1013-x64" href="#">
-              加速连接
+              <span data-i18n="dl.accel">加速连接</span>
             </a>
             <a class="dl-opt github dl-link"
               data-mode="github" data-file="mac-legacy-1013-x64" href="#">
-              GitHub 连接
+              <span data-i18n="dl.github">GitHub 连接</span>
             </a>
           </div>
         </li>
@@ -766,11 +771,11 @@
     </section>
 
         <section id="linux">
-      <h2 data-i18n="h2.windows">Linux</h2>
-      <p class="note">根据你的发行版选择对应的安装包。推荐使用 .deb（Debian/Ubuntu）或 AppImage（通用）。</p>
+      <h2 data-i18n="h2.linux">Linux</h2>
+      <p class="note" data-i18n="note.linux.pick">根据你的发行版选择对应的安装包。推荐使用 .deb（Debian/Ubuntu）或 AppImage（通用）。</p>
 
-      <h3>Debian / Ubuntu / Linux Mint</h3>
-      <p class="note">支持 x86_64、arm64、armv7l。</p>
+      <h3 data-i18n="h3.linux.deb">Debian / Ubuntu / Linux Mint</h3>
+      <p class="note" data-i18n="note.linux.deb">支持 x86_64、arm64、armv7l。</p>
       <ul class="download-list">
         <li class="dl-item">
           <button class="download-button" type="button" onclick="toggleDl(this)">
@@ -779,15 +784,15 @@
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
               data-mode="v4" data-file="linux-deb-x64" href="#">
-              更快的加速连接<small>（推荐）</small>
+              <span data-i18n="dl.fast-recommended">更快的加速连接</span><small data-i18n="dl.fast-recommend-tag">（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
               data-mode="gh" data-file="linux-deb-x64" href="#">
-              加速连接
+              <span data-i18n="dl.accel">加速连接</span>
             </a>
             <a class="dl-opt github dl-link"
               data-mode="github" data-file="linux-deb-x64" href="#">
-              GitHub 连接
+              <span data-i18n="dl.github">GitHub 连接</span>
             </a>
           </div>
         </li>
@@ -798,15 +803,15 @@
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
               data-mode="v4" data-file="linux-deb-arm64" href="#">
-              更快的加速连接<small>（推荐）</small>
+              <span data-i18n="dl.fast-recommended">更快的加速连接</span><small data-i18n="dl.fast-recommend-tag">（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
               data-mode="gh" data-file="linux-deb-arm64" href="#">
-              加速连接
+              <span data-i18n="dl.accel">加速连接</span>
             </a>
             <a class="dl-opt github dl-link"
               data-mode="github" data-file="linux-deb-arm64" href="#">
-              GitHub 连接
+              <span data-i18n="dl.github">GitHub 连接</span>
             </a>
           </div>
         </li>
@@ -817,22 +822,22 @@
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
               data-mode="v4" data-file="linux-deb-armv7l" href="#">
-              更快的加速连接<small>（推荐）</small>
+              <span data-i18n="dl.fast-recommended">更快的加速连接</span><small data-i18n="dl.fast-recommend-tag">（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
               data-mode="gh" data-file="linux-deb-armv7l" href="#">
-              加速连接
+              <span data-i18n="dl.accel">加速连接</span>
             </a>
             <a class="dl-opt github dl-link"
               data-mode="github" data-file="linux-deb-armv7l" href="#">
-              GitHub 连接
+              <span data-i18n="dl.github">GitHub 连接</span>
             </a>
           </div>
         </li>
       </ul>
 
-      <h3>AppImage（通用）</h3>
-      <p class="note">无需安装，双击即可运行，只提供 x86_64 架构。</p>
+      <h3 data-i18n="h3.linux.appimage">AppImage（通用）</h3>
+      <p class="note" data-i18n="note.linux.appimage">无需安装，双击即可运行，只提供 x86_64 架构。</p>
       <ul class="download-list">
         <li class="dl-item">
           <button class="download-button" type="button" onclick="toggleDl(this)">
@@ -841,22 +846,22 @@
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
               data-mode="v4" data-file="linux-appimage-x64" href="#">
-              更快的加速连接<small>（推荐）</small>
+              <span data-i18n="dl.fast-recommended">更快的加速连接</span><small data-i18n="dl.fast-recommend-tag">（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
               data-mode="gh" data-file="linux-appimage-x64" href="#">
-              加速连接
+              <span data-i18n="dl.accel">加速连接</span>
             </a>
             <a class="dl-opt github dl-link"
               data-mode="github" data-file="linux-appimage-x64" href="#">
-              GitHub 连接
+              <span data-i18n="dl.github">GitHub 连接</span>
             </a>
           </div>
         </li>
       </ul>
 
-      <h3>tar.gz（便携）</h3>
-      <p class="note">解压即可运行，无依赖。支持 x86_64、arm64、armv7l。</p>
+      <h3 data-i18n="h3.linux.targz">tar.gz（便携）</h3>
+      <p class="note" data-i18n="note.linux.targz">解压即可运行，无依赖。支持 x86_64、arm64、armv7l。</p>
       <ul class="download-list">
         <li class="dl-item">
           <button class="download-button" type="button" onclick="toggleDl(this)">
@@ -865,15 +870,15 @@
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
               data-mode="v4" data-file="linux-targz-x64" href="#">
-              更快的加速连接<small>（推荐）</small>
+              <span data-i18n="dl.fast-recommended">更快的加速连接</span><small data-i18n="dl.fast-recommend-tag">（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
               data-mode="gh" data-file="linux-targz-x64" href="#">
-              加速连接
+              <span data-i18n="dl.accel">加速连接</span>
             </a>
             <a class="dl-opt github dl-link"
               data-mode="github" data-file="linux-targz-x64" href="#">
-              GitHub 连接
+              <span data-i18n="dl.github">GitHub 连接</span>
             </a>
           </div>
         </li>
@@ -884,15 +889,15 @@
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
               data-mode="v4" data-file="linux-targz-arm64" href="#">
-              更快的加速连接<small>（推荐）</small>
+              <span data-i18n="dl.fast-recommended">更快的加速连接</span><small data-i18n="dl.fast-recommend-tag">（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
               data-mode="gh" data-file="linux-targz-arm64" href="#">
-              加速连接
+              <span data-i18n="dl.accel">加速连接</span>
             </a>
             <a class="dl-opt github dl-link"
               data-mode="github" data-file="linux-targz-arm64" href="#">
-              GitHub 连接
+              <span data-i18n="dl.github">GitHub 连接</span>
             </a>
           </div>
         </li>
@@ -903,22 +908,22 @@
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
               data-mode="v4" data-file="linux-targz-armv7l" href="#">
-              更快的加速连接<small>（推荐）</small>
+              <span data-i18n="dl.fast-recommended">更快的加速连接</span><small data-i18n="dl.fast-recommend-tag">（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
               data-mode="gh" data-file="linux-targz-armv7l" href="#">
-              加速连接
+              <span data-i18n="dl.accel">加速连接</span>
             </a>
             <a class="dl-opt github dl-link"
               data-mode="github" data-file="linux-targz-armv7l" href="#">
-              GitHub 连接
+              <span data-i18n="dl.github">GitHub 连接</span>
             </a>
           </div>
         </li>
       </ul>
 
-      <h3>Arch Linux（pacman）</h3>
-      <p class="note">.pkg.tar.zst 包，支持 x86_64、arm64、armv7l。</p>
+      <h3 data-i18n="h3.linux.pacman">Arch Linux（pacman）</h3>
+      <p class="note" data-i18n="note.linux.pacman">.pkg.tar.zst 包，支持 x86_64、arm64、armv7l。</p>
       <ul class="download-list">
         <li class="dl-item">
           <button class="download-button" type="button" onclick="toggleDl(this)">
@@ -927,15 +932,15 @@
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
               data-mode="v4" data-file="linux-pacman-x64" href="#">
-              更快的加速连接<small>（推荐）</small>
+              <span data-i18n="dl.fast-recommended">更快的加速连接</span><small data-i18n="dl.fast-recommend-tag">（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
               data-mode="gh" data-file="linux-pacman-x64" href="#">
-              加速连接
+              <span data-i18n="dl.accel">加速连接</span>
             </a>
             <a class="dl-opt github dl-link"
               data-mode="github" data-file="linux-pacman-x64" href="#">
-              GitHub 连接
+              <span data-i18n="dl.github">GitHub 连接</span>
             </a>
           </div>
         </li>
@@ -946,15 +951,15 @@
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
               data-mode="v4" data-file="linux-pacman-arm64" href="#">
-              更快的加速连接<small>（推荐）</small>
+              <span data-i18n="dl.fast-recommended">更快的加速连接</span><small data-i18n="dl.fast-recommend-tag">（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
               data-mode="gh" data-file="linux-pacman-arm64" href="#">
-              加速连接
+              <span data-i18n="dl.accel">加速连接</span>
             </a>
             <a class="dl-opt github dl-link"
               data-mode="github" data-file="linux-pacman-arm64" href="#">
-              GitHub 连接
+              <span data-i18n="dl.github">GitHub 连接</span>
             </a>
           </div>
         </li>
@@ -965,22 +970,22 @@
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
               data-mode="v4" data-file="linux-pacman-armv7l" href="#">
-              更快的加速连接<small>（推荐）</small>
+              <span data-i18n="dl.fast-recommended">更快的加速连接</span><small data-i18n="dl.fast-recommend-tag">（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
               data-mode="gh" data-file="linux-pacman-armv7l" href="#">
-              加速连接
+              <span data-i18n="dl.accel">加速连接</span>
             </a>
             <a class="dl-opt github dl-link"
               data-mode="github" data-file="linux-pacman-armv7l" href="#">
-              GitHub 连接
+              <span data-i18n="dl.github">GitHub 连接</span>
             </a>
           </div>
         </li>
       </ul>
 
-      <h3>Fedora / RHEL / openSUSE（RPM）</h3>
-      <p class="note">支持 x86_64、arm64、armv7l。</p>
+      <h3 data-i18n="h3.linux.rpm">Fedora / RHEL / openSUSE（RPM）</h3>
+      <p class="note" data-i18n="note.linux.rpm">支持 x86_64、arm64、armv7l。</p>
       <ul class="download-list">
         <li class="dl-item">
           <button class="download-button" type="button" onclick="toggleDl(this)">
@@ -989,15 +994,15 @@
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
               data-mode="v4" data-file="linux-rpm-x64" href="#">
-              更快的加速连接<small>（推荐）</small>
+              <span data-i18n="dl.fast-recommended">更快的加速连接</span><small data-i18n="dl.fast-recommend-tag">（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
               data-mode="gh" data-file="linux-rpm-x64" href="#">
-              加速连接
+              <span data-i18n="dl.accel">加速连接</span>
             </a>
             <a class="dl-opt github dl-link"
               data-mode="github" data-file="linux-rpm-x64" href="#">
-              GitHub 连接
+              <span data-i18n="dl.github">GitHub 连接</span>
             </a>
           </div>
         </li>
@@ -1008,15 +1013,15 @@
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
               data-mode="v4" data-file="linux-rpm-arm64" href="#">
-              更快的加速连接<small>（推荐）</small>
+              <span data-i18n="dl.fast-recommended">更快的加速连接</span><small data-i18n="dl.fast-recommend-tag">（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
               data-mode="gh" data-file="linux-rpm-arm64" href="#">
-              加速连接
+              <span data-i18n="dl.accel">加速连接</span>
             </a>
             <a class="dl-opt github dl-link"
               data-mode="github" data-file="linux-rpm-arm64" href="#">
-              GitHub 连接
+              <span data-i18n="dl.github">GitHub 连接</span>
             </a>
           </div>
         </li>
@@ -1027,15 +1032,15 @@
           <div class="dl-options">
             <a class="dl-opt fast dl-link"
               data-mode="v4" data-file="linux-rpm-armv7l" href="#">
-              更快的加速连接<small>（推荐）</small>
+              <span data-i18n="dl.fast-recommended">更快的加速连接</span><small data-i18n="dl.fast-recommend-tag">（推荐）</small>
             </a>
             <a class="dl-opt fast dl-link"
               data-mode="gh" data-file="linux-rpm-armv7l" href="#">
-              加速连接
+              <span data-i18n="dl.accel">加速连接</span>
             </a>
             <a class="dl-opt github dl-link"
               data-mode="github" data-file="linux-rpm-armv7l" href="#">
-              GitHub 连接
+              <span data-i18n="dl.github">GitHub 连接</span>
             </a>
           </div>
         </li>
@@ -1161,7 +1166,7 @@
     </section>
 
     <section style="text-align:center">
-      <h2 data-i18n="h2.windows">更多信息</h2>
+      <h2 data-i18n="h2.more">更多信息</h2>
       <div class="links">
         <a href="https://github.com/remixwarp/desktop/releases/tag/v1.1.7">GitHub 发布页</a>
         <a href="https://github.com/remixwarp/desktop">源代码</a>
@@ -1278,6 +1283,41 @@
         'h3.linux.deb': 'Debian / Ubuntu / Linux Mint（64 位）',
         'h3.linux.appimage': 'AppImage（x86 64 位）',
         'h3.linux.targz': 'tar.gz（x86 64 位）',
+
+        'dl.fast-recommended': '更快的加速连接',
+        'dl.fast-recommend-tag': '（推荐）',
+        'dl.accel': '加速连接',
+        'dl.github': 'GitHub 连接',
+        'dl.win-nsis-x64': 'Windows 安装程序（64 位，推荐）',
+        'dl.win-nsis-ia32': 'Windows 安装程序（32 位）',
+        'dl.win-nsis-arm64': 'Windows 安装程序（ARM 64 位）',
+        'dl.win-legacy-x64': 'Windows 旧版安装程序（64 位，Windows 7/8）',
+        'dl.win-legacy-ia32': 'Windows 旧版安装程序（32 位，Windows 7/8）',
+        'dl.win-portable-x64': 'Windows Portable 便携版（64 位，免安装）',
+        'dl.mac-modern-universal': 'macOS 通用版（12+，Apple Silicon / Intel）',
+        'dl.mac-legacy-11-universal': 'macOS 旧版 11（通用）',
+        'dl.mac-legacy-1015-x64': 'macOS 旧版 10.15（Intel）',
+        'dl.mac-legacy-1013-x64': 'macOS 旧版 10.13-10.14（Intel）',
+        'dl.linux-deb-x64': 'Linux .deb（x86_64）',
+        'dl.linux-deb-arm64': 'Linux .deb（arm64）',
+        'dl.linux-deb-armv7l': 'Linux .deb（armv7l）',
+        'dl.linux-appimage-x64': 'Linux .AppImage（x86_64）',
+        'dl.linux-targz-x64': 'Linux .tar.gz（x86_64）',
+        'dl.linux-targz-arm64': 'Linux .tar.gz（arm64）',
+        'dl.linux-targz-armv7l': 'Linux .tar.gz（armv7l）',
+        'dl.linux-pacman-x64': 'Linux Arch .pkg.tar.zst（x86_64）',
+        'dl.linux-pacman-arm64': 'Linux Arch .pkg.tar.zst（arm64）',
+        'dl.linux-pacman-armv7l': 'Linux Arch .pkg.tar.zst（armv7l）',
+        'dl.linux-rpm-x64': 'Linux .rpm（x86_64）',
+        'dl.linux-rpm-arm64': 'Linux .rpm（arm64）',
+        'dl.linux-rpm-armv7l': 'Linux .rpm（armv7l）',
+        'h2.more': '更多信息',
+        'win.note': '下载安装程序，运行后按提示安装即可。',
+        'note.mac-drag': '下载 .dmg 文件，打开后将 RemixWarp 拖入「应用程序」文件夹。如果提示已存在，请选择「替换」。',
+        'h3.linux.pacman': 'Arch Linux（pacman）',
+        'h3.linux.rpm': 'Fedora / RHEL / openSUSE（RPM）',
+        'note.linux.rpm': '支持 x86_64、arm64、armv7l。',
+
         'rec.label': '已根据你的设备推荐下载',
         'rec.detecting': '正在检测你的设备…',
         'rec.open-all': '若推荐不正确，可手动在下方选择系统',
@@ -1323,6 +1363,41 @@
         'h3.linux.deb': 'Debian / Ubuntu / Linux Mint (64-bit)',
         'h3.linux.appimage': 'AppImage (x86 64-bit)',
         'h3.linux.targz': 'tar.gz (x86 64-bit)',
+
+        'dl.fast-recommended': 'Faster mirror',
+        'dl.fast-recommend-tag': '(Recommended)',
+        'dl.accel': 'Mirror',
+        'dl.github': 'GitHub direct',
+        'dl.win-nsis-x64': 'Windows Installer (64-bit, recommended)',
+        'dl.win-nsis-ia32': 'Windows Installer (32-bit)',
+        'dl.win-nsis-arm64': 'Windows Installer (ARM 64-bit)',
+        'dl.win-legacy-x64': 'Windows Legacy Installer (64-bit, Win 7/8)',
+        'dl.win-legacy-ia32': 'Windows Legacy Installer (32-bit, Win 7/8)',
+        'dl.win-portable-x64': 'Windows Portable (64-bit, no install)',
+        'dl.mac-modern-universal': 'macOS Universal (12+, Apple Silicon / Intel)',
+        'dl.mac-legacy-11-universal': 'macOS Legacy 11 (Universal)',
+        'dl.mac-legacy-1015-x64': 'macOS Legacy 10.15 (Intel)',
+        'dl.mac-legacy-1013-x64': 'macOS Legacy 10.13-10.14 (Intel)',
+        'dl.linux-deb-x64': 'Linux .deb (x86_64)',
+        'dl.linux-deb-arm64': 'Linux .deb (arm64)',
+        'dl.linux-deb-armv7l': 'Linux .deb (armv7l)',
+        'dl.linux-appimage-x64': 'Linux .AppImage (x86_64)',
+        'dl.linux-targz-x64': 'Linux .tar.gz (x86_64)',
+        'dl.linux-targz-arm64': 'Linux .tar.gz (arm64)',
+        'dl.linux-targz-armv7l': 'Linux .tar.gz (armv7l)',
+        'dl.linux-pacman-x64': 'Linux Arch .pkg.tar.zst (x86_64)',
+        'dl.linux-pacman-arm64': 'Linux Arch .pkg.tar.zst (arm64)',
+        'dl.linux-pacman-armv7l': 'Linux Arch .pkg.tar.zst (armv7l)',
+        'dl.linux-rpm-x64': 'Linux .rpm (x86_64)',
+        'dl.linux-rpm-arm64': 'Linux .rpm (arm64)',
+        'dl.linux-rpm-armv7l': 'Linux .rpm (armv7l)',
+        'h2.more': 'More',
+        'win.note': 'Run the installer and follow the prompts.',
+        'note.mac-drag': 'Open the .dmg, then drag RemixWarp into Applications. If it already exists, choose Replace.',
+        'h3.linux.pacman': 'Arch Linux (pacman)',
+        'h3.linux.rpm': 'Fedora / RHEL / openSUSE (RPM)',
+        'note.linux.rpm': 'x86_64, arm64, armv7l.',
+
         'rec.label': 'Recommended for your device',
         'rec.detecting': 'Detecting your device…',
         'rec.open-all': 'If incorrect, choose manually:',
@@ -1358,7 +1433,7 @@
     };
 
     var currentLang = localStorage.getItem('rw.lang') ||
-      (navigator.language && navigator.language.toLowerCase().indexOf('zh') === 0 ? 'zh-CN' : 'zh-CN');
+      (navigator.language && navigator.language.toLowerCase().indexOf('zh') === 0 ? 'zh-CN' : 'en');
 
     // ======= Theme =======
     var currentTheme = localStorage.getItem('rw.theme') || 'auto';
@@ -1387,6 +1462,7 @@
       var t = document.querySelector('title[data-i18n]');
       if (t) document.title = dict['page.title'] || t.textContent;
       // meta description / og:description 不常变，跳过
+      document.documentElement.setAttribute('data-lang', lang);
       // data-i18n 文本节点
       document.querySelectorAll('[data-i18n]').forEach(function (el) {
         var key = el.getAttribute('data-i18n');
@@ -1408,31 +1484,11 @@
       if (openAll) {
         openAll.innerHTML = (dict['rec.open-all'] || 'If incorrect, choose manually') + ' · <a href="#windows">' + dict['rec.windows'] + '</a> · <a href="#mac">' + dict['rec.mac'] + '</a> · <a href="#linux">' + dict['rec.linux'] + '</a>';
       }
-      // 各 section 里的 note 段落（根据已知模式）
-      replaceNote('.note', dict);
+      // note 全部用 data-i18n 处理，不再走 NOTE_KEYS 反查
       // 语言按钮 label
       document.getElementById('lang-toggle').textContent =
         (lang === 'en') ? dict['lang.label-zh'] : dict['lang.label-en'];
       localStorage.setItem('rw.lang', lang);
-    }
-    // 通用 note 文本替换：根据旧中文文本查找 key
-    var NOTE_KEYS = {
-      '下载安装程序，运行后按提示安装即可。': 'win.note',
-      '下载 .dmg 文件，打开后将 RemixWarp 拖入「应用程序」文件夹。如果提示已存在，请选择「替换」。': 'mac.note',
-      '下载 .dmg 文件，打开后将 RemixWarp 拖入"应用程序"文件夹。如果提示已存在，请选择"替换"。': 'mac.note',
-      '根据你的发行版选择对应的安装包。推荐使用 .deb 或 AppImage。': 'linux.note',
-      '根据你的发行版选择对应的安装包。推荐使用 .deb（Debian/Ubuntu）或 AppImage（通用）。': 'linux.note',
-      '如果出现 Windows SmartScreen 提示，请点击「更多信息」后选择「仍要运行」。': 'smart-screen',
-      '旧版使用 Electron 22（最后一个支持 Windows 7/8 的版本），不再收到新功能更新。': 'legacy.win-note',
-      '解压即可运行，不会修改系统注册表。仅提供 x64 架构。': 'legacy.portable-note',
-      '旧版 DMG 使用旧版 Electron，不再收到新功能更新。': 'legacy.mac-note',
-    };
-    function replaceNote(sel, dict) {
-      document.querySelectorAll(sel).forEach(function (el) {
-        var txt = el.textContent.trim();
-        var key = NOTE_KEYS[txt];
-        if (key && dict[key]) el.textContent = dict[key];
-      });
     }
 
     var GITHUB_BASE = 'https://github.com/remixwarp/desktop/releases/download/v';
@@ -1478,16 +1534,17 @@
     var renderRecommend = function () {
       var files = RELEASES(activeVersion) || RELEASES(VERSIONS[0].version);
       var file = null;
-      var label = '未知的操作系统？点击查看全部';
+      var dict = I18N[currentLang] || I18N['zh-CN'];
+      var label = dict['rec.unknown'] || 'Unknown OS';
       if (os === 'windows') {
         file = files['win-nsis-x64'];
-        label = '下载 Windows 安装程序（64 位，推荐）';
+        label = dict['rec.win-label'];
       } else if (os === 'mac') {
         file = files['mac-modern-universal'];
-        label = '下载 macOS 安装包（通用版，12+）';
+        label = dict['rec.mac-label'];
       } else if (os === 'linux') {
         file = files['linux-deb-x64'];
-        label = '下载 Linux .deb（x86 64 位，推荐）';
+        label = dict['rec.linux-label'];
       }
       recBtn.textContent = label;
       recBtn.href = file ? V4_PROXY + GITHUB_BASE + activeVersion + '/' + file : '#windows';
@@ -1498,7 +1555,8 @@
     var warning = document.getElementById('old-warning');
     var warningVersion = document.getElementById('old-warning-version');
     var renderVersionUI = function () {
-      badge.textContent = '当前版本：v' + activeVersion;
+      var dict = I18N[currentLang] || I18N['zh-CN'];
+      badge.textContent = dict['page.version-prefix'] + '：v' + activeVersion;
       if (activeVersion !== VERSIONS[0].version) {
         warningVersion.textContent = 'v' + activeVersion;
         warning.classList.add('show');
