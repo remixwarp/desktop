@@ -12,6 +12,7 @@ const EditorWindow = require('./windows/editor');
 const {checkForUpdates} = require('./update-checker');
 const {tranlateOrNull} = require('./l10n');
 const migrate = require('./migrate');
+const framelessPermissions = require('./frameless-permissions');
 const settings = require('./settings');
 require('./protocols');
 require('./context-menu');
@@ -23,6 +24,11 @@ app.enableSandbox();
 // Allows certain versions of Scratch Link to work without an internet connection
 // https://github.com/LLK/scratch-desktop/blob/4b462212a8e406b15bcf549f8523645602b46064/src/main/index.js#L45
 app.commandLine.appendSwitch('host-resolver-rules', 'MAP device-manager.scratch.mit.edu 127.0.0.1');
+
+// Enable SharedArrayBuffer even without cross-origin isolation. Document-Isolation-Policy
+// would be less invasive, but it makes any data: iframe crash the entire app due to
+// an Electron/Chromium bug (https://github.com/TurboWarp/desktop/issues/1446).
+app.commandLine.appendSwitch('enable-features', 'SharedArrayBuffer');
 
 if (!settings.hardwareAcceleration) {
   app.disableHardwareAcceleration();
@@ -42,6 +48,9 @@ app.on('session-created', (session) => {
   // Permission requests are delegated to AbstractWindow
 
   session.setPermissionCheckHandler((webContents, permission, requestingOrigin, details) => {
+    if (!webContents) {
+      return framelessPermissions.check(permission, requestingOrigin, details);
+    }
     if (!details.isMainFrame) {
       return false;
     }
@@ -54,6 +63,10 @@ app.on('session-created', (session) => {
   });
 
   session.setPermissionRequestHandler((webContents, permission, callback, details) => {
+    if (!webContents) {
+      callback(framelessPermissions.request(permission, details));
+      return;
+    }
     if (!details.isMainFrame) {
       callback(false);
       return;
