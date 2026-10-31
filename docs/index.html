@@ -682,7 +682,7 @@
 
   <main>
     <div style="text-align:center">
-      <span class="version-badge"><span data-i18n="page.version-prefix">当前版本</span>：v1.2.0</span>
+      <span class="version-badge"><span data-i18n="page.version-prefix">当前版本</span>：v1.2.1</span>
     </div>
 
     <div class="old-warning" id="old-warning">
@@ -1235,8 +1235,16 @@
       <h2 data-i18n="changelog.title">更新日志</h2>
       <p class="note" style="margin:0 0 12px" data-i18n="changelog.tip">点击版本可切换下方所有下载链接到对应版本。</p>
       <div lang="zh-CN">
+        <h3 class="changelog-version" data-version="1.2.1" role="button" tabindex="0">
+          v1.2.1（2026 年 10 月 31 日）<span class="changelog-badge">当前版本</span>
+        </h3>
+        <ul>
+          <li>Electron 大版本升级：39 → 43.8.4，提升性能与安全性。</li>
+          <li>修复部分 iframe 扩展导致的崩溃问题。</li>
+          <li>更新构建工具链（electron-builder、@electron/fuses）。</li>
+        </ul>
         <h3 class="changelog-version" data-version="1.2.0" role="button" tabindex="0">
-          v1.2.0（2026 年 10 月 24 日）<span class="changelog-badge">当前版本</span>
+          v1.2.0（2026 年 10 月 24 日）
         </h3>
         <ul>
           <li>超级重构翻译键更新</li>
@@ -1369,7 +1377,7 @@
     <section style="text-align:center">
       <h2 data-i18n="h2.more">更多信息</h2>
       <div class="links">
-        <a href="https://github.com/remixwarp/desktop/releases/tag/v1.2.0">GitHub 发布页</a>
+        <a href="https://github.com/remixwarp/desktop/releases/tag/v1.2.1">GitHub 发布页</a>
         <a href="https://github.com/remixwarp/desktop">源代码</a>
         <a href="https://github.com/remixwarp/desktop/issues">报告问题</a>
         <a href="https://remixwarp.pages.dev/">在线编辑器</a>
@@ -1452,7 +1460,8 @@
 
     // 可选下载版本。数组第一项为最新版，其余为旧版。
     var VERSIONS = [
-      { version: '1.2.0', label: '最新版 v1.2.0' },
+      { version: '1.2.1', label: '最新版 v1.2.1' },
+      { version: '1.2.0', label: '旧版 v1.2.0' },
       { version: '1.1.9', label: '旧版 v1.1.9' },
       { version: '1.1.8', label: '旧版 v1.1.8' },
       { version: '1.1.4', label: '旧版 v1.1.4' },
@@ -1468,7 +1477,7 @@
       { version: '1.0.2', label: '旧版 v1.0.2' },
       { version: '1.0.0', label: '旧版 v1.0.0' }
     ];
-    var activeVersion = '1.2.0';
+    var activeVersion = '1.2.1';
 
 
     // ======= i18n =======
