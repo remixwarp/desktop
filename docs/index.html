@@ -99,6 +99,10 @@
       background: var(--card);
     }
 
+    section[hidden] {
+      display: none;
+    }
+
     section h2 {
       margin-top: 0;
       font-size: 1.3rem;
@@ -682,7 +686,7 @@
 
   <main>
     <div style="text-align:center">
-      <span class="version-badge"><span data-i18n="page.version-prefix">当前版本</span>：v1.2.2</span>
+      <span class="version-badge"><span data-i18n="page.version-prefix">当前版本</span>：v1.2.3</span>
     </div>
 
     <div class="old-warning" id="old-warning">
@@ -1231,12 +1235,46 @@
 
     </section>
 
+    <section id="android" class="android-section" hidden>
+      <h2 data-i18n="h2.android">Android</h2>
+      <p class="note" data-i18n="android.note">下载 .apk 安装包，安装时需要在系统设置中允许「安装未知应用」。这是离线版编辑器，项目文件会保存到系统「下载」目录。</p>
+      <ul class="download-list">
+        <li class="dl-item">
+          <button class="download-button" type="button" onclick="toggleDl(this)">
+            Android 安装包（.apk）<span class="dl-caret">▾</span>
+          </button>
+          <div class="dl-options">
+            <a class="dl-opt fast dl-link"
+              data-mode="v4" data-file="android-apk" href="#">
+              <span data-i18n="dl.fast-recommended">更快的加速连接</span><small data-i18n="dl.fast-recommend-tag">（推荐）</small>
+            </a>
+            <a class="dl-opt fast dl-link"
+              data-mode="gh" data-file="android-apk" href="#">
+              <span data-i18n="dl.accel">加速连接</span>
+            </a>
+            <a class="dl-opt github dl-link"
+              data-mode="github" data-file="android-apk" href="#">
+              <span data-i18n="dl.github">GitHub 连接</span>
+            </a>
+          </div>
+        </li>
+      </ul>
+    </section>
+
     <section id="changelog">
       <h2 data-i18n="changelog.title">更新日志</h2>
       <p class="note" style="margin:0 0 12px" data-i18n="changelog.tip">点击版本可切换下方所有下载链接到对应版本。</p>
       <div lang="zh-CN">
+        <h3 class="changelog-version" data-version="1.2.3" role="button" tabindex="0">
+          v1.2.3（2026 年 11 月 15 日）<span class="changelog-badge">当前版本</span>
+        </h3>
+        <ul>
+          <li>修复像素主题逻辑</li>
+          <li>修复舞台切换逻辑</li>
+          <li>添加 APK 产物工作流</li>
+        </ul>
         <h3 class="changelog-version" data-version="1.2.2" role="button" tabindex="0">
-          v1.2.2（2026 年 11 月 11 日）<span class="changelog-badge">当前版本</span>
+          v1.2.2（2026 年 11 月 11 日）
         </h3>
         <ul>
           <li>更新超级重构</li>
@@ -1388,7 +1426,7 @@
     <section style="text-align:center">
       <h2 data-i18n="h2.more">更多信息</h2>
       <div class="links">
-        <a href="https://github.com/remixwarp/desktop/releases/tag/v1.2.2">GitHub 发布页</a>
+        <a href="https://github.com/remixwarp/desktop/releases/tag/v1.2.3">GitHub 发布页</a>
         <a href="https://github.com/remixwarp/desktop">源代码</a>
         <a href="https://github.com/remixwarp/desktop/issues">报告问题</a>
         <a href="https://remixwarp.pages.dev/">在线编辑器</a>
@@ -1402,7 +1440,25 @@
     // 全部可用下载产物清单（来自 release workflow + build.mjs 推导）。
     // 每个条目的 .file(ver, vtag) 会根据版本号实时生成本版本下的真实文件名，
     // 避免在 RELEASES 里为每个版本硬编码重复的对象。
+    // Android 版从 1.2.3 开始提供安装包；旧版本没有 APK，不显示下载区域。
+    var ANDROID_MIN_VERSION = '1.2.3';
+    var isAndroidAvailable = function (ver) {
+      var parse = function (value) {
+        return String(value).split('.').map(function (part) {
+          return parseInt(part, 10) || 0;
+        });
+      };
+      var target = parse(ver);
+      var minimum = parse(ANDROID_MIN_VERSION);
+      for (var i = 0; i < 3; i++) {
+        if ((target[i] || 0) > (minimum[i] || 0)) return true;
+        if ((target[i] || 0) < (minimum[i] || 0)) return false;
+      }
+      return true;
+    };
+
     var ASSET_DEFS = {
+      'android-apk': 'Android 安装包（.apk）',
       'win-nsis-x64': 'Windows 安装程序（64 位，推荐）',
       'win-nsis-ia32': 'Windows 安装程序（32 位）',
       'win-nsis-arm64': 'Windows 安装程序（ARM 64 位）',
@@ -1434,6 +1490,7 @@
     // 各 key 对应的文件名生成规则
     var ASSET_FNS = {
       'win-nsis-x64': function (ver, vtag) { return `RemixWarp-Setup-${ver}-x64.exe`; },      'win-nsis-ia32': function (ver, vtag) { return `RemixWarp-Setup-${ver}-ia32.exe`; },      'win-nsis-arm64': function (ver, vtag) { return `RemixWarp-Setup-${ver}-arm64.exe`; },      'win-legacy-x64': function (ver, vtag) { return `RemixWarp-Legacy-Setup-${ver}-x64.exe`; },      'win-legacy-ia32': function (ver, vtag) { return `RemixWarp-Legacy-Setup-${ver}-ia32.exe`; },      'win-portable-x64': function (ver, vtag) { return `RemixWarp Portable ${ver} x64.exe`; },      'win-appx-x64': function (ver, vtag) { return `RemixWarp-MS-Store-${ver}-x64.appx`; },      'win-appx-ia32': function (ver, vtag) { return `RemixWarp-MS-Store-${ver}-ia32.appx`; },      'win-appx-arm64': function (ver, vtag) { return `RemixWarp-MS-Store-${ver}-arm64.appx`; },      'mac-modern-universal': function (ver, vtag) { return `RemixWarp-Setup-modern-${vtag}.dmg`; },      'mac-legacy-11-universal': function (ver, vtag) { return `RemixWarp-Setup-legacy-11-${vtag}.dmg`; },      'mac-legacy-1015-x64': function (ver, vtag) { return `RemixWarp-Setup-legacy-10.15-${vtag}.dmg`; },      'mac-legacy-1013-x64': function (ver, vtag) { return `RemixWarp-Setup-legacy-10.13-10.14-${vtag}.dmg`; },      'linux-deb-x64': function (ver, vtag) { return `RemixWarp-linux-amd64-${ver}.deb`; },      'linux-deb-arm64': function (ver, vtag) { return `RemixWarp-linux-arm64-${ver}.deb`; },      'linux-deb-armv7l': function (ver, vtag) { return `RemixWarp-linux-armv7l-${ver}.deb`; },      'linux-appimage-x64': function (ver, vtag) { return `RemixWarp-linux-x86_64-${ver}.AppImage`; },      'linux-targz-x64': function (ver, vtag) { return `RemixWarp-linux-x64-${ver}.tar.gz`; },      'linux-targz-arm64': function (ver, vtag) { return `RemixWarp-linux-arm64-${ver}.tar.gz`; },      'linux-targz-armv7l': function (ver, vtag) { return `RemixWarp-linux-armv7l-${ver}.tar.gz`; },      'linux-pacman-x64': function (ver, vtag) { return `RemixWarp-linux-x64-${ver}.pkg.tar.zst`; },      'linux-pacman-arm64': function (ver, vtag) { return `RemixWarp-linux-arm64-${ver}.pkg.tar.zst`; },      'linux-pacman-armv7l': function (ver, vtag) { return `RemixWarp-linux-armv7l-${ver}.pkg.tar.zst`; },      'linux-rpm-x64': function (ver, vtag) { return `RemixWarp-linux-x64-${ver}.rpm`; },      'linux-rpm-arm64': function (ver, vtag) { return `RemixWarp-linux-arm64-${ver}.rpm`; },      'linux-rpm-armv7l': function (ver, vtag) { return `RemixWarp-linux-armv7l-${ver}.rpm`; },
+      'android-apk': function (ver) { return isAndroidAvailable(ver) ? `RemixWarp-Android-${ver}.apk` : ''; },
     };
 
     // 构建某版本下全部产物 key -> 文件名 映射
@@ -1471,7 +1528,8 @@
 
     // 可选下载版本。数组第一项为最新版，其余为旧版。
     var VERSIONS = [
-      { version: '1.2.2', label: '最新版 v1.2.2' },
+      { version: '1.2.3', label: '最新版 v1.2.3' },
+      { version: '1.2.2', label: '旧版 v1.2.2' },
       { version: '1.2.1', label: '旧版 v1.2.1' },
       { version: '1.2.0', label: '旧版 v1.2.0' },
       { version: '1.1.9', label: '旧版 v1.1.9' },
@@ -1489,7 +1547,7 @@
       { version: '1.0.2', label: '旧版 v1.0.2' },
       { version: '1.0.0', label: '旧版 v1.0.0' }
     ];
-    var activeVersion = '1.2.2';
+    var activeVersion = '1.2.3';
 
 
     // ======= i18n =======
@@ -1505,6 +1563,9 @@
         'h2.mac': 'macOS 12 及更高版本',
         'h2.linux': 'Linux',
         'h3.linux.deb': 'Debian / Ubuntu / Linux Mint（64 位）',
+        'h2.android': 'Android',
+        'android.note': '下载 .apk 安装包，安装时需要在系统设置中允许「安装未知应用」。这是离线版编辑器，项目文件会保存到系统「下载」目录。',
+        'dl.android-apk': 'Android 安装包（.apk）',
         'h3.linux.appimage': 'AppImage（x86 64 位）',
         'h3.linux.targz': 'tar.gz（x86 64 位）',
 
@@ -1594,6 +1655,9 @@
         'h2.mac': 'macOS 12 and newer',
         'h2.linux': 'Linux',
         'h3.linux.deb': 'Debian / Ubuntu / Linux Mint (64-bit)',
+        'h2.android': 'Android',
+        'android.note': 'Download the .apk and allow "Install unknown apps" when prompted. This is the offline editor; projects are saved to your Downloads folder.',
+        'dl.android-apk': 'Android package (.apk)',
         'h3.linux.appimage': 'AppImage (x86 64-bit)',
         'h3.linux.targz': 'tar.gz (x86 64-bit)',
 
@@ -1830,9 +1894,14 @@
     var badge = document.querySelector('.version-badge');
     var warning = document.getElementById('old-warning');
     var warningVersion = document.getElementById('old-warning-version');
+    var androidSection = document.getElementById('android');
     var renderVersionUI = function () {
       var dict = I18N[currentLang] || I18N['zh-CN'];
       badge.textContent = dict['page.version-prefix'] + '：v' + activeVersion;
+      var androidAvailable = isAndroidAvailable(activeVersion);
+      if (androidSection) {
+        androidSection.hidden = !androidAvailable;
+      }
       if (activeVersion !== VERSIONS[0].version) {
         warningVersion.textContent = 'v' + activeVersion;
         warning.classList.add('show');
