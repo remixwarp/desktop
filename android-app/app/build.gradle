@@ -1,0 +1,40 @@
+plugins {
+    id 'com.android.application'
+}
+
+def appVersionName = project.findProperty('versionName') ?: '0.0.0'
+
+android {
+    namespace 'org.remixwarp.android'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'org.remixwarp.android'
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName appVersionName
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    lint {
+        abortOnError false
+    }
+}
+
+dependencies {
+}

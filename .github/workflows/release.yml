@@ -212,8 +212,47 @@ jobs:
           name: windows-${{ matrix.target }}
           path: D:\repo\dist\${{ matrix.files }}
           retention-days: 1
+  package-android:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: .
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+      - name: Install Gradle
+        run: |
+          curl -sSLo /tmp/gradle.zip https://services.gradle.org/distributions/gradle-8.9-bin.zip
+          unzip -q /tmp/gradle.zip -d "$HOME"
+          echo "$HOME/gradle-8.9/bin" >> "$GITHUB_PATH"
+      - name: Stage offline web assets
+        run: node scripts/build-android-web.mjs --version "${GITHUB_REF_NAME#v}"
+      - name: Build APK
+        working-directory: android-app
+        run: gradle assembleDebug -PversionName="${GITHUB_REF_NAME#v}" --no-daemon
+      - name: Collect APK
+        run: |
+          mkdir -p dist
+          cp android-app/app/build/outputs/apk/debug/app-debug.apk \
+            "dist/RemixWarp-Android-${GITHUB_REF_NAME#v}.apk"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: dist/*.apk
+          retention-days: 1
   publish:
-    needs: [package-linux, package-mac, package-windows]
+    needs: [package-linux, package-mac, package-windows, package-android]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -233,7 +272,7 @@ jobs:
           node scripts/upload-to-github-releases.mjs \
             "${{ github.repository_owner }}" \
             "${{ github.event.repository.name }}" \
-            "artifacts/**/*.{exe,dmg,deb,tar.gz,AppImage,snap,rpm,zst,appx}" \
+            "artifacts/**/*.{exe,dmg,deb,tar.gz,AppImage,snap,rpm,zst,appx,apk}" \
             '^Bilup\.Portable\.\d+\.\d+\.\d+\.x64\.exe$'
         env:
           GH_TOKEN: "${{ github.token }}"

@@ -21,6 +21,13 @@ dist-sp-extensions
 dist-sp-extensions-temp
 src-renderer/packager/standalone.html
 
+# Android 构建产物
+android-app/app/src/main/assets/www/
+android-app/app/src/main/res/mipmap-*/
+android-app/.gradle/
+android-app/build/
+android-app/app/build/
+
 # Debian release scripts create files that shouldn't be committed
 deb
 
