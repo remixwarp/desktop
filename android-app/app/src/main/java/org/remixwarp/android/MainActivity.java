@@ -1,7 +1,7 @@
 package org.remixwarp.android;
 
 import android.app.Activity;
-import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.PermissionRequest;
@@ -231,18 +232,35 @@ public class MainActivity extends Activity {
         @Override
         public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture,
                                       android.os.Message resultMsg) {
-            // 桌面版会用 window.open 打开设置 / 关于 / 插件设置等窗口，
-            // 这里用一个小弹窗里的 WebView 承接。
+            // 桌面版用 window.open 打开设置 / 关于 / 插件设置等自由窗口。
+            // AlertDialog 会按内容包裹，WebView 没被测量出尺寸时只剩一条灰色长条，
+            // 所以这里显式让弹窗和 WebView 铺满屏幕。
             final WebView popup = new WebView(MainActivity.this);
-            popup.getSettings().setJavaScriptEnabled(true);
-            popup.getSettings().setDomStorageEnabled(true);
-            popup.setWebViewClient(new WebViewClient());
+            WebSettings popupSettings = popup.getSettings();
+            popupSettings.setJavaScriptEnabled(true);
+            popupSettings.setDomStorageEnabled(true);
+            popupSettings.setMediaPlaybackRequiresUserGesture(false);
+            popupSettings.setSupportMultipleWindows(false);
+            popup.setWebViewClient(new LocalAssetClient());
+            popup.setWebChromeClient(new ChromeClient());
 
-            final AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
-                    .setView(popup)
-                    .create();
+            FrameLayout container = new FrameLayout(MainActivity.this);
+            container.setBackgroundColor(Color.parseColor("#333333"));
+            container.addView(popup, new FrameLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT));
+
+            final Dialog dialog = new Dialog(MainActivity.this,
+                    android.R.style.Theme_DeviceDefault_NoActionBar);
+            dialog.setContentView(container);
             dialog.setOnDismissListener(d -> popup.destroy());
             dialog.show();
+
+            Window window = dialog.getWindow();
+            if (window != null) {
+                window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT);
+            }
 
             WebView.WebViewTransport transport = (WebView.WebViewTransport) resultMsg.obj;
             transport.setWebView(popup);
