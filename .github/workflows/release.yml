@@ -258,6 +258,8 @@ jobs:
           retention-days: 1
   publish:
     needs: [package-linux, package-mac, package-windows, package-android]
+    # macOS 老平台任务可能因 GitHub 托管机容量不足被取消，不应阻塞其余产物发布
+    if: ${{ always() && needs.package-linux.result == 'success' && needs.package-windows.result == 'success' && needs.package-android.result == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
