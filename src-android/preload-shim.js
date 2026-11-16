@@ -11,6 +11,10 @@
  * 这个文件由 scripts/build-android-web.mjs 在构建时插入 gui.html（先于 index.js）。
  */
 (function () {
+  // 标记当前运行在安卓壳里。GUI 依赖这个标记决定自由窗口用“应用内窗口”
+  // 而不是 window.open 原生弹窗，保证和桌面端外观一致。
+  window.__REMIXWARP_ANDROID__ = true;
+
   if (window.EditorPreload) {
     return;
   }
