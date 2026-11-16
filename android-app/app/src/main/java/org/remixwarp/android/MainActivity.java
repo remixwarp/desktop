@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.view.Gravity;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -53,6 +55,8 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 和 Scratch 安卓端一样强制横屏
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 
         FrameLayout root = new FrameLayout(this);
         root.setBackgroundColor(Color.parseColor("#333333"));
@@ -73,6 +77,12 @@ public class MainActivity extends Activity {
         settings.setSupportMultipleWindows(true);
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
         settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        // 页面按桌面宽度排版后整体缩小显示，尽量一屏看到完整编辑器
+        settings.setUseWideViewPort(true);
+        settings.setLoadWithOverviewMode(true);
+        settings.setSupportZoom(true);
+        settings.setBuiltInZoomControls(true);
+        settings.setDisplayZoomControls(false);
 
         webView.setWebViewClient(new LocalAssetClient());
         webView.setWebChromeClient(new ChromeClient());
@@ -241,6 +251,9 @@ public class MainActivity extends Activity {
             popupSettings.setDomStorageEnabled(true);
             popupSettings.setMediaPlaybackRequiresUserGesture(false);
             popupSettings.setSupportMultipleWindows(false);
+            popupSettings.setUseWideViewPort(true);
+            popupSettings.setLoadWithOverviewMode(true);
+            popupSettings.setSupportZoom(true);
             popup.setWebViewClient(new LocalAssetClient());
             popup.setWebChromeClient(new ChromeClient());
 
@@ -258,8 +271,13 @@ public class MainActivity extends Activity {
 
             Window window = dialog.getWindow();
             if (window != null) {
-                window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT);
+                // 以桌面端自由窗口的样子浮动在编辑器上方，而不是铺满整个屏幕
+                android.util.DisplayMetrics metrics = getResources().getDisplayMetrics();
+                window.setLayout(
+                        Math.round(metrics.widthPixels * 0.88f),
+                        Math.round(metrics.heightPixels * 0.82f));
+                window.setGravity(Gravity.CENTER);
+                window.setBackgroundDrawableResource(android.R.color.transparent);
             }
 
             WebView.WebViewTransport transport = (WebView.WebViewTransport) resultMsg.obj;

@@ -57,7 +57,14 @@ const copyTreeDecompressed = (from, to) => {
 
 const patchGuiHTML = (file, configFile, shimFile) => {
     let html = fs.readFileSync(file, 'utf-8');
+    // 让编辑器按桌面端宽度（1200px）排版，再由 WebView 整体缩放适配屏幕，
+    // 这样手机上看到的是和 Scratch 安卓端一样完整缩小后的界面。
+    html = html.replace(
+        /<meta name="viewport"[^>]*>/,
+        '<meta name="viewport" content="width=1200, initial-scale=1, maximum-scale=5, user-scalable=yes">'
+    );
     if (html.includes(shimFile)) {
+        fs.writeFileSync(file, html);
         return;
     }
     const tag = `<script src="${configFile}"></script>\n    <script src="${shimFile}"></script>\n    `;
