@@ -17,6 +17,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowInsets;
+import android.view.WindowInsetsController;
 import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.PermissionRequest;
@@ -60,6 +62,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         // 和 Scratch 安卓端一样强制横屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+        enterFullscreen();
 
         FrameLayout root = new FrameLayout(this);
         root.setBackgroundColor(Color.parseColor("#333333"));
@@ -91,6 +94,40 @@ public class MainActivity extends Activity {
         webView.setWebChromeClient(new ChromeClient());
         webView.addJavascriptInterface(new Bridge(), "AndroidBridge");
         webView.loadUrl(START_URL);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        // 从后台返回或弹窗关闭后重新隐藏系统栏，保持全屏
+        if (hasFocus) {
+            enterFullscreen();
+        }
+    }
+
+    /** 隐藏状态栏和导航栏，让编辑器占满整个屏幕 */
+    private void enterFullscreen() {
+        Window window = getWindow();
+        window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.setDecorFitsSystemWindows(false);
+            WindowInsetsController controller = window.getInsetsController();
+            if (controller != null) {
+                controller.hide(WindowInsets.Type.systemBars());
+                controller.setSystemBarsBehavior(
+                        WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+            }
+        } else {
+            window.getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+        }
     }
 
     @Override
