@@ -14,6 +14,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -27,6 +28,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -257,25 +260,96 @@ public class MainActivity extends Activity {
             popup.setWebViewClient(new LocalAssetClient());
             popup.setWebChromeClient(new ChromeClient());
 
-            FrameLayout container = new FrameLayout(MainActivity.this);
-            container.setBackgroundColor(Color.parseColor("#333333"));
-            container.addView(popup, new FrameLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT));
+            final LinearLayout container = new LinearLayout(MainActivity.this);
+            container.setOrientation(LinearLayout.VERTICAL);
+            container.setBackgroundColor(Color.WHITE);
+
+            // 窗口标题栏：和桌面端自由窗口一样带最小化 / 最大化 / 关闭三个按钮
+            final LinearLayout header = new LinearLayout(MainActivity.this);
+            header.setOrientation(LinearLayout.HORIZONTAL);
+            header.setGravity(Gravity.CENTER_VERTICAL);
+            header.setBackgroundColor(Color.parseColor("#F1F3F5"));
+            header.setPadding(dp(16), 0, dp(8), 0);
+
+            final TextView title = new TextView(MainActivity.this);
+            title.setText("RemixWarp");
+            title.setTextSize(14);
+            title.setTextColor(Color.parseColor("#2D3748"));
+            title.setSingleLine(true);
+            header.addView(title, new LinearLayout.LayoutParams(
+                    0, ViewGroup.LayoutParams.MATCH_PARENT, 1f));
+
+            final TextView minimizeButton = createWindowButton("—");
+            final TextView maximizeButton = createWindowButton("☐");
+            final TextView closeButton = createWindowButton("✕");
+            header.addView(minimizeButton);
+            header.addView(maximizeButton);
+            header.addView(closeButton);
+
+            container.addView(header, new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, dp(44)));
+            container.addView(popup, new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f));
 
             final Dialog dialog = new Dialog(MainActivity.this,
                     android.R.style.Theme_DeviceDefault_NoActionBar);
             dialog.setContentView(container);
             dialog.setOnDismissListener(d -> popup.destroy());
+
+            final android.util.DisplayMetrics metrics = getResources().getDisplayMetrics();
+            final int normalWidth = Math.round(metrics.widthPixels * 0.88f);
+            final int normalHeight = Math.round(metrics.heightPixels * 0.82f);
+            final boolean[] maximized = {false};
+            final boolean[] minimized = {false};
+
+            minimizeButton.setOnClickListener(v -> {
+                minimized[0] = true;
+                popup.setVisibility(View.GONE);
+                Window window = dialog.getWindow();
+                if (window != null) {
+                    WindowManager.LayoutParams params = window.getAttributes();
+                    params.x = dp(16);
+                    params.y = dp(16);
+                    window.setAttributes(params);
+                    window.setGravity(Gravity.BOTTOM | Gravity.START);
+                    window.setLayout(dp(240), dp(44));
+                }
+            });
+            maximizeButton.setOnClickListener(v -> {
+                if (minimized[0]) return;
+                maximized[0] = !maximized[0];
+                maximizeButton.setText(maximized[0] ? "❐" : "☐");
+                Window window = dialog.getWindow();
+                if (window != null) {
+                    window.setLayout(
+                            maximized[0] ? metrics.widthPixels : normalWidth,
+                            maximized[0] ? metrics.heightPixels : normalHeight);
+                }
+            });
+            closeButton.setOnClickListener(v -> dialog.dismiss());
+            // 最小化后点击标题栏还原
+            title.setOnClickListener(v -> {
+                if (!minimized[0]) return;
+                minimized[0] = false;
+                popup.setVisibility(View.VISIBLE);
+                Window window = dialog.getWindow();
+                if (window != null) {
+                    WindowManager.LayoutParams params = window.getAttributes();
+                    params.x = 0;
+                    params.y = 0;
+                    window.setAttributes(params);
+                    window.setGravity(Gravity.CENTER);
+                    window.setLayout(maximized[0] ? metrics.widthPixels : normalWidth,
+                            maximized[0] ? metrics.heightPixels : normalHeight);
+                }
+            });
+
             dialog.show();
 
             Window window = dialog.getWindow();
             if (window != null) {
                 // 以桌面端自由窗口的样子浮动在编辑器上方，而不是铺满整个屏幕
-                android.util.DisplayMetrics metrics = getResources().getDisplayMetrics();
-                window.setLayout(
-                        Math.round(metrics.widthPixels * 0.88f),
-                        Math.round(metrics.heightPixels * 0.82f));
+                window.setLayout(normalWidth, normalHeight);
                 window.setGravity(Gravity.CENTER);
                 window.setBackgroundDrawableResource(android.R.color.transparent);
             }
@@ -337,6 +411,25 @@ public class MainActivity extends Activity {
         public void toast(final String message) {
             runOnUiThread(() -> Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show());
         }
+    }
+
+    /** 自由窗口标题栏上 44dp 高的图标按钮 */
+    private TextView createWindowButton(String label) {
+        TextView button = new TextView(this);
+        button.setText(label);
+        button.setTextSize(16);
+        button.setTextColor(Color.parseColor("#2D3748"));
+        button.setGravity(Gravity.CENTER);
+        button.setClickable(true);
+        button.setBackgroundColor(Color.TRANSPARENT);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dp(44), dp(44));
+        params.setMargins(dp(2), 0, dp(2), 0);
+        button.setLayoutParams(params);
+        return button;
+    }
+
+    private int dp(float value) {
+        return Math.round(getResources().getDisplayMetrics().density * value);
     }
 
     private String writeToDownloads(String name, String mime, byte[] bytes) throws IOException {
