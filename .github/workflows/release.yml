@@ -87,6 +87,7 @@ jobs:
   package-mac:
     needs: build
     runs-on: macos-latest
+    continue-on-error: ${{ matrix.experimental == true }}
     strategy:
       fail-fast: false
       matrix:
@@ -95,6 +96,7 @@ jobs:
             args: '--mac --universal'
           - target: legacy-10.13-10.14
             args: '--mac-legacy-10.13-10.14 --x64'
+            experimental: true
           - target: legacy-10.15
             args: '--mac-legacy-10.15 --x64'
           - target: legacy-11
